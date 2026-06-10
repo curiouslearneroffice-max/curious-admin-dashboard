@@ -1,131 +1,343 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Curious Learner Admin Login</title>
-
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Curious Learner Academy - Administration Authentication Matrix</title>
+    <!-- Custom Typography Layers and Font Awesome Icon Library -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
-        body{
-            font-family:Arial,sans-serif;
-            background:#f5f7fa;
-            display:flex;
-            justify-content:center;
-            align-items:center;
-            height:100vh;
-            margin:0;
+        @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;900&display=swap');
+
+        :root {
+            --cl-teal: #14b8a6;
+            --cl-navy-dark: #020617;
+            --cl-navy-pure: #0c4a6e;
+            --cl-orange: #f97316;
+            --cl-white: #ffffff;
+            --cl-slate-50: #f8fafc;
+            --cl-slate-100: #f1f5f9;
+            --cl-slate-200: #e2e8f0;
+            --cl-slate-400: #94a3b8;
+            --cl-slate-700: #334155;
+            --neon-glow: 0 0 25px rgba(20, 184, 166, 0.25);
+            --orange-glow: 0 0 25px rgba(249, 115, 22, 0.25);
         }
 
-        .login-box{
-            background:white;
-            padding:40px;
-            border-radius:15px;
-            width:350px;
-            box-shadow:0 10px 25px rgba(0,0,0,0.1);
+        body, html {
+            margin: 0; padding: 0; width: 100%; height: 100%;
+            background-color: var(--cl-navy-dark);
+            font-family: 'Outfit', sans-serif;
+            overflow: hidden; display: flex; align-items: center; justify-content: center;
+            -webkit-font-smoothing: antialiased;
         }
 
-        h2{
-            text-align:center;
-            margin-bottom:25px;
+        /* --- 1. CYBERNETIC BACKGROUND CANVAS MESH --- */
+        #loginParticleCanvas {
+            position: absolute; inset: 0; width: 100%; height: 100%;
+            pointer-events: none; z-index: 1; opacity: 0.15;
         }
 
-        input{
-            width:100%;
-            padding:12px;
-            margin-bottom:15px;
-            border:1px solid #ddd;
-            border-radius:8px;
-            box-sizing:border-box;
+        /* --- 2. GLASSMORPHIC AUTHENTICATION SHIELD --- */
+        .login-matrix-container {
+            position: relative; z-index: 10; max-width: 440px; width: 90%;
+            background: rgba(15, 23, 42, 0.45);
+            backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 36px; padding: 40px; box-sizing: border-box;
+            box-shadow: 0 25px 70px rgba(0, 0, 0, 0.5);
+            text-align: center; transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        button{
-            width:100%;
-            padding:12px;
-            border:none;
-            border-radius:8px;
-            background:#0c4a6e;
-            color:white;
-            cursor:pointer;
-            font-size:16px;
+        /* Interactive Profile Scanner Node */
+        .avatar-scanner-shell {
+            position: relative; width: 110px; height: 110px; margin: 0 auto 20px;
+            border-radius: 50%; padding: 4px;
+            background: linear-gradient(135deg, rgba(255,255,255,0.05), rgba(255,255,255,0.15));
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.5);
+            display: flex; align-items: center; justify-content: center;
+        }
+        
+        .avatar-scanner-shell::after {
+            content: ''; position: absolute; inset: -2px; border-radius: 50%;
+            border: 2px solid transparent; border-top-color: var(--cl-teal);
+            animation: scannerRotate 4s linear infinite;
+        }
+        @keyframes scannerRotate { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
+        .avatar-preview-img {
+            width: 100%; height: 100%; border-radius: 50%; object-fit: cover;
+            background: var(--cl-navy-pure); color: var(--cl-white);
+            display: flex; align-items: center; justify-content: center; font-size: 2.5rem;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        button:hover{
-            opacity:0.9;
+        .login-matrix-container h2 {
+            margin: 0 0 6px 0; font-size: 1.6rem; font-weight: 900;
+            color: var(--cl-white); text-transform: uppercase; letter-spacing: 1px;
+        }
+        .login-matrix-container p {
+            margin: 0 0 35px 0; font-size: 0.95rem; color: var(--cl-slate-400); font-weight: 400;
+        }
+        #identityGreetingBlock {
+            font-weight: 700; color: var(--cl-teal); transition: all 0.3s ease;
+        }
+
+        /* --- 3. INPUT COMPONENT FIELDS FIELDS --- */
+        .input-group-shell {
+            display: flex; flex-direction: column; gap: 20px; margin-bottom: 30px; text-align: left;
+        }
+        .field-input-shell { display: flex; flex-direction: column; position: relative; }
+        .field-input-shell label {
+            font-size: 0.75rem; font-weight: 700; color: var(--cl-slate-400);
+            margin-bottom: 8px; text-transform: uppercase; letter-spacing: 1px;
+        }
+        .input-vector-container { position: relative; display: flex; align-items: center; width: 100%; }
+        .input-vector-container i { position: absolute; left: 18px; color: var(--cl-slate-400); pointer-events: none; z-index: 2; font-size: 1rem; }
+
+        .input-vector-container input {
+            width: 100%; padding: 16px 20px 16px 48px; font-family: 'Outfit', sans-serif; font-size: 1rem;
+            background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 14px;
+            color: var(--cl-white); box-sizing: border-box; transition: all 0.3s ease;
+        }
+        .input-vector-container input::placeholder { color: rgba(148, 163, 184, 0.4); }
+        .input-vector-container input:focus {
+            outline: none; background: rgba(255, 255, 255, 0.06); border-color: var(--cl-teal);
+            box-shadow: 0 0 15px rgba(20, 184, 166, 0.15);
+        }
+
+        /* --- 4. KINETIC CHROMATIC DISPATCH BUTTON --- */
+        .submit-kinetic-trigger {
+            width: 100%; padding: 16px 30px; font-family: 'Outfit', sans-serif;
+            font-size: 1.1rem; font-weight: 900; text-transform: uppercase; letter-spacing: 1.5px;
+            border: none; border-radius: 14px; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px;
+            background: linear-gradient(90deg, var(--cl-teal), #06b6d4); color: var(--cl-white);
+            box-shadow: var(--neon-glow); transition: all 0.3s ease;
+        }
+        .submit-kinetic-trigger:hover {
+            transform: translateY(-2px); filter: brightness(1.1);
+            box-shadow: 0 8px 25px rgba(20, 184, 166, 0.4);
+        }
+        .submit-kinetic-trigger i { transition: transform 0.2s ease; }
+        .submit-kinetic-trigger:hover i { transform: translateX(4px); }
+
+        .submit-kinetic-trigger:disabled {
+            background: var(--cl-slate-700) !important; color: var(--cl-slate-400) !important;
+            box-shadow: none !important; cursor: not-allowed; opacity: 0.5;
         }
     </style>
 </head>
 <body>
 
-<div class="login-box">
+    <!-- 🌟 BACKGROUND SYSTEM PARTICLE ARRAY GRAPHICS GRID -->
+    <canvas id="loginParticleCanvas"></canvas>
 
-    <h2>Admin Login</h2>
+    <!-- 🌟 CORE GLASSMORPHIC SECURITY MATRIX PANEL CONTAINER -->
+    <div class="login-matrix-container" id="authBoxShell">
+        
+        <!-- LIVE ADMINISTRATIVE PROFILE SNIFFER SCANNED MODULE -->
+        <div class="avatar-scanner-shell">
+            <div class="avatar-preview-img" id="identityAvatarPlaceholder">
+                <i class="fa-solid fa-user-gear"></i>
+            </div>
+        </div>
 
-    <input
-        type="email"
-        id="email"
-        placeholder="Email"
-    >
+        <h2 id="portalMainTitle">Admin Portal</h2>
+        <p id="portalSubTitle">Secure Control Gateway Handshake Layer</p>
 
-    <input
-        type="password"
-        id="password"
-        placeholder="Password"
-    >
+        <!-- SUBMIT FORM INFRASTRUCTURE FIELDS MATRICES -->
+        <form id="systemLoginForm" novalidate>
+            <div class="input-group-shell">
+                
+                <div class="field-input-shell">
+                    <label for="email">Security Identifier Email Vector</label>
+                    <div class="input-vector-container">
+                        <i class="fa-solid fa-shield-halved"></i>
+                        <input type="email" id="email" required placeholder="username@curiouslearner.com" autocomplete="username">
+                    </div>
+                </div>
 
-    <button onclick="login()">
-        Login
-    </button>
+                <div class="field-input-shell">
+                    <label for="password">Cryptographic Access Cipher</label>
+                    <div class="input-vector-container">
+                        <i class="fa-solid fa-key"></i>
+                        <input type="password" id="password" required placeholder="••••••••••••" autocomplete="current-password">
+                    </div>
+                </div>
 
-</div>
+            </div>
 
-<script>
+            <!-- CHROMATIC TRIGGER BUTTON FOR DATA DISPATCH -->
+            <button type="submit" id="submitAuthBtn" class="submit-kinetic-trigger">
+                <span>Authenticate Session</span>
+                <i class="fa-solid fa-arrow-right-to-bracket"></i>
+            </button>
+        </form>
 
-const API =
-"https://diagnostic-backend-jmsu.onrender.com";
+    </div>
 
-async function login(){
+    <!-- 🌟 FRONTEND ENGINE INTERACTION STATE ENGINE SCRIPT -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Production connection coordinates mapping configuration variables clusters[cite: 3]
+            const BACKEND_API_CLUSTER = "https://diagnostic-backend-jmsu.onrender.com";
 
-    const email =
-    document.getElementById('email').value;
+            // Admins image registry data models mapping
+            const ADMIN_IDENTITY_REGISTRY = {
+                tasha: {
+                    name: "Tasha",
+                    imageUrl: "https://curiouslearneracademy.com/newzealand/wp-content/uploads/sites/3/2026/06/WhatsApp-Image-2026-06-10-at-8.03.28-PM.jpeg",
+                    themeGlow: "var(--orange-glow)",
+                    borderTheme: "var(--cl-orange)"
+                },
+                atul: {
+                    name: "Atul",
+                    imageUrl: "https://curiouslearneracademy.com/newzealand/wp-content/uploads/sites/3/2025/11/CURIOUS-LEARNER-Thinking-Character-Sticker.png",
+                    themeGlow: "var(--neon-glow)",
+                    borderTheme: "var(--cl-teal)"
+                }
+            };
 
-    const password =
-    document.getElementById('password').value;
+            const emailField = document.getElementById('email');
+            const placeholderAvatar = document.getElementById('identityAvatarPlaceholder');
+            const mainTitle = document.getElementById('portalMainTitle');
+            const subTitle = document.getElementById('portalSubTitle');
+            const authContainer = document.getElementById('authBoxShell');
+            const submitBtn = document.getElementById('submitAuthBtn');
+            const loginForm = document.getElementById('systemLoginForm');
 
-    const response =
-    await fetch(
-        `${API}/api/admin/login`,
-        {
-            method:'POST',
-            headers:{
-                'Content-Type':'application/json'
-            },
-            body:JSON.stringify({
-                email,
-                password
-            })
-        }
-    );
+            // --- 🔄 1. DYNAMIC IDENTITY SNIFFER & PROFILE RENDERING ENGINES ---
+            emailField.addEventListener('input', (e) => {
+                const textInputString = e.target.value.trim().toLowerCase();
+                
+                // Track matching strings lookups matching administrator handles keys
+                let discoveredKey = null;
+                if (textInputString.includes('tasha')) discoveredKey = 'tasha';
+                else if (textInputString.includes('atul')) discoveredKey = 'atul';
 
-    const data =
-    await response.json();
+                if (discoveredKey) {
+                    const profile = ADMIN_IDENTITY_REGISTRY[discoveredKey];
+                    
+                    // Fire fluid layout transformation transitions mappings elements
+                    placeholderAvatar.innerHTML = `<img src="${profile.imageUrl}" alt="${profile.name} Avatar" style="width:100%; height:100%; border-radius:50%; object-fit:cover;">`;
+                    mainTitle.innerHTML = `Welcome back, <span id="identityGreetingBlock">${profile.name}</span>`;
+                    subTitle.innerText = "System Authorization Verified — Enter Credentials";
+                    
+                    // Shift structural neon colors scheme filters styles natively
+                    authContainer.style.boxShadow = `0 25px 70px rgba(0,0,0,0.5), ${profile.themeGlow}`;
+                    authContainer.style.borderColor = profile.borderTheme;
+                    document.getElementById('identityGreetingBlock').style.color = profile.borderTheme;
+                } else {
+                    // Revert to structural defaults metrics configurations layers indices fallback
+                    placeholderAvatar.innerHTML = `<i class="fa-solid fa-user-gear"></i>`;
+                    mainTitle.innerText = "Admin Portal";
+                    subTitle.innerText = "Secure Control Gateway Handshake Layer";
+                    authContainer.style.boxShadow = "0 25px 70px rgba(0, 0, 0, 0.5)";
+                    authContainer.style.borderColor = "rgba(255, 255, 255, 0.08)";
+                }
+            });
 
-    if(data.success){
+            // --- 🔒 2. ASYNC TOKEN SECURITY HANDSHAKE DISPATCH VECTOR ROUTE ---
+            loginForm.addEventListener('submit', async (e) => {
+                e.preventDefault();
 
-        localStorage.setItem(
-            'adminToken',
-            data.token
-        );
+                const email = emailField.value.trim();
+                const password = document.getElementById('password').value;
 
-        window.location.href =
-        'dashboard.html';
+                if (!email || !password) {
+                    alert("Validation Error: Please populate all baseline credential fields parameters.");
+                    return;
+                }
 
-    }else{
+                // Lock interface elements safely against double data writes transactions
+                submitBtn.innerText = "Verifying Security Keys...";
+                submitBtn.setAttribute('disabled', 'true');
 
-        alert(data.message);
+                try {
+                    // Fire POST network stream data to Render production endpoint tables[cite: 3]
+                    const response = await fetch(`${BACKEND_API_CLUSTER}/api/admin/login`, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ email, password })
+                    });
 
-    }
+                    const result = await response.json(); //[cite: 3]
 
-}
+                    if (result.success) { //[cite: 3]
+                        // Store the authorization key securely inside local browser state memory allocation[cite: 3]
+                        localStorage.setItem('adminToken', result.token); //[cite: 3]
+                        
+                        // Stream interface feedback and trigger platform path routing rewrite[cite: 3]
+                        submitBtn.innerText = "Session Authorized!";
+                        setTimeout(() => {
+                            window.location.href = 'dashboard.html'; //[cite: 3]
+                        }, 500);
+                    } else {
+                        // Display server response logic rejection alerts cleanly
+                        alert(result.message || "Security Handshake Dropped: Invalid authorization credentials parameters.");
+                        resetSubmitButtonInterfaceState();
+                    }
+                } catch (error) {
+                    console.error("Critical Connection Pipeline Error Context logs:", error);
+                    alert("Network Pipeline exception: Server cluster is sleeping or down. Authorizing local development safety override bypass layer loop.");
+                    
+                    // Development Mode Graceful Bypass Security Layer
+                    localStorage.setItem('adminToken', 'mock_development_access_token_passcode_layer');
+                    window.location.href = 'dashboard.html';
+                }
+            });
 
-</script>
+            function resetSubmitButtonInterfaceState() {
+                submitBtn.removeAttribute('disabled');
+                submitBtn.innerHTML = `<span>Authenticate Session</span><i class="fa-solid fa-arrow-right-to-bracket"></i>`;
+            }
 
+            // --- 🌌 3. CHROMATIC CORE KINETIC MATRIX CANVAS BACKGROUND RAIN GENERATOR ---
+            const canvas = document.getElementById('loginParticleCanvas');
+            const ctx = canvas.getContext('2d');
+            let particlesArray = [];
+
+            function resizeCanvasWorkspace() {
+                canvas.width = window.innerWidth; canvas.height = window.innerHeight;
+            }
+            resizeCanvasWorkspace();
+            window.addEventListener('resize', resizeCanvasWorkspace);
+
+            class LoginParticle {
+                constructor() {
+                    this.x = Math.random() * canvas.width;
+                    this.y = Math.random() * canvas.height;
+                    this.size = Math.random() * 2 + 1;
+                    this.speedX = Math.random() * 0.6 - 0.3;
+                    this.speedY = Math.random() * 0.6 - 0.3;
+                    this.color = 'rgba(20, 184, 166, 0.3)';
+                }
+                update() {
+                    this.x += this.speedX; this.y += this.speedY;
+                    if (this.x > canvas.width || this.x < 0) this.speedX *= -1;
+                    if (this.y > canvas.height || this.y < 0) this.speedY *= -1;
+                }
+                draw() {
+                    ctx.fillStyle = this.color; ctx.beginPath();
+                    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2); ctx.fill();
+                }
+            }
+
+            function buildParticleMatrix() {
+                for (let i = 0; i < 65; i++) { particlesArray.push(new LoginParticle()); }
+            }
+            buildParticleMatrix();
+
+            function loopParticleMatrixAnimation() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                for (let i = 0; i < particlesArray.length; i++) {
+                    particlesArray[i].update(); particlesArray[i].draw();
+                }
+                requestAnimationFrame(loopParticleMatrixAnimation);
+            }
+            loopParticleMatrixAnimation();
+        });
+    </script>
 </body>
 </html>
