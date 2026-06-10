@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Curious Learner Academy - Administration Authentication Matrix</title>
-    <!-- Custom Typography Layers and Font Awesome Icon Library -->
+    <!-- Custom Font Frameworks and Iconic Layout Vector Packs -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;900&display=swap');
@@ -15,47 +15,57 @@
             --cl-navy-pure: #0c4a6e;
             --cl-orange: #f97316;
             --cl-white: #ffffff;
-            --cl-slate-50: #f8fafc;
-            --cl-slate-100: #f1f5f9;
-            --cl-slate-200: #e2e8f0;
             --cl-slate-400: #94a3b8;
             --cl-slate-700: #334155;
-            --neon-glow: 0 0 25px rgba(20, 184, 166, 0.25);
-            --orange-glow: 0 0 25px rgba(249, 115, 22, 0.25);
+            --neon-glow: 0 0 30px rgba(20, 184, 166, 0.3);
+            --orange-glow: 0 0 30px rgba(249, 115, 22, 0.3);
         }
 
         body, html {
             margin: 0; padding: 0; width: 100%; height: 100%;
-            background-color: var(--cl-navy-dark);
             font-family: 'Outfit', sans-serif;
             overflow: hidden; display: flex; align-items: center; justify-content: center;
             -webkit-font-smoothing: antialiased;
         }
 
-        /* --- 1. CYBERNETIC BACKGROUND CANVAS MESH --- */
+        /* --- 1. FADED BLUISH OVERLAY BACKGROUND MESH --- */
+        .cyber-backdrop-wash {
+            position: absolute; inset: 0;
+            background: linear-gradient(135deg, rgba(2, 6, 23, 0.93) 0%, rgba(12, 74, 110, 0.88) 100%), 
+                        url('https://curiouslearneracademy.com/newzealand/wp-content/uploads/sites/3/2025/09/Cover-NZ.jpg');
+            background-size: cover; background-position: center;
+            z-index: 1;
+        }
+
         #loginParticleCanvas {
             position: absolute; inset: 0; width: 100%; height: 100%;
-            pointer-events: none; z-index: 1; opacity: 0.15;
+            pointer-events: none; z-index: 2; opacity: 0.12;
         }
 
-        /* --- 2. GLASSMORPHIC AUTHENTICATION SHIELD --- */
+        /* --- 2. GLASSMORPHIC AUTHENTICATION BLOCK --- */
         .login-matrix-container {
-            position: relative; z-index: 10; max-width: 440px; width: 90%;
-            background: rgba(15, 23, 42, 0.45);
-            backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+            position: relative; z-index: 10; max-width: 450px; width: 92%;
+            background: rgba(15, 23, 42, 0.55);
+            backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px);
             border: 1px solid rgba(255, 255, 255, 0.08);
-            border-radius: 36px; padding: 40px; box-sizing: border-box;
-            box-shadow: 0 25px 70px rgba(0, 0, 0, 0.5);
-            text-align: center; transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            border-radius: 40px; padding: 45px; box-sizing: border-box;
+            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.6);
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        /* Interactive Profile Scanner Node */
+        /* Top Right Logo Container Placement Alignment */
+        .top-right-logo-container {
+            position: absolute; top: 30px; right: 35px;
+            display: flex; align-items: center; justify-content: flex-end;
+        }
+        .header-brand-logo { height: 38px; width: auto; object-fit: contain; }
+
+        /* Profile Scanner Avatar Circle */
         .avatar-scanner-shell {
-            position: relative; width: 110px; height: 110px; margin: 0 auto 20px;
+            position: relative; width: 115px; height: 115px; margin: 15px auto 25px;
             border-radius: 50%; padding: 4px;
             background: linear-gradient(135deg, rgba(255,255,255,0.05), rgba(255,255,255,0.15));
             border: 1px solid rgba(255, 255, 255, 0.1);
-            box-shadow: inset 0 2px 4px rgba(0,0,0,0.5);
             display: flex; align-items: center; justify-content: center;
         }
         
@@ -70,25 +80,34 @@
             width: 100%; height: 100%; border-radius: 50%; object-fit: cover;
             background: var(--cl-navy-pure); color: var(--cl-white);
             display: flex; align-items: center; justify-content: center; font-size: 2.5rem;
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); overflow: hidden;
         }
+        .avatar-preview-img img { width: 100%; height: 100%; object-fit: cover; border-radius: 50%; }
 
         .login-matrix-container h2 {
-            margin: 0 0 6px 0; font-size: 1.6rem; font-weight: 900;
-            color: var(--cl-white); text-transform: uppercase; letter-spacing: 1px;
+            margin: 0 0 6px 0; font-size: 1.6rem; font-weight: 900; text-align: left;
+            color: var(--cl-white); text-transform: uppercase; letter-spacing: 0.5px;
         }
         .login-matrix-container p {
-            margin: 0 0 35px 0; font-size: 0.95rem; color: var(--cl-slate-400); font-weight: 400;
+            margin: 0 0 35px 0; font-size: 0.95rem; color: var(--cl-slate-400); font-weight: 400; text-align: left;
+            line-height: 1.4;
         }
-        #identityGreetingBlock {
-            font-weight: 700; color: var(--cl-teal); transition: all 0.3s ease;
-        }
+        #identityGreetingBlock { font-weight: 900; color: var(--cl-teal); }
 
-        /* --- 3. INPUT COMPONENT FIELDS FIELDS --- */
+        /* --- 3. FIELD CONTAINER LAYOUTS --- */
         .input-group-shell {
             display: flex; flex-direction: column; gap: 20px; margin-bottom: 30px; text-align: left;
         }
         .field-input-shell { display: flex; flex-direction: column; position: relative; }
+        
+        /* Smooth Slide and Fade Animations for Hidden Form Panels */
+        .hidden-credentials-block {
+            max-height: 0; opacity: 0; overflow: hidden;
+            display: flex; flex-direction: column; gap: 20px;
+            transition: max-height 0.6s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.5s ease-in-out;
+        }
+        .hidden-credentials-block.reveal-active { max-height: 220px; opacity: 1; }
+
         .field-input-shell label {
             font-size: 0.75rem; font-weight: 700; color: var(--cl-slate-400);
             margin-bottom: 8px; text-transform: uppercase; letter-spacing: 1px;
@@ -101,13 +120,18 @@
             background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 14px;
             color: var(--cl-white); box-sizing: border-box; transition: all 0.3s ease;
         }
-        .input-vector-container input::placeholder { color: rgba(148, 163, 184, 0.4); }
+        .input-vector-container input::placeholder { color: rgba(148, 163, 184, 0.35); }
         .input-vector-container input:focus {
             outline: none; background: rgba(255, 255, 255, 0.06); border-color: var(--cl-teal);
             box-shadow: 0 0 15px rgba(20, 184, 166, 0.15);
         }
+        
+        /* Unique Identity Code styling variation */
+        #identityCodeInput {
+            letter-spacing: 6px; font-size: 1.2rem; font-weight: 700; text-align: center; padding-left: 24px; padding-right: 24px;
+        }
 
-        /* --- 4. KINETIC CHROMATIC DISPATCH BUTTON --- */
+        /* --- 4. EXECUTABLE ACTION TRIGGERS --- */
         .submit-kinetic-trigger {
             width: 100%; padding: 16px 30px; font-family: 'Outfit', sans-serif;
             font-size: 1.1rem; font-weight: 900; text-transform: uppercase; letter-spacing: 1.5px;
@@ -117,89 +141,102 @@
         }
         .submit-kinetic-trigger:hover {
             transform: translateY(-2px); filter: brightness(1.1);
-            box-shadow: 0 8px 25px rgba(20, 184, 166, 0.4);
+            box-shadow: 0 8px 25px rgba(20, 184, 166, 0.35);
         }
         .submit-kinetic-trigger i { transition: transform 0.2s ease; }
         .submit-kinetic-trigger:hover i { transform: translateX(4px); }
-
-        .submit-kinetic-trigger:disabled {
-            background: var(--cl-slate-700) !important; color: var(--cl-slate-400) !important;
-            box-shadow: none !important; cursor: not-allowed; opacity: 0.5;
-        }
     </style>
 </head>
 <body>
 
-    <!-- 🌟 BACKGROUND SYSTEM PARTICLE ARRAY GRAPHICS GRID -->
+    <!-- BACKGROUND SYSTEM FADED PANORAMA CHANNELS -->
+    <div class="cyber-backdrop-wash"></div>
     <canvas id="loginParticleCanvas"></canvas>
 
-    <!-- 🌟 CORE GLASSMORPHIC SECURITY MATRIX PANEL CONTAINER -->
+    <!-- MAIN CORE GLASS ENVIRONMENT INTERFACE -->
     <div class="login-matrix-container" id="authBoxShell">
         
-        <!-- LIVE ADMINISTRATIVE PROFILE SNIFFER SCANNED MODULE -->
+        <!-- TOP RIGHT ALIGNED BRAND LOGO COMPONENT -->
+        <div class="top-right-logo-container">
+            <img src="https://curiouslearneracademy.com/newzealand/wp-content/uploads/sites/3/2026/01/cropped-Logo-Color-Updated.png" alt="Curious Learner Academy Color Logo" class="header-brand-logo">
+        </div>
+
+        <!-- IDENTITY PREVIEW RING MODULATOR -->
         <div class="avatar-scanner-shell">
             <div class="avatar-preview-img" id="identityAvatarPlaceholder">
-                <i class="fa-solid fa-user-gear"></i>
+                <i class="fa-solid fa-user-lock"></i>
             </div>
         </div>
 
-        <h2 id="portalMainTitle">Admin Portal</h2>
-        <p id="portalSubTitle">Secure Control Gateway Handshake Layer</p>
+        <h2 id="portalMainTitle">Admin Access</h2>
+        <p id="portalSubTitle">Please supply your unique 4-digit internal security identification token to begin verification.</p>
 
-        <!-- SUBMIT FORM INFRASTRUCTURE FIELDS MATRICES -->
+        <!-- SECURITY SUBMIT ACTION CONTEXT FORM -->
         <form id="systemLoginForm" novalidate>
             <div class="input-group-shell">
                 
-                <div class="field-input-shell">
-                    <label for="email">Security Identifier Email Vector</label>
+                <!-- STEP 1: IDENTITY CODE FIELD CONTAINER -->
+                <div class="field-input-shell" id="codeFieldShell">
+                    <label for="identityCodeInput">Internal Security Identifier Code</label>
                     <div class="input-vector-container">
                         <i class="fa-solid fa-shield-halved"></i>
-                        <input type="email" id="email" required placeholder="username@curiouslearner.com" autocomplete="username">
+                        <input type="text" id="identityCodeInput" maxlength="4" placeholder="••••" autocomplete="off" inputmode="numeric">
                     </div>
                 </div>
 
-                <div class="field-input-shell">
-                    <label for="password">Cryptographic Access Cipher</label>
-                    <div class="input-vector-container">
-                        <i class="fa-solid fa-key"></i>
-                        <input type="password" id="password" required placeholder="••••••••••••" autocomplete="current-password">
+                <!-- STEP 2: DYNAMIC HIDDEN RUNTIME CREDENTIALS FIELDS MATRIX -->
+                <div class="hidden-credentials-block" id="credentialsPanelRow">
+                    <div class="field-input-shell">
+                        <label for="email">Admin Email Vector</label>
+                        <div class="input-vector-container">
+                            <i class="fa-solid fa-envelope"></i>
+                            <input type="email" id="email" placeholder="username@curiouslearner.com" autocomplete="username">
+                        </div>
+                    </div>
+
+                    <div class="field-input-shell">
+                        <label for="password">Access Cipher Key</label>
+                        <div class="input-vector-container">
+                            <i class="fa-solid fa-key"></i>
+                            <input type="password" id="password" placeholder="••••••••••••" autocomplete="current-password">
+                        </div>
                     </div>
                 </div>
 
             </div>
 
-            <!-- CHROMATIC TRIGGER BUTTON FOR DATA DISPATCH -->
-            <button type="submit" id="submitAuthBtn" class="submit-kinetic-trigger">
-                <span>Authenticate Session</span>
+            <!-- CHROMATIC DATA TRANSMISSION TRIGGER BUTTON -->
+            <button type="submit" id="submitAuthBtn" class="submit-kinetic-trigger" disabled style="opacity: 0.5; cursor: not-allowed;">
+                <span>Verification Pending</span>
                 <i class="fa-solid fa-arrow-right-to-bracket"></i>
             </button>
         </form>
 
     </div>
 
-    <!-- 🌟 FRONTEND ENGINE INTERACTION STATE ENGINE SCRIPT -->
+    <!-- 🌟 FRONTEND ENGINE DESIGNS CONTROLLER SCRIPT -->
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            // Production connection coordinates mapping configuration variables clusters[cite: 3]
-            const BACKEND_API_CLUSTER = "https://diagnostic-backend-jmsu.onrender.com";
+            const CORE_GATEWAY_API = "https://diagnostic-backend-jmsu.onrender.com";
 
-            // Admins image registry data models mapping
-            const ADMIN_IDENTITY_REGISTRY = {
-                tasha: {
+            // Static admin identification models map registry
+            const CRYPTO_CODE_REGISTRY = {
+                "1702": {
                     name: "Tasha",
-                    imageUrl: "https://curiouslearneracademy.com/newzealand/wp-content/uploads/sites/3/2026/06/WhatsApp-Image-2026-06-10-at-8.03.28-PM.jpeg",
+                    avatarUrl: "https://curiouslearneracademy.com/newzealand/wp-content/uploads/sites/3/2026/06/WhatsApp-Image-2026-06-10-at-8.03.28-PM.jpeg",
                     themeGlow: "var(--orange-glow)",
-                    borderTheme: "var(--cl-orange)"
+                    accentHex: "var(--cl-orange)"
                 },
-                atul: {
+                "1504": {
                     name: "Atul",
-                    imageUrl: "https://curiouslearneracademy.com/newzealand/wp-content/uploads/sites/3/2025/11/CURIOUS-LEARNER-Thinking-Character-Sticker.png",
+                    avatarUrl: "https://curiouslearneracademy.com/newzealand/wp-content/uploads/sites/3/2025/11/CURIOUS-LEARNER-Thinking-Character-Sticker.png",
                     themeGlow: "var(--neon-glow)",
-                    borderTheme: "var(--cl-teal)"
+                    accentHex: "var(--cl-teal)"
                 }
             };
 
-            const emailField = document.getElementById('email');
+            const codeField = document.getElementById('identityCodeInput');
+            const credentialsPanel = document.getElementById('credentialsPanelRow');
             const placeholderAvatar = document.getElementById('identityAvatarPlaceholder');
             const mainTitle = document.getElementById('portalMainTitle');
             const subTitle = document.getElementById('portalSubTitle');
@@ -207,82 +244,96 @@
             const submitBtn = document.getElementById('submitAuthBtn');
             const loginForm = document.getElementById('systemLoginForm');
 
-            // --- 🔄 1. DYNAMIC IDENTITY SNIFFER & PROFILE RENDERING ENGINES ---
-            emailField.addEventListener('input', (e) => {
-                const textInputString = e.target.value.trim().toLowerCase();
-                
-                // Track matching strings lookups matching administrator handles keys
-                let discoveredKey = null;
-                if (textInputString.includes('tasha')) discoveredKey = 'tasha';
-                else if (textInputString.includes('atul')) discoveredKey = 'atul';
+            // --- 🔄 1. DYNAMIC IDENTITY CODE INTERCEPTOR MATRIX ENGINE ---
+            codeField.addEventListener('input', (e) => {
+                // Eliminate non-numerical symbols inputs values strings fields natively
+                let processedValue = e.target.value.replace(/\D/g, '');
+                e.target.value = processedValue;
 
-                if (discoveredKey) {
-                    const profile = ADMIN_IDENTITY_REGISTRY[discoveredKey];
+                const codeValue = e.target.value;
+                
+                // If a perfect matches configuration item key executes successfully
+                if (codeValue.length === 4 && CRYPTO_CODE_REGISTRY[codeValue]) {
+                    const matchedAdmin = CRYPTO_CODE_REGISTRY[codeValue];
+
+                    // Morph layout component elements frames values transitions cleanly
+                    placeholderAvatar.innerHTML = `<img src="${matchedAdmin.avatarUrl}" alt="${matchedAdmin.name}">`;
+                    mainTitle.innerHTML = `Welcome back, <span id="identityGreetingBlock">${matchedAdmin.name}</span>`;
+                    subTitle.innerText = "Identity code validated successfully. Please specify core database credential keys.";
                     
-                    // Fire fluid layout transformation transitions mappings elements
-                    placeholderAvatar.innerHTML = `<img src="${profile.imageUrl}" alt="${profile.name} Avatar" style="width:100%; height:100%; border-radius:50%; object-fit:cover;">`;
-                    mainTitle.innerHTML = `Welcome back, <span id="identityGreetingBlock">${profile.name}</span>`;
-                    subTitle.innerText = "System Authorization Verified — Enter Credentials";
+                    // Force reveal hidden email vector input layout rows fields panels
+                    credentialsPanel.classList.add('reveal-active');
                     
-                    // Shift structural neon colors scheme filters styles natively
-                    authContainer.style.boxShadow = `0 25px 70px rgba(0,0,0,0.5), ${profile.themeGlow}`;
-                    authContainer.style.borderColor = profile.borderTheme;
-                    document.getElementById('identityGreetingBlock').style.color = profile.borderTheme;
+                    // Update layout interaction button components state
+                    submitBtn.removeAttribute('disabled');
+                    submitBtn.style.opacity = "1";
+                    submitBtn.style.cursor = "pointer";
+                    submitBtn.querySelector('span').innerText = "Authenticate Session";
+
+                    // Morph cyber card neon bloom parameters styles themes
+                    authContainer.style.boxShadow = `0 30px 80px rgba(0, 0, 0, 0.6), ${matchedAdmin.themeGlow}`;
+                    authContainer.style.borderColor = matchedAdmin.accentHex;
+                    document.getElementById('identityGreetingBlock').style.color = matchedAdmin.accentHex;
+
                 } else {
-                    // Revert to structural defaults metrics configurations layers indices fallback
-                    placeholderAvatar.innerHTML = `<i class="fa-solid fa-user-gear"></i>`;
-                    mainTitle.innerText = "Admin Portal";
-                    subTitle.innerText = "Secure Control Gateway Handshake Layer";
-                    authContainer.style.boxShadow = "0 25px 70px rgba(0, 0, 0, 0.5)";
+                    // Fallback reset loop parameters fields structures configuration metrics
+                    placeholderAvatar.innerHTML = `<i class="fa-solid fa-user-lock"></i>`;
+                    mainTitle.innerText = "Admin Access";
+                    subTitle.innerText = "Please supply your unique 4-digit internal security identification token to begin verification.";
+                    
+                    credentialsPanel.classList.remove('reveal-active');
+                    
+                    submitBtn.setAttribute('disabled', 'true');
+                    submitBtn.style.opacity = "0.5";
+                    submitBtn.style.cursor = "not-allowed";
+                    submitBtn.querySelector('span').innerText = "Verification Pending";
+
+                    authContainer.style.boxShadow = "0 30px 80px rgba(0, 0, 0, 0.6)";
                     authContainer.style.borderColor = "rgba(255, 255, 255, 0.08)";
                 }
             });
 
-            // --- 🔒 2. ASYNC TOKEN SECURITY HANDSHAKE DISPATCH VECTOR ROUTE ---
+            // --- 🔒 2. ASYNC TOKEN TRANSACTION HANDSHAKE CONTROL ENGINE ROUTE ---
             loginForm.addEventListener('submit', async (e) => {
                 e.preventDefault();
 
-                const email = emailField.value.trim();
+                const email = document.getElementById('email').value.trim();
                 const password = document.getElementById('password').value;
 
                 if (!email || !password) {
-                    alert("Validation Error: Please populate all baseline credential fields parameters.");
+                    alert("Handshake validation exception: Email and password fields must be filled out completely.");
                     return;
                 }
 
-                // Lock interface elements safely against double data writes transactions
-                submitBtn.innerText = "Verifying Security Keys...";
+                submitBtn.innerText = "Deploying Credentials Blueprints...";
                 submitBtn.setAttribute('disabled', 'true');
 
                 try {
-                    // Fire POST network stream data to Render production endpoint tables[cite: 3]
-                    const response = await fetch(`${BACKEND_API_CLUSTER}/api/admin/login`, {
+                    // Pull asynchronous stream parameters safely using POST methods operations channels[cite: 3]
+                    const response = await fetch(`${CORE_GATEWAY_API}/api/admin/login`, {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify({ email, password })
                     });
 
-                    const result = await response.json(); //[cite: 3]
+                    const result = await response.json();[cite: 3]
 
-                    if (result.success) { //[cite: 3]
-                        // Store the authorization key securely inside local browser state memory allocation[cite: 3]
-                        localStorage.setItem('adminToken', result.token); //[cite: 3]
+                    if (result.success) {[cite: 3]
+                        // Safe storage handling of unique admin tokens elements arrays strings matrices[cite: 3]
+                        localStorage.setItem('adminToken', result.token);[cite: 3]
+                        submitBtn.innerText = "Authorization Matrix Approved!";
                         
-                        // Stream interface feedback and trigger platform path routing rewrite[cite: 3]
-                        submitBtn.innerText = "Session Authorized!";
                         setTimeout(() => {
-                            window.location.href = 'dashboard.html'; //[cite: 3]
-                        }, 500);
+                            window.location.href = 'dashboard.html';[cite: 3]
+                        }, 400);
                     } else {
-                        // Display server response logic rejection alerts cleanly
-                        alert(result.message || "Security Handshake Dropped: Invalid authorization credentials parameters.");
+                        alert(result.message || "Access Refused: Handshake validation returned security parameters rejection code.");
                         resetSubmitButtonInterfaceState();
                     }
                 } catch (error) {
-                    console.error("Critical Connection Pipeline Error Context logs:", error);
-                    alert("Network Pipeline exception: Server cluster is sleeping or down. Authorizing local development safety override bypass layer loop.");
+                    console.error("Authentication Transaction Ingest Fault Exception context:", error);
+                    alert("Pipeline Timeout Exception: Remote database node cluster is waking up. Launching developer staging environment token parameters override.");
                     
-                    // Development Mode Graceful Bypass Security Layer
                     localStorage.setItem('adminToken', 'mock_development_access_token_passcode_layer');
                     window.location.href = 'dashboard.html';
                 }
@@ -293,7 +344,7 @@
                 submitBtn.innerHTML = `<span>Authenticate Session</span><i class="fa-solid fa-arrow-right-to-bracket"></i>`;
             }
 
-            // --- 🌌 3. CHROMATIC CORE KINETIC MATRIX CANVAS BACKGROUND RAIN GENERATOR ---
+            // --- 🌌 3. CHROMATIC VELOCITY ACCENT LIGHT BACKGROUND CANVAS GENERATOR ---
             const canvas = document.getElementById('loginParticleCanvas');
             const ctx = canvas.getContext('2d');
             let particlesArray = [];
@@ -304,14 +355,14 @@
             resizeCanvasWorkspace();
             window.addEventListener('resize', resizeCanvasWorkspace);
 
-            class LoginParticle {
+            class AmbientParticle {
                 constructor() {
                     this.x = Math.random() * canvas.width;
                     this.y = Math.random() * canvas.height;
-                    this.size = Math.random() * 2 + 1;
-                    this.speedX = Math.random() * 0.6 - 0.3;
-                    this.speedY = Math.random() * 0.6 - 0.3;
-                    this.color = 'rgba(20, 184, 166, 0.3)';
+                    this.size = Math.random() * 2 + 0.5;
+                    this.speedX = Math.random() * 0.4 - 0.2;
+                    this.speedY = Math.random() * 0.4 - 0.2;
+                    this.color = 'rgba(20, 184, 166, 0.25)';
                 }
                 update() {
                     this.x += this.speedX; this.y += this.speedY;
@@ -324,10 +375,10 @@
                 }
             }
 
-            function buildParticleMatrix() {
-                for (let i = 0; i < 65; i++) { particlesArray.push(new LoginParticle()); }
+            function instantiateParticleMesh() {
+                for (let i = 0; i < 55; i++) { particlesArray.push(new AmbientParticle()); }
             }
-            buildParticleMatrix();
+            instantiateParticleMesh();
 
             function loopParticleMatrixAnimation() {
                 ctx.clearRect(0, 0, canvas.width, canvas.height);
