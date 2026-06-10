@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Curious Learner Academy - Diagnostic Analytics Blueprint</title>
-    <!-- Custom Typography Layers and Font Awesome Frameworks -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;900&display=swap');
 
@@ -49,7 +49,7 @@
             box-shadow: var(--shadow-fluid); overflow: hidden; box-sizing: border-box;
         }
 
-        /* --- 1. DYNAMIC BRAND TOP BAR HEADLINE --- */
+        /* --- 1. BRAND TOP NAVIGATION BAR --- */
         .back-nav-row { padding: 25px 45px 0; }
         .back-dashboard-btn {
             display: inline-flex; align-items: center; gap: 8px; color: var(--cl-navy-pure);
@@ -58,20 +58,22 @@
         }
         .back-dashboard-btn:hover { transform: translateX(-4px); color: var(--cl-teal); }
 
+        /* Updated Banner: Shift logo left, content text right */
         .report-branding-header {
             background: linear-gradient(135deg, #020617 0%, #0c4a6e 100%);
-            padding: 50px 45px; border-bottom: 4px solid var(--cl-teal);
+            padding: 40px 45px; border-bottom: 4px solid var(--cl-teal);
             display: flex; justify-content: space-between; align-items: center; position: relative;
         }
-        .header-left-meta h1 {
-            color: var(--cl-white); font-size: 2rem; font-weight: 900; margin: 0 0 8px 0;
+        .header-logo-container { display: flex; align-items: center; }
+        .header-brand-logo { height: 65px; width: auto; object-fit: contain; }
+
+        .header-right-meta-text { text-align: right; }
+        .header-right-meta-text h1 {
+            color: var(--cl-white); font-size: 1.8rem; font-weight: 900; margin: 0 0 4px 0;
             text-transform: uppercase; letter-spacing: -0.5px;
         }
-        .header-left-meta h1 span { color: var(--cl-teal); }
-        .header-left-meta p { color: #94a3b8; font-size: 0.95rem; font-weight: 600; margin: 0; text-transform: uppercase; letter-spacing: 1px; }
-
-        .header-right-identifiers { text-align: right; color: #cbd5e1; font-size: 0.9rem; font-weight: 400; line-height: 1.5; }
-        .header-right-identifiers strong { color: var(--cl-white); font-family: monospace; font-size: 0.95rem; }
+        .header-right-meta-text h1 span { color: var(--cl-teal); }
+        .header-right-meta-text p { color: #94a3b8; font-size: 0.9rem; font-weight: 600; margin: 0; text-transform: uppercase; letter-spacing: 1px; }
 
         /* --- 2. CARD BLOCK ARCHITECTURE --- */
         .report-body-padding { padding: 45px; }
@@ -112,7 +114,7 @@
 
         /* --- 4. GRAPH DATA MATRIX STACKS --- */
         .scores-distribution-workspace { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; margin-bottom: 40px; }
-        .graphical-block-card { background: var(--cl-white); border: 1px solid var(--cl-slate-100); border-radius: 28px; padding: 30px; box-shadow: 0 10px 30px rgba(2,6,23,0.01); }
+        .graphical-block-card { background: var(--cl-white); border: 1px solid var(--cl-slate-100); border-radius: 28px; padding: 30px; box-shadow: 0 10px 30px rgba(2,6,23,0.01); display: flex; flex-direction: column; }
         .graphical-block-card h3 { margin: 0 0 25px 0; font-size: 1.1rem; font-weight: 900; color: var(--cl-navy-pure); text-transform: uppercase; letter-spacing: 0.5px; }
 
         .progress-meter-row { margin-bottom: 20px; }
@@ -121,7 +123,9 @@
         .meter-track-base { width: 100%; height: 10px; background: var(--cl-slate-100); border-radius: 10px; overflow: hidden; }
         .meter-fill-bar { height: 100%; border-radius: 10px; width: 0%; transition: width 1.2s cubic-bezier(0.4, 0, 0.2, 1); }
         .meter-fill-bar.sec-color { background: linear-gradient(90deg, var(--cl-teal), #06b6d4); }
-        .meter-fill-bar.topic-color { background: linear-gradient(90deg, var(--cl-orange), #f97316); }
+        
+        /* Chart Canvas Constraints */
+        .chart-canvas-shell { position: relative; width: 100%; height: 100%; min-height: 180px; margin: auto 0; }
 
         /* --- 5. INTERACTIVE INTELLIGENCE INSIGHT ZONE --- */
         .ai-diagnostic-analysis-card {
@@ -146,9 +150,13 @@
         .responses-sheet-card { background: var(--cl-white); border: 1px solid var(--cl-slate-100); border-radius: 28px; padding: 35px; margin-bottom: 40px; }
         .responses-sheet-card h3 { margin: 0 0 25px 0; font-size: 1.1rem; font-weight: 900; color: var(--cl-navy-pure); text-transform: uppercase; letter-spacing: 0.5px; border-bottom: 1px solid var(--cl-slate-100); padding-bottom: 12px; }
         .responses-matrix-box { display: grid; grid-template-columns: repeat(5, 1fr); gap: 15px; }
-        .response-item-node { background: var(--cl-slate-50); border: 1px solid var(--cl-slate-100); border-radius: 12px; padding: 12px 16px; text-align: center; }
-        .response-item-node .q-num { font-size: 0.75rem; text-transform: uppercase; font-weight: 700; color: var(--cl-slate-400); display: block; margin-bottom: 4px; }
+        .response-item-node { border-radius: 12px; padding: 12px 16px; text-align: center; border: 1px solid transparent; transition: all 0.2s ease; }
+        .response-item-node .q-num { font-size: 0.75rem; text-transform: uppercase; font-weight: 700; color: var(--cl-slate-700); opacity: 0.8; display: block; margin-bottom: 4px; }
         .response-item-node .ans-txt { font-size: 0.95rem; font-weight: 700; color: var(--cl-navy-dark); display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+        
+        /* Chromatic Answer Evaluation Styles overrides */
+        .response-item-node.correct-state { background-color: #bbf7d0; border-color: #86efac; }
+        .response-item-node.incorrect-state { background-color: #fecaca; border-color: #fca5a5; }
 
         /* --- 7. ADMIN NOTES PERSISTENCE STORAGE CARD --- */
         .admin-notes-card { background: #fff7ed; border: 1px solid #ffedd5; border-radius: 28px; padding: 35px; margin-bottom: 40px; }
@@ -188,8 +196,8 @@
             .summary-ribbon-row { grid-template-columns: repeat(2, 1fr); }
             .actions-matrix-panel { grid-template-columns: 1fr; }
             .responses-matrix-box { grid-template-columns: repeat(3, 1fr); }
-            .report-branding-header { flex-direction: column; text-align: center; gap: 20px; }
-            .header-right-identifiers { text-align: center; }
+            .report-branding-header { flex-direction: row-reverse; text-align: left; justify-content: space-between; }
+            .header-right-meta-text { text-align: left; }
             .report-body-padding { padding: 24px; }
         }
     </style>
@@ -198,41 +206,37 @@
 
 <section id="cl-report-panel">
     
-    <!-- SYSTEM ASYNC OVERLOAD LOADER CURTAIN -->
     <div class="async-loading-curtain" id="reportLoaderCurtain">
         <i class="fa-solid fa-circle-notch fa-spin"></i>
         <span style="font-weight: 700; color: var(--cl-navy-pure); font-size: 1.1rem; text-transform: uppercase; letter-spacing: 0.5px;">Compiling Diagnostic Document Stack...</span>
     </div>
 
-    <!-- MAIN EXECUTABLE MARKUP WRAPPER FRAME -->
     <div class="report-main-shell" id="reportDocumentWrapper" style="display: none;">
         
-        <!-- BACK NAVIGATION HEADER CHANNEL -->
         <div class="back-nav-row">
             <a href="dashboard.html" class="back-dashboard-btn">
                 <i class="fa-solid fa-arrow-left-long"></i> Back to Admin Dashboard
             </a>
         </div>
 
-        <!-- 1. HEADER SECTION HEADER META -->
         <header class="report-branding-header">
-            <div class="header-left-meta">
+            <div class="header-logo-container">
+                <img src="https://curiouslearneracademy.com/newzealand/wp-content/uploads/sites/3/2026/01/cropped-Logo-Color-Updated.png" alt="Curious Learner Academy Color Logo" class="header-brand-logo">
+            </div>
+            <div class="header-right-meta-text">
                 <h1>Curious Learner <span>Academy</span></h1>
                 <p>Diagnostic Assessment Report</p>
-            </div>
-            <div class="header-right-identifiers">
-                Evaluation Token: <strong id="docReportId">---</strong><br>
-                Completion Ingest: <strong id="docProcessedDate">---</strong><br>
-                Operational Mode: <strong style="color: var(--cl-teal);">Live Verification</strong>
+                <div style="color: #cbd5e1; font-size: 0.8rem; margin-top: 5px; font-weight: 400;">
+                    ID: <span id="docReportId" style="font-family: monospace; font-weight: bold; color: #fff;">---</span> | 
+                    Ingest: <span id="docProcessedDate" style="font-family: monospace; font-weight: bold; color: #fff;">---</span>
+                </div>
             </div>
         </header>
 
         <div class="report-body-padding">
             
-            <!-- 2. & 3. STUDENT AND PARENT PARAMETERS DETAILED CARDS PROFILE GRID -->
             <div class="split-profile-grid">
                 
-                <!-- STUDENT METADATA PROFILE -->
                 <div class="demographics-card">
                     <h3><i class="fa-solid fa-graduation-cap"></i> Student Details</h3>
                     <ul class="profile-data-list">
@@ -243,7 +247,6 @@
                     </ul>
                 </div>
 
-                <!-- GUARDIAN METADATA PROFILE -->
                 <div class="demographics-card">
                     <h3><i class="fa-solid fa-user-shield"></i> Parent Details</h3>
                     <ul class="profile-data-list">
@@ -254,7 +257,6 @@
                 </div>
             </div>
 
-            <!-- 4. PERFORMANCE SUMMARY OVERVIEW CARDS FLOAT BAR -->
             <div class="summary-ribbon-row">
                 <div class="metric-pill-card">
                     <div class="metric-icon-box overall-color"><i class="fa-solid fa-chart-line"></i></div>
@@ -286,10 +288,8 @@
                 </div>
             </div>
 
-            <!-- 5. & 6. DETAILED METRICS METERS SECTION AND TOPICS SCORES GRID -->
             <div class="scores-distribution-workspace">
                 
-                <!-- SECTION CRITERIA RATIO BAR STACK -->
                 <div class="graphical-block-card">
                     <h3><i class="fa-solid fa-layer-group" style="color: var(--cl-teal); margin-right: 8px;"></i> Section Scores</h3>
                     
@@ -307,26 +307,14 @@
                     </div>
                 </div>
 
-                <!-- TOPICS METRIC RATIO BAR STACK -->
                 <div class="graphical-block-card">
-                    <h3><i class="fa-solid fa-shapes" style="color: var(--cl-orange); margin-right: 8px;"></i> Topic Scores</h3>
-                    
-                    <div class="progress-meter-row">
-                        <div class="meter-meta-text"><span>Mathematics</span><span id="topicMathVal">0%</span></div>
-                        <div class="meter-track-base"><div class="meter-fill-bar topic-color" id="topicMathBar"></div></div>
-                    </div>
-                    <div class="progress-meter-row">
-                        <div class="meter-meta-text"><span>Analytical</span><span id="topicAnalyticalVal">0%</span></div>
-                        <div class="meter-track-base"><div class="meter-fill-bar topic-color" id="topicAnalyticalBar"></div></div>
-                    </div>
-                    <div class="progress-meter-row">
-                        <div class="meter-meta-text"><span>Logical</span><span id="topicLogicalVal">0%</span></div>
-                        <div class="meter-track-base"><div class="meter-fill-bar topic-color" id="topicLogicalBar"></div></div>
+                    <h3><i class="fa-solid fa-chart-bar" style="color: var(--cl-orange); margin-right: 8px;"></i> Topic Performance</h3>
+                    <div class="chart-canvas-shell">
+                        <canvas id="topicChartCanvas"></canvas>
                     </div>
                 </div>
             </div>
 
-            <!-- 7. & 8. ARTIFICIAL INTELLIGENCE CORE ANALYSIS CARD INSIGHTS DIAGNOSTICS -->
             <div class="ai-diagnostic-analysis-card">
                 <div class="ai-badge-header"><i class="fa-solid fa-microchip"></i> AI Diagnostic Analysis</div>
                 <div class="recommendations-heading" style="margin-bottom: 5px;">Learning Readiness</div>
@@ -336,31 +324,26 @@
                 
                 <div class="recommendations-heading">Recommended Next Steps</div>
                 <ul class="bullets-list-cluster" id="recommendationsContainer">
-                    <!-- Target loop insertion block -->
-                </ul>
+                    </ul>
             </div>
 
-            <!-- 9. AUDITOR SYSTEM SHEET INDIVIDUAL ITEM QUESTION RESPONSES -->
             <div class="responses-sheet-card">
                 <h3><i class="fa-solid fa-list-check" style="color: var(--cl-navy-pure); margin-right: 8px;"></i> Question Responses</h3>
                 <div class="responses-matrix-box" id="responsesSheetGrid">
-                    <!-- Items 1 to 25 inject here dynamically -->
-                </div>
+                    </div>
             </div>
 
-            <!-- 10. LOCAL AD-HOC SCRATCHPAD ADMINISTRATIVE OFFICE NOTES CARD -->
             <div class="admin-notes-card">
                 <h3><i class="fa-solid fa-user-pen"></i> Admin Notes</h3>
                 <p>Private observations saved locally on this browser terminal instance layer.</p>
-                <textarea class="notes-area-field" id="adminScratchpadArea" placeholder="e.g., Parent contacted via phone. Interested in advanced gifted extension acceleration tracks loops..."></textarea>
+                <textarea class="notes-area-field" id="adminScratchpadArea" placeholder="e.g., Parent contacted via phone. Interested in scholarship track loops..."></textarea>
             </div>
 
         </div>
 
-        <!-- 11. & 12. MULTI-CHANNEL ACTIONS PROCESSING PANEL DISPATCH TRIGGER MATRIX -->
         <footer class="actions-matrix-panel">
-            <button type="button" class="action-kinetic-btn primary-teal" id="getReportBtnTrigger">
-                <i class="fa-solid fa-paper-plane"></i> Send Report to Parent
+            <button type="button" id="getReportBtnTrigger" class="action-kinetic-btn primary-teal">
+                <i class="fa-solid fa-paper-plane"></i> Request Report
             </button>
             <button type="button" class="action-kinetic-btn primary-orange" id="whatsappParentBtn">
                 <i class="fa-brands fa-whatsapp"></i> WhatsApp Parent
@@ -376,12 +359,10 @@
     </div>
 </section>
 
-<!-- 🌟 RUNTIME CONTROL DATA HANDLER INJECTION LOGIC -->
 <script>
     document.addEventListener('DOMContentLoaded', () => {
         const CORE_API_URL = "https://diagnostic-backend-jmsu.onrender.com";
 
-        // Extract ID parameter constraints from current active URL query strings
         const activeUrlParams = new URLSearchParams(window.location.search);
         const assessmentIdToken = activeUrlParams.get('id');
 
@@ -391,19 +372,33 @@
             return;
         }
 
-        // Initialize Data Ingestion Pipeline
+        // Centralized Master Grading Matrix definitions to determine item right/wrong states
+        const COMBINED_EVALUATION_MARK_SCHEME = {
+            // Cluster Y12 Keys
+            "9": [1, 6], "5": [2, 10], "Triangle": [3], "7": [4], "Red": [5], "4": [7], "A swimming pool": [8], "3": [9, 16],
+            "40": [11], "24": [12, 18, 22], "8": [13, 14, 23], "14, 21, 35, 42": [14], "2": [15, 24], "3 blocks": [17], 
+            "3 o'clock": [18], "Sphere": [19], "6": [20, 22], "Mia": [21], "Wednesday": [23], "Blue": [25],
+            // Cluster Y34 unique targets
+            "33": [1], "3/4": [3], "30 minutes": [4], "$12": [5], "30": [6, 25], "30 cm": [7], "Square": [8], "95": [10],
+            "3,245": [11], "30 meters": [12], "1 hour 45 minutes": [13], "$25": [14], "120": [15], "4/8": [16], 
+            "600 grams": [17], "5": [19, 21, 24, 25], "24 cm": [20], "40 km": [23], "5 kg": [24],
+            // Cluster Y56 unique targets
+            "1,350": [1], "360": [2], "$2.75": [3], "8 slices": [5], "155 cm": [6], "10 meters": [7], 
+            "2 hours 30 minutes": [8], "3 degrees": [9], "3/4 kg": [11], "$60": [12], "10.45 km": [13], "2 cans": [14], 
+            "$22": [15], "15": [16], "30,000 cm³": [17], "6 cups": [18], "0.4": [19], "10:25 AM": [20], "$3.00": [21], "10 days": [22], "2 meters": [23],
+            // Cluster Y78 unique targets
+            "$3.25": [1], "150 liters": [2], "11:20 AM": [3], "156": [4], "20 m²": [6], "4/15": [7], "40 m³": [8], 
+            "1.2 meters": [9], "8 km": [11], "$72": [12], "$800": [13], "120 km": [15], "40°": [16], "90": [17], "7/12": [18], 
+            "40 cm": [19], "118 minutes": [21], "2 hours": [22], "12 kg": [25]
+        };
+
         loadReportDocumentBlueprint();
 
         async function loadReportDocumentBlueprint() {
             try {
-                // 🔄 STEP 1 & 2: SECURED FETCH INGEST FROM ADMINISTRATION ROUTING SCHEMAS WITH TOKEN HEADERS
                 const response = await fetch(
                     `${CORE_API_URL}/api/admin/report/${assessmentIdToken}`,
-                    {
-                        headers: {
-    Authorization: `Bearer ${localStorage.getItem("adminToken")}`
-}
-                    }
+                    { headers: { Authorization: localStorage.getItem("adminToken") } }
                 );
                 const payload = await response.json();
 
@@ -411,29 +406,23 @@
                     throw new Error(payload.message || "Target reporting structures could not be found.");
                 }
 
-                // 🔄 STEP 4: SWAPPED OUT OBJECT TARGET POINTER TO REPORT LAYER
                 const report = payload.report;
-
-                // 🔄 COHORT PROFILE BINDINGS AND TRAVERSALS
                 const student = report.studentId;
 
+                // Demographics card population
                 document.getElementById('studentName').innerText = `${student.firstName} ${student.lastName}`;
                 document.getElementById('studentYear').innerText = student.yearLevel;
                 document.getElementById('studentSchool').innerText = student.schoolName;
                 document.getElementById('studentStream').innerText = student.assessingFor;
 
-                // 🔄 PARENT DETAILS SECTION REPLACEMENTS
                 document.getElementById('parentName').innerText = student.parentName;
                 document.getElementById('parentEmail').innerText = student.parentEmail;
                 document.getElementById('parentPhone').innerText = student.parentPhone;
 
-                // Bind Metadata Identifiers
                 document.getElementById('docReportId').innerText = assessmentIdToken;
-                
-                // 🔄 PROCESSED TIMESTAMPS GENERATION FORMATTING
                 document.getElementById("docProcessedDate").innerText = new Date(report.processedTimestamp).toLocaleDateString();
 
-                // 🔄 OVERALL SCORE CONVERSION METRIC CORRECTION CORRECTIONS
+                // Percentage calculation formula alignment
                 const percentage = Math.round((report.scorecardMetrics.totalCorrect / 25) * 100);
                 document.getElementById('summaryOverallScore').innerText = percentage + '%';
                 
@@ -441,20 +430,18 @@
                 document.getElementById('summaryGradeGroup').innerText = report.gradeGroup || 'Year Range';
                 document.getElementById('summaryReadiness').innerText = report.diagnosticAnalysis.learningReadiness || 'Calculated Stage';
 
-                // Dynamic Progress Track Width Bars Animation Ingest
+                // Section metric progress indicators animations
                 animateProgressBarMeter('sec1Bar', 'sec1Val', report.scorecardMetrics.sections.section1Score);
                 animateProgressBarMeter('sec2Bar', 'sec2Val', report.scorecardMetrics.sections.section2Score);
                 animateProgressBarMeter('sec3Bar', 'sec3Val', report.scorecardMetrics.sections.section3Score);
 
-                animateProgressBarMeter('topicMathBar', 'topicMathVal', report.scorecardMetrics.topics.mathematicsScore);
-                animateProgressBarMeter('topicAnalyticalBar', 'topicAnalyticalVal', report.scorecardMetrics.topics.analyticalScore);
-                animateProgressBarMeter('topicLogicalBar', 'topicLogicalVal', report.scorecardMetrics.topics.logicalScore);
+                // Render Chart.js visual canvas graphics for the Topics panel
+                renderTopicChartJSGraph(report.scorecardMetrics.topics);
 
-                // Bind AI Insights Core Text Blocks
+                // Text insights text nodes bindings
                 document.getElementById('aiReadinessLabel').innerText = report.diagnosticAnalysis.learningReadiness;
                 document.getElementById('aiDiagnosticText').innerText = report.diagnosticAnalysis.aiDiagnosticReport;
 
-                // Hydrate Recommended bullet array segments list loop
                 const recommendationWrapper = document.getElementById('recommendationsContainer');
                 recommendationWrapper.innerHTML = '';
                 if (report.diagnosticAnalysis.futureRecommendations && Array.isArray(report.diagnosticAnalysis.futureRecommendations)) {
@@ -463,19 +450,16 @@
                     });
                 }
 
-                // Hydrate 25 Questions Auditor Grid Boxes elements
+                // Color-coded question auditor blocks hydration logic
                 buildQuestionAuditorMatrixGrid(report.answers || []);
 
-                // Load cached local administrative office scratchpad strings notes if existing
                 const verifiedCacheNotes = localStorage.getItem(`scratchpad_notes_${assessmentIdToken}`);
                 if (verifiedCacheNotes) {
                     document.getElementById('adminScratchpadArea').value = verifiedCacheNotes;
                 }
 
-                // Bind Active Event Handling Loops onto Buttons
                 bindOperationalButtonsActionHooks(`${student.firstName} ${student.lastName}`, student.parentPhone);
 
-                // Reveal Document Wrappers Frame and Tear Down Curtain Masks
                 document.getElementById('reportLoaderCurtain').style.display = 'none';
                 document.getElementById('reportDocumentWrapper').style.display = 'block';
 
@@ -485,7 +469,6 @@
             }
         }
 
-        // --- CORE GRAPHICAL CONTROL ANIMATION MULTIPLEX MODULES ---
         function animateProgressBarMeter(barDOMId, labelDOMId, targetedPercentageValue) {
             const normalizedPercent = Math.min(Math.max(parseInt(targetedPercentageValue) || 0, 0), 100);
             document.getElementById(labelDOMId).innerText = normalizedPercent + '%';
@@ -494,17 +477,57 @@
             }, 150);
         }
 
+        // --- CHART.JS METRIC GRAPH MODULE ---
+        function renderTopicChartJSGraph(topicsData) {
+            const ctx = document.getElementById('topicChartCanvas').getContext('2d');
+            
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ['Mathematics', 'Analytical', 'Logical'],
+                    datasets: [{
+                        data: [
+                            topicsData.mathematicsScore || 0, 
+                            topicsData.analyticalScore || 0, 
+                            topicsData.logicalScore || 0
+                        ],
+                        backgroundColor: ['#f97316', '#14b8a6', '#0c4a6e'],
+                        borderRadius: 8,
+                        borderSkipped: false,
+                        barThickness: 24
+                    }]
+                },
+                options: {
+                    indexAxis: 'y',
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { legend: { display: false } },
+                    scales: {
+                        x: { min: 0, max: 100, ticks: { callback: value => value + '%' } },
+                        y: { grid: { display: false } }
+                    }
+                }
+            });
+        }
+
+        // --- COLOR-CODED ANSWER GRID INTERACTION MATRIX ---
         function buildQuestionAuditorMatrixGrid(answersArray) {
             const gridContainer = document.getElementById('responsesSheetGrid');
             gridContainer.innerHTML = '';
             
-            // Reconstruct perfect index arrays fields mapping from item 1 to 25 loops constraints
             for (let currentSlotIndex = 1; currentSlotIndex <= 25; currentSlotIndex++) {
                 const answerObjectMatch = answersArray.find(element => element.questionId === currentSlotIndex);
                 const recordedResponseValue = answerObjectMatch ? answerObjectMatch.selectedAnswer : 'Unanswered';
                 
+                // Cross-reference value maps inside lookup tables to calculate right/wrong state
+                let stateClassMarker = "incorrect-state"; 
+                const schemaEntry = COMBINED_EVALUATION_MARK_SCHEME[recordedResponseValue];
+                if (schemaEntry && schemaEntry.includes(currentSlotIndex)) {
+                    stateClassMarker = "correct-state";
+                }
+                
                 gridContainer.innerHTML += `
-                    <div class="response-item-node">
+                    <div class="response-item-node ${stateClassMarker}">
                         <span class="q-num">Item ${currentSlotIndex}</span>
                         <span class="ans-txt" title="${recordedResponseValue}">${recordedResponseValue}</span>
                     </div>
@@ -512,26 +535,20 @@
             }
         }
 
-        // --- ACTIONS DISPATCH INTERACTION HUB CONTROLLER HOOK PANEL ---
         function bindOperationalButtonsActionHooks(resolvedStudentName, parentPhoneNumber) {
-            
-            // Native Print to Device PDF Export Mechanism Switch
             document.getElementById('printPdfBtn').addEventListener('click', () => {
                 window.print();
             });
 
-            // Local Administrative Office Scratchpad Input Auto-Save Loop
             document.getElementById('adminScratchpadArea').addEventListener('input', (e) => {
                 localStorage.setItem(`scratchpad_notes_${assessmentIdToken}`, e.target.value);
             });
 
-            // Send Email Pipeline Interceptor Integration Hook
             document.getElementById('getReportBtnTrigger').addEventListener('click', async function () {
                 try {
                     this.innerHTML = 'Processing Request...';
                     this.disabled = true;
 
-                    // Simulated trigger dispatching call to server pipeline
                     setTimeout(() => {
                         document.getElementById('deliveryNoticeBox').style.display = 'block';
                         this.innerHTML = 'REPORT REQUEST SENT';
@@ -543,11 +560,10 @@
                     console.error(error);
                     alert('Failed to connect to report server.');
                     this.disabled = false;
-                    this.innerHTML = 'Send Report to Parent';
+                    this.innerHTML = 'Request Report';
                 }
             });
 
-            // Global WhatsApp Dispatch Channel Messaging Link Builder Array
             document.getElementById('whatsappParentBtn').addEventListener('click', () => {
                 const encryptedEscapedText = encodeURIComponent(`Kia ora, this is Curious Learner Academy. We have processed the Diagnostic Evaluation and AI Analysis Report for ${resolvedStudentName}. Let us know if you require any specific feedback callbacks!`);
                 const formattedPhone = parentPhoneNumber ? parentPhoneNumber.replace(/\s+/g, '') : "919251230015";
