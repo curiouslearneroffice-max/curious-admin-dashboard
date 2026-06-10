@@ -42,12 +42,16 @@
             pointer-events: none; z-index: 2; opacity: 0.12;
         }
 
-        /* 🌟 GLOBAL BACKGROUND LOGO FIXED TO TOP RIGHT CORNER OF PAGE */
+        /* 🌟 BRAND LOGO CONFIGURED AT THE TOP-LEFT CORNER WITH ROUNDED BORDERS */
         .global-page-logo-container {
-            position: absolute; top: 40px; right: 50px;
+            position: absolute; top: 40px; left: 50px;
             z-index: 100; pointer-events: none;
         }
-        .global-brand-logo { height: 55px; width: auto; object-fit: contain; filter: drop-shadow(0 4px 12px rgba(0,0,0,0.15)); }
+        .global-brand-logo { 
+            height: 55px; width: auto; object-fit: contain; 
+            border-radius: 12px;
+            filter: drop-shadow(0 4px 12px rgba(0,0,0,0.15)); 
+        }
 
         /* --- 2. GLASSMORPHIC AUTHENTICATION BLOCK --- */
         .login-matrix-container {
@@ -326,7 +330,7 @@
                             resetSubmitButtonInterfaceState();
                         }
                     } catch (error) {
-                        console.error("Staging fallback interception hook trigger log context:", error);
+                        console.error("Authentication Transaction Ingest Fault Exception context:", error);
                         alert("Staging Bypass Alert: Connection parameters timed out. Launching local development environment override loop.");
                         localStorage.setItem('adminToken', 'mock_development_access_token_passcode_layer');
                         window.location.href = 'dashboard.html';
