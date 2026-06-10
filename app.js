@@ -138,3 +138,35 @@ window.location.pathname.includes(
 ){
     loadDashboard();
 }
+async function viewReport(studentId){
+
+    const token =
+    localStorage.getItem('adminToken');
+
+    const response =
+    await fetch(
+        `${API}/api/admin/report/${studentId}`,
+        {
+            headers:{
+                Authorization:
+                `Bearer ${token}`
+            }
+        }
+    );
+
+    const result =
+    await response.json();
+
+    console.log(result);
+
+    alert(
+        "Student: " +
+        result.report.studentId.firstName +
+        " " +
+        result.report.studentId.lastName +
+        "\n\nScore: " +
+        result.report.scorecardMetrics.overallScore +
+        "%"
+    );
+
+}
