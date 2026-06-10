@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Curious Learner Academy - Administration Authentication Matrix</title>
-    <!-- Custom Font Frameworks and Iconic Layout Vector Packs -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;900&display=swap');
@@ -26,6 +25,7 @@
             font-family: 'Outfit', sans-serif;
             overflow: hidden; display: flex; align-items: center; justify-content: center;
             -webkit-font-smoothing: antialiased;
+            background-color: var(--cl-navy-dark);
         }
 
         /* --- 1. FADED BLUISH OVERLAY BACKGROUND MESH --- */
@@ -42,9 +42,16 @@
             pointer-events: none; z-index: 2; opacity: 0.12;
         }
 
+        /* 🌟 GLOBAL BACKGROUND LOGO FIXED TO TOP RIGHT CORNER OF PAGE */
+        .global-page-logo-container {
+            position: absolute; top: 40px; right: 50px;
+            z-index: 100; pointer-events: none;
+        }
+        .global-brand-logo { height: 55px; width: auto; object-fit: contain; filter: drop-shadow(0 4px 12px rgba(0,0,0,0.15)); }
+
         /* --- 2. GLASSMORPHIC AUTHENTICATION BLOCK --- */
         .login-matrix-container {
-            position: relative; z-index: 10; max-width: 450px; width: 92%;
+            position: relative; z-index: 10; max-width: 440px; width: 92%;
             background: rgba(15, 23, 42, 0.55);
             backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px);
             border: 1px solid rgba(255, 255, 255, 0.08);
@@ -53,16 +60,9 @@
             transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        /* Top Right Logo Container Placement Alignment */
-        .top-right-logo-container {
-            position: absolute; top: 30px; right: 35px;
-            display: flex; align-items: center; justify-content: flex-end;
-        }
-        .header-brand-logo { height: 38px; width: auto; object-fit: contain; }
-
         /* Profile Scanner Avatar Circle */
         .avatar-scanner-shell {
-            position: relative; width: 115px; height: 115px; margin: 15px auto 25px;
+            position: relative; width: 115px; height: 115px; margin: 0 auto 25px;
             border-radius: 50%; padding: 4px;
             background: linear-gradient(135deg, rgba(255,255,255,0.05), rgba(255,255,255,0.15));
             border: 1px solid rgba(255, 255, 255, 0.1);
@@ -100,13 +100,13 @@
         }
         .field-input-shell { display: flex; flex-direction: column; position: relative; }
         
-        /* Smooth Slide and Fade Animations for Hidden Form Panels */
+        /* Smooth Form Segment Cross-Fade Transitions */
         .hidden-credentials-block {
             max-height: 0; opacity: 0; overflow: hidden;
             display: flex; flex-direction: column; gap: 20px;
             transition: max-height 0.6s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.5s ease-in-out;
         }
-        .hidden-credentials-block.reveal-active { max-height: 220px; opacity: 1; }
+        .hidden-credentials-block.reveal-active { max-height: 220px; opacity: 1; margin-top: 10px; }
 
         .field-input-shell label {
             font-size: 0.75rem; font-weight: 700; color: var(--cl-slate-400);
@@ -126,7 +126,6 @@
             box-shadow: 0 0 15px rgba(20, 184, 166, 0.15);
         }
         
-        /* Unique Identity Code styling variation */
         #identityCodeInput {
             letter-spacing: 6px; font-size: 1.2rem; font-weight: 700; text-align: center; padding-left: 24px; padding-right: 24px;
         }
@@ -149,19 +148,15 @@
 </head>
 <body>
 
-    <!-- BACKGROUND SYSTEM FADED PANORAMA CHANNELS -->
+    <div class="global-page-logo-container">
+        <img src="https://curiouslearneracademy.com/newzealand/wp-content/uploads/sites/3/2026/01/cropped-Logo-Color-Updated.png" alt="Curious Learner Academy Full-Color Logo" class="global-brand-logo">
+    </div>
+
     <div class="cyber-backdrop-wash"></div>
     <canvas id="loginParticleCanvas"></canvas>
 
-    <!-- MAIN CORE GLASS ENVIRONMENT INTERFACE -->
     <div class="login-matrix-container" id="authBoxShell">
         
-        <!-- TOP RIGHT ALIGNED BRAND LOGO COMPONENT -->
-        <div class="top-right-logo-container">
-            <img src="https://curiouslearneracademy.com/newzealand/wp-content/uploads/sites/3/2026/01/cropped-Logo-Color-Updated.png" alt="Curious Learner Academy Color Logo" class="header-brand-logo">
-        </div>
-
-        <!-- IDENTITY PREVIEW RING MODULATOR -->
         <div class="avatar-scanner-shell">
             <div class="avatar-preview-img" id="identityAvatarPlaceholder">
                 <i class="fa-solid fa-user-lock"></i>
@@ -171,11 +166,9 @@
         <h2 id="portalMainTitle">Admin Access</h2>
         <p id="portalSubTitle">Please supply your unique 4-digit internal security identification token to begin verification.</p>
 
-        <!-- SECURITY SUBMIT ACTION CONTEXT FORM -->
         <form id="systemLoginForm" novalidate>
             <div class="input-group-shell">
                 
-                <!-- STEP 1: IDENTITY CODE FIELD CONTAINER -->
                 <div class="field-input-shell" id="codeFieldShell">
                     <label for="identityCodeInput">Internal Security Identifier Code</label>
                     <div class="input-vector-container">
@@ -184,7 +177,6 @@
                     </div>
                 </div>
 
-                <!-- STEP 2: DYNAMIC HIDDEN RUNTIME CREDENTIALS FIELDS MATRIX -->
                 <div class="hidden-credentials-block" id="credentialsPanelRow">
                     <div class="field-input-shell">
                         <label for="email">Admin Email Vector</label>
@@ -205,21 +197,18 @@
 
             </div>
 
-            <!-- CHROMATIC DATA TRANSMISSION TRIGGER BUTTON -->
-            <button type="submit" id="submitAuthBtn" class="submit-kinetic-trigger" disabled style="opacity: 0.5; cursor: not-allowed;">
-                <span>Verification Pending</span>
-                <i class="fa-solid fa-arrow-right-to-bracket"></i>
+            <button type="submit" id="submitAuthBtn" class="submit-kinetic-trigger">
+                <span id="ctaButtonText">Verify Identity Code</span>
+                <i class="fa-solid fa-arrow-right-to-bracket" id="ctaButtonIcon"></i>
             </button>
         </form>
 
     </div>
 
-    <!-- 🌟 FRONTEND ENGINE DESIGNS CONTROLLER SCRIPT -->
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const CORE_GATEWAY_API = "https://diagnostic-backend-jmsu.onrender.com";
 
-            // Static admin identification models map registry
             const CRYPTO_CODE_REGISTRY = {
                 "1702": {
                     name: "Tasha",
@@ -236,115 +225,122 @@
             };
 
             const codeField = document.getElementById('identityCodeInput');
+            const codeContainer = document.getElementById('codeFieldShell');
             const credentialsPanel = document.getElementById('credentialsPanelRow');
             const placeholderAvatar = document.getElementById('identityAvatarPlaceholder');
             const mainTitle = document.getElementById('portalMainTitle');
             const subTitle = document.getElementById('portalSubTitle');
             const authContainer = document.getElementById('authBoxShell');
             const submitBtn = document.getElementById('submitAuthBtn');
+            const ctaText = document.getElementById('ctaButtonText');
+            const ctaIcon = document.getElementById('ctaButtonIcon');
             const loginForm = document.getElementById('systemLoginForm');
 
-            // --- 🔄 1. DYNAMIC IDENTITY CODE INTERCEPTOR MATRIX ENGINE ---
+            let currentAuthenticationStage = 1; // 1: Verify Identity Code, 2: Submit Credentials
+
+            // --- 🔄 1. LIVE DYNAMIC SECURITY CODE SNIFFER LOOP ---
             codeField.addEventListener('input', (e) => {
-                // Eliminate non-numerical symbols inputs values strings fields natively
                 let processedValue = e.target.value.replace(/\D/g, '');
                 e.target.value = processedValue;
-
-                const codeValue = e.target.value;
                 
-                // If a perfect matches configuration item key executes successfully
-                if (codeValue.length === 4 && CRYPTO_CODE_REGISTRY[codeValue]) {
-                    const matchedAdmin = CRYPTO_CODE_REGISTRY[codeValue];
-
-                    // Morph layout component elements frames values transitions cleanly
+                // If code matches an entity row, update avatar and greetings proactively
+                if (processedValue.length === 4 && CRYPTO_CODE_REGISTRY[processedValue]) {
+                    const matchedAdmin = CRYPTO_CODE_REGISTRY[processedValue];
                     placeholderAvatar.innerHTML = `<img src="${matchedAdmin.avatarUrl}" alt="${matchedAdmin.name}">`;
-                    mainTitle.innerHTML = `Welcome back, <span id="identityGreetingBlock">${matchedAdmin.name}</span>`;
-                    subTitle.innerText = "Identity code validated successfully. Please specify core database credential keys.";
-                    
-                    // Force reveal hidden email vector input layout rows fields panels
-                    credentialsPanel.classList.add('reveal-active');
-                    
-                    // Update layout interaction button components state
-                    submitBtn.removeAttribute('disabled');
-                    submitBtn.style.opacity = "1";
-                    submitBtn.style.cursor = "pointer";
-                    submitBtn.querySelector('span').innerText = "Authenticate Session";
-
-                    // Morph cyber card neon bloom parameters styles themes
+                    mainTitle.innerHTML = `Welcome, <span id="identityGreetingBlock">${matchedAdmin.name}</span>`;
+                    subTitle.innerText = "Identity marker matched. Click below to initialize form credentials.";
                     authContainer.style.boxShadow = `0 30px 80px rgba(0, 0, 0, 0.6), ${matchedAdmin.themeGlow}`;
                     authContainer.style.borderColor = matchedAdmin.accentHex;
                     document.getElementById('identityGreetingBlock').style.color = matchedAdmin.accentHex;
-
                 } else {
-                    // Fallback reset loop parameters fields structures configuration metrics
                     placeholderAvatar.innerHTML = `<i class="fa-solid fa-user-lock"></i>`;
                     mainTitle.innerText = "Admin Access";
                     subTitle.innerText = "Please supply your unique 4-digit internal security identification token to begin verification.";
-                    
-                    credentialsPanel.classList.remove('reveal-active');
-                    
-                    submitBtn.setAttribute('disabled', 'true');
-                    submitBtn.style.opacity = "0.5";
-                    submitBtn.style.cursor = "not-allowed";
-                    submitBtn.querySelector('span').innerText = "Verification Pending";
-
                     authContainer.style.boxShadow = "0 30px 80px rgba(0, 0, 0, 0.6)";
                     authContainer.style.borderColor = "rgba(255, 255, 255, 0.08)";
                 }
             });
 
-            // --- 🔒 2. ASYNC TOKEN TRANSACTION HANDSHAKE CONTROL ENGINE ROUTE ---
+            // --- 🔒 2. MULTI-STEP FLOW EXECUTION PIPELINE HANDLER ---
             loginForm.addEventListener('submit', async (e) => {
                 e.preventDefault();
 
-                const email = document.getElementById('email').value.trim();
-                const password = document.getElementById('password').value;
+                const typedCode = codeField.value.trim();
 
-                if (!email || !password) {
-                    alert("Handshake validation exception: Email and password fields must be filled out completely.");
+                // STAGE 1: Process Security Code Interception
+                if (currentAuthenticationStage === 1) {
+                    if (!typedCode || !CRYPTO_CODE_REGISTRY[typedCode]) {
+                        alert("Access Refused: The security identifier token specified is invalid.");
+                        return;
+                    }
+
+                    const profile = CRYPTO_CODE_REGISTRY[typedCode];
+                    
+                    // Transition input states
+                    codeContainer.style.display = "none";
+                    credentialsPanel.classList.add('reveal-active');
+                    subTitle.innerText = `Identity code verified. Please fill in password access keys assigned to ${profile.name}.`;
+                    
+                    // Remap CTA layout definitions
+                    ctaText.innerText = "Authenticate Session";
+                    ctaIcon.className = "fa-solid fa-unlock-keyhole";
+                    
+                    if (profile.accentHex === "var(--cl-orange)") {
+                        submitBtn.style.background = "linear-gradient(90deg, var(--cl-orange), #ea580c)";
+                    }
+                    
+                    currentAuthenticationStage = 2; // Move flow target pointer onward
                     return;
                 }
 
-                submitBtn.innerText = "Deploying Credentials Blueprints...";
-                submitBtn.setAttribute('disabled', 'true');
+                // STAGE 2: Process API Database Account Login
+                if (currentAuthenticationStage === 2) {
+                    const email = document.getElementById('email').value.trim();
+                    const password = document.getElementById('password').value;
 
-                try {
-                    // Pull asynchronous stream parameters safely using POST methods operations channels[cite: 3]
-                    const response = await fetch(`${CORE_GATEWAY_API}/api/admin/login`, {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({ email, password })
-                    });
-
-                    const result = await response.json();[cite: 3]
-
-                    if (result.success) {[cite: 3]
-                        // Safe storage handling of unique admin tokens elements arrays strings matrices[cite: 3]
-                        localStorage.setItem('adminToken', result.token);[cite: 3]
-                        submitBtn.innerText = "Authorization Matrix Approved!";
-                        
-                        setTimeout(() => {
-                            window.location.href = 'dashboard.html';[cite: 3]
-                        }, 400);
-                    } else {
-                        alert(result.message || "Access Refused: Handshake validation returned security parameters rejection code.");
-                        resetSubmitButtonInterfaceState();
+                    if (!email || !password) {
+                        alert("Validation Error: Account email and secret cipher keys must be provided completely.");
+                        return;
                     }
-                } catch (error) {
-                    console.error("Authentication Transaction Ingest Fault Exception context:", error);
-                    alert("Pipeline Timeout Exception: Remote database node cluster is waking up. Launching developer staging environment token parameters override.");
-                    
-                    localStorage.setItem('adminToken', 'mock_development_access_token_passcode_layer');
-                    window.location.href = 'dashboard.html';
+
+                    ctaText.innerText = "Deploying Credentials...";
+                    submitBtn.setAttribute('disabled', 'true');
+
+                    try {
+                        const response = await fetch(`${CORE_GATEWAY_API}/api/admin/login`, {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({ email, password })
+                        });
+
+                        const result = await response.json();
+
+                        if (result.success) {
+                            localStorage.setItem('adminToken', result.token);
+                            ctaText.innerText = "Authorization Approved!";
+                            setTimeout(() => {
+                                window.location.href = 'dashboard.html';
+                            }, 400);
+                        } else {
+                            alert(result.message || "Handshake Validation Failed: Core database rejected credential variables matching.");
+                            resetSubmitButtonInterfaceState();
+                        }
+                    } catch (error) {
+                        console.error("Staging fallback interception hook trigger log context:", error);
+                        alert("Staging Bypass Alert: Connection parameters timed out. Launching local development environment override loop.");
+                        localStorage.setItem('adminToken', 'mock_development_access_token_passcode_layer');
+                        window.location.href = 'dashboard.html';
+                    }
                 }
             });
 
             function resetSubmitButtonInterfaceState() {
                 submitBtn.removeAttribute('disabled');
-                submitBtn.innerHTML = `<span>Authenticate Session</span><i class="fa-solid fa-arrow-right-to-bracket"></i>`;
+                ctaText.innerText = "Authenticate Session";
+                ctaIcon.className = "fa-solid fa-unlock-keyhole";
             }
 
-            // --- 🌌 3. CHROMATIC VELOCITY ACCENT LIGHT BACKGROUND CANVAS GENERATOR ---
+            // --- 🌌 3. AMBIENT GRAPHICAL PARTICLES LAYER INJECTION ---
             const canvas = document.getElementById('loginParticleCanvas');
             const ctx = canvas.getContext('2d');
             let particlesArray = [];
