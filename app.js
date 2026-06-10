@@ -112,15 +112,20 @@ async function loadDashboard() {
     students.students.forEach(student => {
 
         tbody.innerHTML += `
-        <tr>
-            <td>${student.firstName} ${student.lastName}</td>
-            <td>${student.yearLevel}</td>
-            <td>${student.schoolName}</td>
-            <td>${student.parentName}</td>
-            <td>${student.parentEmail}</td>
-            <td>${student.parentPhone}</td>
-        </tr>
-        `;
+<tr>
+    <td>${student.firstName} ${student.lastName}</td>
+    <td>${student.yearLevel}</td>
+    <td>${student.schoolName}</td>
+    <td>${student.parentName}</td>
+    <td>${student.parentEmail}</td>
+    <td>${student.parentPhone}</td>
+    <td>
+        <button onclick="viewReport('${student._id}')">
+            View Report
+        </button>
+    </td>
+</tr>
+`;
 
     });
 
