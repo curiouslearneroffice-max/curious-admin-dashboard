@@ -40,6 +40,8 @@
             .actions-matrix-panel, .admin-notes-card, .back-nav-row { display: none !important; }
             .metric-pill-card { border: 1px solid #e2e8f0 !important; background: #fff !important; }
             .response-item-node { page-break-inside: avoid !important; }
+            .ai-futuristic-dashboard { background: #fff !important; border: 2px solid var(--cl-navy-pure) !important; color: #000 !important; }
+            .data-grid-overlay, .ai-matrix-canvas { display: none !important; }
         }
 
         #cl-report-panel { padding: 50px 0; display: flex; justify-content: center; align-items: center; }
@@ -49,7 +51,7 @@
             box-shadow: var(--shadow-fluid); overflow: hidden; box-sizing: border-box;
         }
 
-        /* --- 1. BRAND TOP NAVIGATION BAR --- */
+        /* --- BRAND TOP NAVIGATION BAR --- */
         .back-nav-row { padding: 25px 45px 0; }
         .back-dashboard-btn {
             display: inline-flex; align-items: center; gap: 8px; color: var(--cl-navy-pure);
@@ -58,7 +60,6 @@
         }
         .back-dashboard-btn:hover { transform: translateX(-4px); color: var(--cl-teal); }
 
-        /* Updated Banner: Shift logo left, content text right */
         .report-branding-header {
             background: linear-gradient(135deg, #020617 0%, #0c4a6e 100%);
             padding: 40px 45px; border-bottom: 4px solid var(--cl-teal);
@@ -75,7 +76,7 @@
         .header-right-meta-text h1 span { color: var(--cl-teal); }
         .header-right-meta-text p { color: #94a3b8; font-size: 0.9rem; font-weight: 600; margin: 0; text-transform: uppercase; letter-spacing: 1px; }
 
-        /* --- 2. CARD BLOCK ARCHITECTURE --- */
+        /* --- CARD BLOCK ARCHITECTURE --- */
         .report-body-padding { padding: 45px; }
         .split-profile-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; margin-bottom: 40px; }
 
@@ -94,7 +95,7 @@
         .profile-data-list li { font-size: 1rem; color: var(--cl-slate-700); display: flex; justify-content: space-between; }
         .profile-data-list li strong { color: var(--cl-navy-dark); font-weight: 600; text-align: right; max-width: 60%; }
 
-        /* --- 3. KINETIC SUMMARY PERFORMANCE CARDS --- */
+        /* --- KINETIC SUMMARY PERFORMANCE CARDS --- */
         .summary-ribbon-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; margin-bottom: 40px; }
         .metric-pill-card {
             background: var(--cl-white); border: 1px solid var(--cl-slate-100);
@@ -112,7 +113,7 @@
         .pill-text-node h4 { margin: 0 0 4px 0; font-size: 0.75rem; text-transform: uppercase; color: var(--cl-slate-400); letter-spacing: 1px; }
         .pill-text-node p { margin: 0; font-size: 1.25rem; font-weight: 900; color: var(--cl-navy-dark); }
 
-        /* --- 4. GRAPH DATA MATRIX STACKS --- */
+        /* --- GRAPH DATA MATRIX STACKS --- */
         .scores-distribution-workspace { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; margin-bottom: 40px; }
         .graphical-block-card { background: var(--cl-white); border: 1px solid var(--cl-slate-100); border-radius: 28px; padding: 30px; box-shadow: 0 10px 30px rgba(2,6,23,0.01); display: flex; flex-direction: column; }
         .graphical-block-card h3 { margin: 0 0 25px 0; font-size: 1.1rem; font-weight: 900; color: var(--cl-navy-pure); text-transform: uppercase; letter-spacing: 0.5px; }
@@ -121,32 +122,80 @@
         .progress-meter-row:last-child { margin-bottom: 0; }
         .meter-meta-text { display: flex; justify-content: space-between; font-weight: 600; font-size: 0.9rem; margin-bottom: 6px; }
         .meter-track-base { width: 100%; height: 10px; background: var(--cl-slate-100); border-radius: 10px; overflow: hidden; }
-        .meter-fill-bar { height: 100%; border-radius: 10px; width: 0%; transition: width 1.2s cubic-bezier(0.4, 0, 0.2, 1); }
+        .meter-fill-bar { height: 100%; border-radius: 10px; width: 0%; transition: width 1s ease-in-out; }
         .meter-fill-bar.sec-color { background: linear-gradient(90deg, var(--cl-teal), #06b6d4); }
         
-        /* Chart Canvas Constraints */
         .chart-canvas-shell { position: relative; width: 100%; height: 100%; min-height: 180px; margin: auto 0; }
 
-        /* --- 5. INTERACTIVE INTELLIGENCE INSIGHT ZONE --- */
-        .ai-diagnostic-analysis-card {
-            background: linear-gradient(180deg, #f0fdfa 0%, #ffffff 100%);
-            border: 2px solid rgba(20, 184, 166, 0.15); border-radius: 30px;
-            padding: 35px; margin-bottom: 40px; position: relative;
+        /* --- 🌟 DYNAMIC FUTURISTIC AI COGNITIVE PROFILE DASHBOARD --- */
+        .ai-futuristic-dashboard {
+            position: relative; background: #030712; border-radius: 32px;
+            padding: 40px; margin-bottom: 40px; overflow: hidden;
+            box-shadow: 0 20px 45px rgba(2, 6, 23, 0.4);
+            border: 1px solid rgba(20, 184, 166, 0.2);
         }
-        .ai-badge-header {
-            display: inline-flex; align-items: center; gap: 8px; background: var(--cl-navy-dark); color: var(--cl-white);
-            padding: 6px 16px; border-radius: 50px; font-size: 0.8rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 20px;
+
+        /* Matrix Mesh Backdrop Glow Overlay */
+        .data-grid-overlay {
+            position: absolute; inset: 0; opacity: 0.05; pointer-events: none;
+            background-image: linear-gradient(to right, var(--cl-teal) 1px, transparent 1px), linear-gradient(to bottom, var(--cl-teal) 1px, transparent 1px);
+            background-size: 24px 24px; z-index: 1;
         }
-        .ai-badge-header i { color: var(--cl-teal); }
-        .ai-diagnostic-analysis-card h3 { margin: 0 0 12px 0; font-size: 1.4rem; color: var(--cl-navy-pure); font-weight: 900; }
-        .ai-diagnostic-analysis-card p { margin: 0 0 25px 0; font-size: 1.05rem; line-height: 1.6; color: var(--cl-slate-700); }
 
-        .recommendations-heading { font-weight: 900; color: var(--cl-navy-dark); font-size: 0.9rem; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 15px; }
-        .bullets-list-cluster { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 10px; }
-        .bullets-list-cluster li { font-size: 1rem; line-height: 1.5; display: flex; align-items: flex-start; gap: 12px; }
-        .bullets-list-cluster li i { color: var(--cl-orange); margin-top: 4px; font-size: 0.95rem; }
+        .ai-matrix-canvas {
+            position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0.06; pointer-events: none; z-index: 2;
+        }
 
-        /* --- 6. AUDITOR ANSWERS SHEET --- */
+        .ai-dashboard-contents { position: relative; z-index: 5; display: flex; gap: 40px; align-items: center; }
+        .ai-telemetry-left { flex: 1; }
+        .ai-telemetry-right { width: 220px; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+
+        .futuristic-badge-node {
+            display: inline-flex; align-items: center; gap: 8px; background: rgba(20, 184, 166, 0.12);
+            color: var(--cl-teal); border: 1px solid rgba(20, 184, 166, 0.25);
+            padding: 6px 16px; border-radius: 50px; font-size: 0.75rem; font-weight: 900;
+            text-transform: uppercase; letter-spacing: 2px; margin-bottom: 24px;
+            box-shadow: 0 0 15px rgba(20, 184, 166, 0.1);
+        }
+
+        .ai-dashboard-contents h4 {
+            margin: 0 0 8px 0; font-size: 0.85rem; text-transform: uppercase; color: var(--cl-slate-400); letter-spacing: 1.5px; font-weight: 700;
+        }
+
+        .ai-dashboard-contents h3 {
+            margin: 0 0 18px 0; font-size: 1.7rem; color: var(--cl-white); font-weight: 900;
+            letter-spacing: -0.5px; text-shadow: 0 2px 10px rgba(2, 6, 23, 0.5);
+        }
+
+        .ai-analysis-paragraph {
+            margin: 0 0 30px 0; font-size: 1.05rem; line-height: 1.6; color: #94a3b8; font-weight: 400;
+        }
+
+        .futuristic-bullets-cluster { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 12px; }
+        .futuristic-bullets-cluster li {
+            font-size: 0.95rem; color: #cbd5e1; display: flex; align-items: center; gap: 12px;
+            background: rgba(255,255,255,0.02); padding: 12px 18px; border-radius: 14px;
+            border: 1px solid rgba(255,255,255,0.04); transition: transform 0.2s ease;
+        }
+        .futuristic-bullets-cluster li:hover { transform: translateX(4px); background: rgba(249, 115, 22, 0.04); border-color: rgba(249, 115, 22, 0.15); }
+        .futuristic-bullets-cluster li i { color: var(--cl-orange); font-size: 1rem; filter: drop-shadow(0 0 8px var(--cl-orange)); }
+
+        /* Tech Circular SVG Gauge Meter Component */
+        .radial-gauge-container { position: relative; width: 140px; height: 140px; }
+        .radial-gauge-svg { transform: rotate(-90deg); width: 100%; height: 100%; }
+        .radial-gauge-track { fill: none; stroke: rgba(255, 255, 255, 0.05); stroke-width: 10; }
+        .radial-gauge-fill {
+            fill: none; stroke: url(#tealGradientLine); stroke-width: 10;
+            stroke-dasharray: 377; stroke-dashoffset: 377;
+            stroke-linecap: round; transition: stroke-dashoffset 1.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .gauge-numerical-center {
+            position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center;
+        }
+        .gauge-numerical-center .score-val { color: var(--cl-white); font-size: 1.8rem; font-weight: 900; line-height: 1; }
+        .gauge-numerical-center .label-txt { color: var(--cl-teal); font-size: 0.65rem; font-weight: 900; text-transform: uppercase; letter-spacing: 1px; margin-top: 4px; }
+
+        /* --- AUDITOR ANSWERS SHEET --- */
         .responses-sheet-card { background: var(--cl-white); border: 1px solid var(--cl-slate-100); border-radius: 28px; padding: 35px; margin-bottom: 40px; }
         .responses-sheet-card h3 { margin: 0 0 25px 0; font-size: 1.1rem; font-weight: 900; color: var(--cl-navy-pure); text-transform: uppercase; letter-spacing: 0.5px; border-bottom: 1px solid var(--cl-slate-100); padding-bottom: 12px; }
         .responses-matrix-box { display: grid; grid-template-columns: repeat(5, 1fr); gap: 15px; }
@@ -154,18 +203,17 @@
         .response-item-node .q-num { font-size: 0.75rem; text-transform: uppercase; font-weight: 700; color: var(--cl-slate-700); opacity: 0.8; display: block; margin-bottom: 4px; }
         .response-item-node .ans-txt { font-size: 0.95rem; font-weight: 700; color: var(--cl-navy-dark); display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
         
-        /* Chromatic Answer Evaluation Styles overrides */
         .response-item-node.correct-state { background-color: #bbf7d0; border-color: #86efac; }
         .response-item-node.incorrect-state { background-color: #fecaca; border-color: #fca5a5; }
 
-        /* --- 7. ADMIN NOTES PERSISTENCE STORAGE CARD --- */
+        /* --- ADMIN NOTES --- */
         .admin-notes-card { background: #fff7ed; border: 1px solid #ffedd5; border-radius: 28px; padding: 35px; margin-bottom: 40px; }
         .admin-notes-card h3 { margin: 0 0 12px 0; font-size: 1.1rem; font-weight: 900; color: var(--cl-orange); text-transform: uppercase; letter-spacing: 0.5px; }
         .admin-notes-card p { margin: 0 0 15px 0; font-size: 0.9rem; color: #c2410c; }
         .notes-area-field { width: 100%; height: 110px; padding: 16px; font-family: 'Outfit', sans-serif; font-size: 1rem; border: 1px solid #fed7aa; border-radius: 14px; background: var(--cl-white); box-sizing: border-box; resize: none; color: var(--cl-navy-dark); }
         .notes-area-field:focus { outline: none; border-color: var(--cl-orange); box-shadow: 0 0 0 4px rgba(249, 115, 22, 0.1); }
 
-        /* --- 8. CALL TO ACTION INTERACTION MATRIX PANEL --- */
+        /* --- ACTION FOOTER --- */
         .actions-matrix-panel {
             background: var(--cl-slate-50); border-top: 2px solid var(--cl-slate-100);
             padding: 35px 45px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px;
@@ -187,10 +235,6 @@
 
         .email-delivery-notice-msg { font-size: 0.9rem; font-weight: 700; color: var(--cl-orange); margin: 15px auto 25px; display: none; text-transform: uppercase; letter-spacing: 0.5px; text-align: center; grid-column: span 3; }
 
-        /* --- 9. SHIELD ARCHITECTURE FALLBACK NODES --- */
-        .async-loading-curtain { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 120px 20px; }
-        .async-loading-curtain i { font-size: 3rem; color: var(--cl-teal); margin-bottom: 20px; }
-        
         @media (max-width: 991px) {
             .split-profile-grid, .scores-distribution-workspace { grid-template-columns: 1fr; }
             .summary-ribbon-row { grid-template-columns: repeat(2, 1fr); }
@@ -199,6 +243,8 @@
             .report-branding-header { flex-direction: row-reverse; text-align: left; justify-content: space-between; }
             .header-right-meta-text { text-align: left; }
             .report-body-padding { padding: 24px; }
+            .ai-dashboard-contents { flex-direction: column-reverse; align-items: stretch; gap: 30px; }
+            .ai-telemetry-right { width: 100%; }
         }
     </style>
 </head>
@@ -236,7 +282,6 @@
         <div class="report-body-padding">
             
             <div class="split-profile-grid">
-                
                 <div class="demographics-card">
                     <h3><i class="fa-solid fa-graduation-cap"></i> Student Details</h3>
                     <ul class="profile-data-list">
@@ -289,7 +334,6 @@
             </div>
 
             <div class="scores-distribution-workspace">
-                
                 <div class="graphical-block-card">
                     <h3><i class="fa-solid fa-layer-group" style="color: var(--cl-teal); margin-right: 8px;"></i> Section Scores</h3>
                     
@@ -315,22 +359,47 @@
                 </div>
             </div>
 
-            <div class="ai-diagnostic-analysis-card">
-                <div class="ai-badge-header"><i class="fa-solid fa-microchip"></i> AI Diagnostic Analysis</div>
-                <div class="recommendations-heading" style="margin-bottom: 5px;">Learning Readiness</div>
-                <h3 id="aiReadinessLabel" style="margin-top: 0; margin-bottom: 15px;">---</h3>
-                <div class="recommendations-heading" style="margin-bottom: 5px;">Detailed Analysis</div>
-                <p id="aiDiagnosticText">---</p>
+            <div class="ai-futuristic-dashboard">
+                <div class="data-grid-overlay"></div>
+                <canvas class="ai-matrix-canvas" id="matrixEffectCanvas"></canvas>
                 
-                <div class="recommendations-heading">Recommended Next Steps</div>
-                <ul class="bullets-list-cluster" id="recommendationsContainer">
-                    </ul>
+                <div class="ai-dashboard-contents">
+                    <div class="ai-telemetry-left">
+                        <div class="futuristic-badge-node"><i class="fa-solid fa-brain-circuit"></i> AI Diagnostic Profiler</div>
+                        <h4>Learning Readiness Classification</h4>
+                        <h3 id="aiReadinessLabel">---</h3>
+                        <h4>Cognitive Capability Analysis</h4>
+                        <p class="ai-analysis-paragraph" id="aiDiagnosticText">---</p>
+                        <h4>Strategic Development Trajectory</h4>
+                        <ul class="futuristic-bullets-cluster" id="recommendationsContainer">
+                        </ul>
+                    </div>
+                    
+                    <div class="ai-telemetry-right">
+                        <div class="radial-gauge-container">
+                            <svg class="radial-gauge-svg" viewBox="0 0 130 130">
+                                <defs>
+                                    <linearGradient id="tealGradientLine" x1="0%" y1="0%" x2="100%" y2="100%">
+                                        <stop offset="0%" stop-color="#14b8a6" />
+                                        <stop offset="100%" stop-color="#06b6d4" />
+                                    </linearGradient>
+                                </defs>
+                                <circle class="radial-gauge-track" cx="65" cy="65" r="60"></circle>
+                                <circle class="radial-gauge-fill" id="radialTelemetryFill" cx="65" cy="65" r="60"></circle>
+                            </svg>
+                            <div class="gauge-numerical-center">
+                                <span class="score-val" id="radialNumericalScore">0%</span>
+                                <span class="label-txt">Index</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
 
             <div class="responses-sheet-card">
                 <h3><i class="fa-solid fa-list-check" style="color: var(--cl-navy-pure); margin-right: 8px;"></i> Question Responses</h3>
                 <div class="responses-matrix-box" id="responsesSheetGrid">
-                    </div>
+                </div>
             </div>
 
             <div class="admin-notes-card">
@@ -366,57 +435,49 @@
         const activeUrlParams = new URLSearchParams(window.location.search);
         const assessmentIdToken = activeUrlParams.get('id');
 
-        if (!assessmentIdToken) {
-            alert("No student assessment parameter detected. Re-routing back to administrative directory.");
-            window.location.href = "dashboard.html";
-            return;
+        if (window.location.pathname.includes('report.html')) {
+            if (!assessmentIdToken) {
+                alert("No student assessment parameter detected. Re-routing back to administrative directory.");
+                window.location.href = "dashboard.html";
+                return;
+            }
         }
 
-        // Centralized Master Grading Matrix definitions to determine item right/wrong states
         const COMBINED_EVALUATION_MARK_SCHEME = {
-            // Cluster Y12 Keys
             "9": [1, 6], "5": [2, 10], "Triangle": [3], "7": [4], "Red": [5], "4": [7], "A swimming pool": [8], "3": [9, 16],
             "40": [11], "24": [12, 18, 22], "8": [13, 14, 23], "14, 21, 35, 42": [14], "2": [15, 24], "3 blocks": [17], 
             "3 o'clock": [18], "Sphere": [19], "6": [20, 22], "Mia": [21], "Wednesday": [23], "Blue": [25],
-            // Cluster Y34 unique targets
             "33": [1], "3/4": [3], "30 minutes": [4], "$12": [5], "30": [6, 25], "30 cm": [7], "Square": [8], "95": [10],
             "3,245": [11], "30 meters": [12], "1 hour 45 minutes": [13], "$25": [14], "120": [15], "4/8": [16], 
             "600 grams": [17], "5": [19, 21, 24, 25], "24 cm": [20], "40 km": [23], "5 kg": [24],
-            // Cluster Y56 unique targets
             "1,350": [1], "360": [2], "$2.75": [3], "8 slices": [5], "155 cm": [6], "10 meters": [7], 
             "2 hours 30 minutes": [8], "3 degrees": [9], "3/4 kg": [11], "$60": [12], "10.45 km": [13], "2 cans": [14], 
             "$22": [15], "15": [16], "30,000 cm³": [17], "6 cups": [18], "0.4": [19], "10:25 AM": [20], "$3.00": [21], "10 days": [22], "2 meters": [23],
-            // Cluster Y78 unique targets
             "$3.25": [1], "150 liters": [2], "11:20 AM": [3], "156": [4], "20 m²": [6], "4/15": [7], "40 m³": [8], 
             "1.2 meters": [9], "8 km": [11], "$72": [12], "$800": [13], "120 km": [15], "40°": [16], "90": [17], "7/12": [18], 
             "40 cm": [19], "118 minutes": [21], "2 hours": [22], "12 kg": [25]
         };
 
-        loadReportDocumentBlueprint();
+        if (assessmentIdToken) {
+            loadReportDocumentBlueprint();
+            initializeMatrixBackgroundRainEffect();
+        }
 
         async function loadReportDocumentBlueprint() {
             try {
-                const token = localStorage.getItem("adminToken");
+                const response = await fetch(
+                    `${CORE_API_URL}/api/admin/report/${assessmentIdToken}`,
+                    { headers: { Authorization: `Bearer ${localStorage.getItem("adminToken")}` } }
+                );
+                const payload = await response.json();
 
-const response = await fetch(
-    `${CORE_API_URL}/api/admin/report/${assessmentIdToken}`,
-    {
-        headers: {
-            Authorization: `Bearer ${token}`
-        }
-    }
-);
-
-const payload = await response.json();
-
-if (!payload.success || !payload.report) {
-    throw new Error(payload.message || "Target reporting structures could not be found.");
-}
+                if (!payload.success || !payload.report) {
+                    throw new Error(payload.message || "Target reporting structures could not be found.");
+                }
 
                 const report = payload.report;
                 const student = report.studentId;
 
-                // Demographics card population
                 document.getElementById('studentName').innerText = `${student.firstName} ${student.lastName}`;
                 document.getElementById('studentYear').innerText = student.yearLevel;
                 document.getElementById('studentSchool').innerText = student.schoolName;
@@ -429,7 +490,6 @@ if (!payload.success || !payload.report) {
                 document.getElementById('docReportId').innerText = assessmentIdToken;
                 document.getElementById("docProcessedDate").innerText = new Date(report.processedTimestamp).toLocaleDateString();
 
-                // Percentage calculation formula alignment
                 const percentage = Math.round((report.scorecardMetrics.totalCorrect / 25) * 100);
                 document.getElementById('summaryOverallScore').innerText = percentage + '%';
                 
@@ -437,15 +497,15 @@ if (!payload.success || !payload.report) {
                 document.getElementById('summaryGradeGroup').innerText = report.gradeGroup || 'Year Range';
                 document.getElementById('summaryReadiness').innerText = report.diagnosticAnalysis.learningReadiness || 'Calculated Stage';
 
-                // Section metric progress indicators animations
                 animateProgressBarMeter('sec1Bar', 'sec1Val', report.scorecardMetrics.sections.section1Score);
                 animateProgressBarMeter('sec2Bar', 'sec2Val', report.scorecardMetrics.sections.section2Score);
                 animateProgressBarMeter('sec3Bar', 'sec3Val', report.scorecardMetrics.sections.section3Score);
 
-                // Render Chart.js visual canvas graphics for the Topics panel
                 renderTopicChartJSGraph(report.scorecardMetrics.topics);
 
-                // Text insights text nodes bindings
+                // --- 🌟 ANIMATE DYNAMIC NEON METADATA RADIAL GAUGE ---
+                animateRadialGaugeTelemetry(percentage);
+
                 document.getElementById('aiReadinessLabel').innerText = report.diagnosticAnalysis.learningReadiness;
                 document.getElementById('aiDiagnosticText').innerText = report.diagnosticAnalysis.aiDiagnosticReport;
 
@@ -453,11 +513,10 @@ if (!payload.success || !payload.report) {
                 recommendationWrapper.innerHTML = '';
                 if (report.diagnosticAnalysis.futureRecommendations && Array.isArray(report.diagnosticAnalysis.futureRecommendations)) {
                     report.diagnosticAnalysis.futureRecommendations.forEach(bulletText => {
-                        recommendationWrapper.innerHTML += `<li><i class="fa-solid fa-circle-arrow-right"></i> <span>${bulletText}</span></li>`;
+                        recommendationWrapper.innerHTML += `<li><i class="fa-solid fa-square-terminal"></i> <span>${bulletText}</span></li>`;
                     });
                 }
 
-                // Color-coded question auditor blocks hydration logic
                 buildQuestionAuditorMatrixGrid(report.answers || []);
 
                 const verifiedCacheNotes = localStorage.getItem(`scratchpad_notes_${assessmentIdToken}`);
@@ -484,7 +543,54 @@ if (!payload.success || !payload.report) {
             }, 150);
         }
 
-        // --- CHART.JS METRIC GRAPH MODULE ---
+        // --- 🌟 RADIAL TELEMETRY GAUGE INTERPOLATOR FUNCTION ---
+        function animateRadialGaugeTelemetry(targetPercentage) {
+            const circleFill = document.getElementById('radialTelemetryFill');
+            const textualScore = document.getElementById('radialNumericalScore');
+            const maxCircumference = 377; // 2 * Math.PI * r (r=60)
+            
+            const offsetValue = maxCircumference - (targetPercentage / 100) * maxCircumference;
+            
+            setTimeout(() => {
+                circleFill.style.strokeDashoffset = offsetValue;
+                textualScore.innerText = targetPercentage + '%';
+            }, 250);
+        }
+
+        // --- 🌟 MATRIX CORE BACKGROUND FALLING DATA LOGIC ---
+        function initializeMatrixBackgroundRainEffect() {
+            const canvas = document.getElementById('matrixEffectCanvas');
+            const ctx = canvas.getContext('2d');
+            
+            canvas.width = canvas.parentElement.offsetWidth;
+            canvas.height = canvas.parentElement.offsetHeight;
+            
+            const binarySymbolsMatrix = "01011010011011001";
+            const fontScale = 11;
+            const columnsAllocation = canvas.width / fontScale;
+            
+            const fallingDropsTrack = Array(Math.floor(columnsAllocation)).fill(1);
+
+            function drawRain() {
+                ctx.fillStyle = 'rgba(3, 7, 18, 0.04)';
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+                
+                ctx.fillStyle = '#14b8a6';
+                ctx.font = fontScale + 'px monospace';
+                
+                for(let i = 0; i < fallingDropsTrack.length; i++) {
+                    const textChar = binarySymbolsMatrix.charAt(Math.floor(Math.random() * binarySymbolsMatrix.length));
+                    ctx.fillText(textChar, i * fontScale, fallingDropsTrack[i] * fontScale);
+                    
+                    if(fallingDropsTrack[i] * fontScale > canvas.height && Math.random() > 0.975) {
+                        fallingDropsTrack[i] = 0;
+                    }
+                    fallingDropsTrack[i]++;
+                }
+            }
+            setInterval(drawRain, 33);
+        }
+
         function renderTopicChartJSGraph(topicsData) {
             const ctx = document.getElementById('topicChartCanvas').getContext('2d');
             
@@ -517,7 +623,6 @@ if (!payload.success || !payload.report) {
             });
         }
 
-        // --- COLOR-CODED ANSWER GRID INTERACTION MATRIX ---
         function buildQuestionAuditorMatrixGrid(answersArray) {
             const gridContainer = document.getElementById('responsesSheetGrid');
             gridContainer.innerHTML = '';
@@ -526,7 +631,6 @@ if (!payload.success || !payload.report) {
                 const answerObjectMatch = answersArray.find(element => element.questionId === currentSlotIndex);
                 const recordedResponseValue = answerObjectMatch ? answerObjectMatch.selectedAnswer : 'Unanswered';
                 
-                // Cross-reference value maps inside lookup tables to calculate right/wrong state
                 let stateClassMarker = "incorrect-state"; 
                 const schemaEntry = COMBINED_EVALUATION_MARK_SCHEME[recordedResponseValue];
                 if (schemaEntry && schemaEntry.includes(currentSlotIndex)) {
