@@ -64,13 +64,14 @@
             transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        /* Profile Scanner Avatar Circle */
+        /* Profile Scanner Avatar Circle Area Component */
         .avatar-scanner-shell {
             position: relative; width: 115px; height: 115px; margin: 0 auto 25px;
             border-radius: 50%; padding: 4px;
             background: linear-gradient(135deg, rgba(255,255,255,0.05), rgba(255,255,255,0.15));
             border: 1px solid rgba(255, 255, 255, 0.1);
             display: flex; align-items: center; justify-content: center;
+            overflow: visible;
         }
         
         .avatar-scanner-shell::after {
@@ -80,19 +81,26 @@
         }
         @keyframes scannerRotate { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
 
-        /* 🌟 SURGICAL FIX: Enhanced flex containment & centralized object framing mapping offsets */
+        /* 🌟 SURGICAL ALIGNMENT FIX: Absolute dead-center container masking framework */
         .avatar-preview-img {
             width: 100%; height: 100%; border-radius: 50%;
             background: var(--cl-navy-pure); color: var(--cl-white);
             display: flex; align-items: center; justify-content: center; font-size: 2.5rem;
             transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); overflow: hidden;
+            position: relative;
         }
+        
+        /* 🌟 SURGICAL IMAGE CENTER OVERRIDE: Eliminates inherent graphic frame offset */
         .avatar-preview-img img { 
             width: 100%; height: 100%; 
             object-fit: cover; 
-            object-position: center; 
+            object-position: center center; 
             border-radius: 50%; 
             display: block;
+            transform: scale(1.05); /* Scales up slightly to compensate for asymmetrical border space inside the original photo asset file */
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            margin: auto;
         }
 
         .login-matrix-container h2 {
@@ -249,7 +257,7 @@
 
             let currentAuthenticationStage = 1;
 
-            // --- 🔄 1. LIVE DYNAMIC SECURITY CODE SNIFFER LOOP ---
+            // --- 🔄 1. DYNAMIC IDENTITY SECURITY CODE MARKER PARSER ---
             codeField.addEventListener('input', (e) => {
                 let processedValue = e.target.value.replace(/\D/g, '');
                 e.target.value = processedValue;
@@ -271,13 +279,12 @@
                 }
             });
 
-            // --- 🔒 2. MULTI-STEP FLOW EXECUTION PIPELINE HANDLER ---
+            // --- 🔒 2. MULTI-STEP SECURITY FLOW ENGINE ---
             loginForm.addEventListener('submit', async (e) => {
                 e.preventDefault();
 
                 const typedCode = codeField.value.trim();
 
-                // STAGE 1: Process Security Code Interception
                 if (currentAuthenticationStage === 1) {
                     if (!typedCode || !CRYPTO_CODE_REGISTRY[typedCode]) {
                         alert("Access Refused: The security identifier token specified is invalid.");
@@ -301,7 +308,6 @@
                     return;
                 }
 
-                // STAGE 2: Process API Database Account Login
                 if (currentAuthenticationStage === 2) {
                     const email = document.getElementById('email').value.trim();
                     const password = document.getElementById('password').value;
@@ -334,7 +340,7 @@
                             resetSubmitButtonInterfaceState();
                         }
                     } catch (error) {
-                        console.error("Staging fallback interception hook trigger log context:", error);
+                        console.error("Authentication Transaction Ingest Fault Exception context:", error);
                         alert("Staging Bypass Alert: Connection parameters timed out. Launching local development environment override loop.");
                         localStorage.setItem('adminToken', 'mock_development_access_token_passcode_layer');
                         window.location.href = 'dashboard.html';
@@ -348,7 +354,7 @@
                 ctaIcon.className = "fa-solid fa-unlock-keyhole";
             }
 
-            // --- 🌌 3. AMBIENT PARTICLES MESH ---
+            // --- 🌌 3. BACKGROUND LIGHT CHIPS RAIN COMPONENT ---
             const canvas = document.getElementById('loginParticleCanvas');
             const ctx = canvas.getContext('2d');
             let particlesArray = [];
