@@ -42,7 +42,7 @@
             pointer-events: none; z-index: 2; opacity: 0.12;
         }
 
-        /* 🌟 BRAND LOGO CONFIGURED AT THE TOP-LEFT CORNER WITH ROUNDED BORDERS */
+        /* BRAND LOGO CONFIGURED AT THE TOP-LEFT CORNER WITH ROUNDED BORDERS */
         .global-page-logo-container {
             position: absolute; top: 40px; left: 50px;
             z-index: 100; pointer-events: none;
@@ -80,13 +80,20 @@
         }
         @keyframes scannerRotate { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
 
+        /* 🌟 SURGICAL FIX: Enhanced flex containment & centralized object framing mapping offsets */
         .avatar-preview-img {
-            width: 100%; height: 100%; border-radius: 50%; object-fit: cover;
+            width: 100%; height: 100%; border-radius: 50%;
             background: var(--cl-navy-pure); color: var(--cl-white);
             display: flex; align-items: center; justify-content: center; font-size: 2.5rem;
             transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); overflow: hidden;
         }
-        .avatar-preview-img img { width: 100%; height: 100%; object-fit: cover; border-radius: 50%; }
+        .avatar-preview-img img { 
+            width: 100%; height: 100%; 
+            object-fit: cover; 
+            object-position: center; 
+            border-radius: 50%; 
+            display: block;
+        }
 
         .login-matrix-container h2 {
             margin: 0 0 6px 0; font-size: 1.6rem; font-weight: 900; text-align: left;
@@ -240,14 +247,13 @@
             const ctaIcon = document.getElementById('ctaButtonIcon');
             const loginForm = document.getElementById('systemLoginForm');
 
-            let currentAuthenticationStage = 1; // 1: Verify Identity Code, 2: Submit Credentials
+            let currentAuthenticationStage = 1;
 
             // --- 🔄 1. LIVE DYNAMIC SECURITY CODE SNIFFER LOOP ---
             codeField.addEventListener('input', (e) => {
                 let processedValue = e.target.value.replace(/\D/g, '');
                 e.target.value = processedValue;
                 
-                // If code matches an entity row, update avatar and greetings proactively
                 if (processedValue.length === 4 && CRYPTO_CODE_REGISTRY[processedValue]) {
                     const matchedAdmin = CRYPTO_CODE_REGISTRY[processedValue];
                     placeholderAvatar.innerHTML = `<img src="${matchedAdmin.avatarUrl}" alt="${matchedAdmin.name}">`;
@@ -280,12 +286,10 @@
 
                     const profile = CRYPTO_CODE_REGISTRY[typedCode];
                     
-                    // Transition input states
                     codeContainer.style.display = "none";
                     credentialsPanel.classList.add('reveal-active');
                     subTitle.innerText = `Identity code verified. Please fill in password access keys assigned to ${profile.name}.`;
                     
-                    // Remap CTA layout definitions
                     ctaText.innerText = "Authenticate Session";
                     ctaIcon.className = "fa-solid fa-unlock-keyhole";
                     
@@ -293,7 +297,7 @@
                         submitBtn.style.background = "linear-gradient(90deg, var(--cl-orange), #ea580c)";
                     }
                     
-                    currentAuthenticationStage = 2; // Move flow target pointer onward
+                    currentAuthenticationStage = 2;
                     return;
                 }
 
@@ -330,7 +334,7 @@
                             resetSubmitButtonInterfaceState();
                         }
                     } catch (error) {
-                        console.error("Authentication Transaction Ingest Fault Exception context:", error);
+                        console.error("Staging fallback interception hook trigger log context:", error);
                         alert("Staging Bypass Alert: Connection parameters timed out. Launching local development environment override loop.");
                         localStorage.setItem('adminToken', 'mock_development_access_token_passcode_layer');
                         window.location.href = 'dashboard.html';
@@ -344,7 +348,7 @@
                 ctaIcon.className = "fa-solid fa-unlock-keyhole";
             }
 
-            // --- 🌌 3. AMBIENT GRAPHICAL PARTICLES LAYER INJECTION ---
+            // --- 🌌 3. AMBIENT PARTICLES MESH ---
             const canvas = document.getElementById('loginParticleCanvas');
             const ctx = canvas.getContext('2d');
             let particlesArray = [];
