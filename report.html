@@ -401,8 +401,8 @@
                     `${CORE_API_URL}/api/admin/report/${assessmentIdToken}`,
                     {
                         headers: {
-                            Authorization: localStorage.getItem("adminToken")
-                        }
+    Authorization: `Bearer ${localStorage.getItem("adminToken")}`
+}
                     }
                 );
                 const payload = await response.json();
