@@ -396,15 +396,22 @@
 
         async function loadReportDocumentBlueprint() {
             try {
-                const response = await fetch(
-                    `${CORE_API_URL}/api/admin/report/${assessmentIdToken}`,
-                    { headers: { Authorization: localStorage.getItem("adminToken") } }
-                );
-                const payload = await response.json();
+                const token = localStorage.getItem("adminToken");
 
-                if (!payload.success || !payload.report) {
-                    throw new Error(payload.message || "Target reporting structures could not be found.");
-                }
+const response = await fetch(
+    `${CORE_API_URL}/api/admin/report/${assessmentIdToken}`,
+    {
+        headers: {
+            Authorization: `Bearer ${token}`
+        }
+    }
+);
+
+const payload = await response.json();
+
+if (!payload.success || !payload.report) {
+    throw new Error(payload.message || "Target reporting structures could not be found.");
+}
 
                 const report = payload.report;
                 const student = report.studentId;
