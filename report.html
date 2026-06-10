@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Student Report</title>
+</head>
+<body>
+
+<h1>Student Report</h1>
+
+<div id="report"></div>
+
+<script>
+
+const token = localStorage.getItem("adminToken");
+
+const params = new URLSearchParams(window.location.search);
+
+const studentId = params.get("id");
+
+fetch(
+`https://diagnostic-backend-jmsu.onrender.com/api/admin/report/${studentId}`,
+{
+    headers:{
+        Authorization:`Bearer ${token}`
+    }
+})
+.then(res => res.json())
+.then(data => {
+
+document.getElementById("report").innerHTML = `
+<h2>${data.report.studentId.firstName} ${data.report.studentId.lastName}</h2>
+
+<p>
+Overall Score:
+${data.report.scorecardMetrics.overallScore}
+</p>
+
+<p>
+Learning Readiness:
+${data.report.diagnosticAnalysis.learningReadiness}
+</p>
+
+<p>
+AI Report:
+${data.report.diagnosticAnalysis.aiDiagnosticReport}
+</p>
+`;
+
+});
+
+</script>
+
+</body>
+</html>
