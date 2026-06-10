@@ -120,15 +120,58 @@ async function loadDashboard() {
     <td>${student.parentEmail}</td>
     <td>${student.parentPhone}</td>
     <td>
-        <button onclick="viewReport('${student._id}')">
-            View Report
-        </button>
-    </td>
-</tr>
-`;
+        async function viewReport(studentId){
 
-    });
+    const token =
+    localStorage.getItem('adminToken');
 
+    const response =
+    await fetch(
+        `${API}/api/admin/report/${studentId}`,
+        {
+            headers:{
+                Authorization:`Bearer ${token}`
+            }
+        }
+    );
+
+    const result = await response.json();
+
+    const report = result.report;
+
+    const student = report.studentId;
+
+    alert(`
+Student:
+${student.firstName} ${student.lastName}
+
+Year:
+${student.yearLevel}
+
+School:
+${student.schoolName}
+
+Parent:
+${student.parentName}
+
+Email:
+${student.parentEmail}
+
+Phone:
+${student.parentPhone}
+
+Overall Score:
+${report.scorecardMetrics.overallScore}%
+
+Total Correct:
+${report.scorecardMetrics.totalCorrect}
+
+AI Analysis:
+${report.diagnosticAnalysis.aiDiagnosticReport}
+
+Recommendations:
+${report.diagnosticAnalysis.futureRecommendations.join(', ')}
+`);
 }
 
 if(
