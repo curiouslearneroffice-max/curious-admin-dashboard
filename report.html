@@ -665,13 +665,50 @@ document.getElementById('getReportBtnTrigger').addEventListener(
 
         try {
 
-            this.innerHTML = 'Sending Report...';
+            this.innerHTML = 'Generating PDF...';
             this.disabled = true;
 
+            const reportElement =
+                document.getElementById('reportDocumentWrapper');
+
+            const pdfBlob = await html2pdf()
+                .set({
+                    margin: 10,
+                    filename: 'DiagnosticReport.pdf',
+                    image: {
+                        type: 'jpeg',
+                        quality: 1
+                    },
+                    html2canvas: {
+                        scale: 2
+                    },
+                    jsPDF: {
+                        unit: 'mm',
+                        format: 'a4',
+                        orientation: 'portrait'
+                    }
+                })
+                .from(reportElement)
+                .outputPdf('blob');
+
+            const formData = new FormData();
+
+            formData.append(
+                'pdf',
+                pdfBlob,
+                'DiagnosticReport.pdf'
+            );
+
+            formData.append(
+                'studentId',
+                window.currentStudentId
+            );
+
             const response = await fetch(
-                `https://diagnostic-backend-jmsu.onrender.com/api/admin/send-report/${window.currentStudentId}`,
+                'https://diagnostic-backend-jmsu.onrender.com/api/admin/send-report',
                 {
-                    method: 'POST'
+                    method: 'POST',
+                    body: formData
                 }
             );
 
@@ -681,7 +718,9 @@ document.getElementById('getReportBtnTrigger').addEventListener(
                 throw new Error(data.message);
             }
 
-            document.getElementById('deliveryNoticeBox').style.display = 'block';
+            document.getElementById(
+                'deliveryNoticeBox'
+            ).style.display = 'block';
 
             this.innerHTML = 'REPORT SENT';
             this.style.opacity = '0.6';
@@ -693,7 +732,7 @@ document.getElementById('getReportBtnTrigger').addEventListener(
 
             console.error(error);
 
-            alert('Failed to send report email.');
+            alert(error.message);
 
             this.disabled = false;
             this.innerHTML = 'Request Report';
