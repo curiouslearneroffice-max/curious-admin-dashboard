@@ -789,4 +789,121 @@
                     this.innerHTML = '<i class="fa-solid fa-cloud-arrow-up fa-spin" style="margin-right:8px;"></i>Uploading PDF...';
 
                     const networkFormData = new FormData();
-                    networkFormData.append('pdf', binary
+                    networkFormData.append('pdf', binaryReportBlob, 'report.pdf');
+                    networkFormData.append('studentName', document.getElementById('studentName').innerText);
+                    networkFormData.append('parentName', document.getElementById('parentName').innerText);
+                    networkFormData.append('parentEmail', document.getElementById('parentEmail').innerText);
+
+                    // 🛠️ FIX #4: INTEGRATED BRAND IDENTITY EMBLAZON SIGNATURE TEXT-BLOCK CARD (CORS FREE)
+                    const structuredSignatureMarkup = `
+                        <div>
+                          <div><br></div>
+                          <table cellpadding="0" cellspacing="0" border="0" style="max-width:720px;width:100%;font-family:'Segoe UI',Arial,sans-serif;border:1px solid #e6e6e6;border-radius:12px;background:#ffffff;">
+                            <tbody>
+                              <tr>
+                                <td style="padding:20px;">
+                                  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+                                    <tbody>
+                                      <tr>
+                                        <td width="180" valign="top">
+                                          <div style="font-size:1.4rem; font-weight:900; color:#0077D9; letter-spacing:-0.5px; font-family:'Segoe UI',Arial,sans-serif;">Curious Learner<br><span style="color:#F58220; font-size:1rem;">Academy</span></div>
+                                          <br>
+                                        </td>
+                                        <td valign="top">
+                                          <table width="100%" cellpadding="0" cellspacing="0" border="0">
+                                            <tbody>
+                                              <tr>
+                                                <td>
+                                                  <div style="font-size:28px;font-weight:700;color:#0077D9;line-height:34px;">Nitasha Rajvanshi</div>
+                                                  <div style="font-size:15px;font-weight:600;color:#F58220;padding-top:4px;">Founder &amp; Mentor</div>
+                                                </td>
+                                                <td width="120" align="right" valign="top">
+                                                  <div style="font-size:24px; color:#EEF5FD; line-height:30px; letter-spacing:4px; font-weight:700;">
+                                                    <div>&pi; &sum; &radic;</div>
+                                                    <div>x&sup2; &128214;</div>
+                                                  </div>
+                                                </td>
+                                              </tr>
+                                            </tbody>
+                                          </table>
+                                          <div style="height:12px;"><br></div>
+                                          <div style="font-size:14px;color:#444444;line-height:28px;">
+                                            <div>&#128231; <a href="mailto:support@curiouslearneracademy.com" style="color:#0077D9;text-decoration:none;">support@curiouslearneracademy.com</a></div>
+                                            <div>&#128172; <a href="https://wa.me/919251230015" style="color:#0077D9;text-decoration:none;">+91 92512 30015</a></div>
+                                            <div>&#127310; <a href="https://curiouslearneracademy.com/" style="color:#0077D9;text-decoration:none;">curiouslearneracademy.com</a></div>
+                                          </div>
+                                          <div style="padding-top:16px;">
+                                            <a href="https://curiouslearneracademy.com/" style="background:#0077D9; color:#ffffff; text-decoration:none; padding:11px 18px; border-radius:6px; display:inline-block; font-size:14px; font-weight:600; margin-right:8px;">Visit Website</a>
+                                            <a href="https://wa.me/919251230015" style="background:#F58220; color:#ffffff; text-decoration:none; padding:11px 18px; border-radius:6px; display:inline-block; font-size:14px; font-weight:600;">WhatsApp Us</a>
+                                          </div>
+                                        </td>
+                                      </tr>
+                                    </tbody>
+                                  </table>
+                                </td>
+                              </tr>
+                              <tr>
+                                <td align="center" style="font-size:18px; color:#F3F8FE; letter-spacing:18px; padding:4px 0 12px 0;">&pi; &sum; &radic; x&sup2; &128214; &127891; &128214;</td>
+                              </tr>
+                              <tr>
+                                <td style="padding:0 20px 20px 20px;">
+                                  <table width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#0077D9;border-radius:10px;">
+                                    <tbody>
+                                      <tr>
+                                        <td style="padding:24px;text-align:center;color:#ffffff;">
+                                          <div style="font-size:20px; font-weight:700; line-height:30px;">Helping students discover their strengths through personalised diagnostic assessments.</div>
+                                          <div style="font-size:13px; line-height:22px; margin-top:10px; opacity:0.95;">Identify learning strengths, uncover skill gaps, and create a personalised path to academic success.</div>
+                                          <div style="margin-top:18px;">
+                                            <a href="https://curiouslearneracademy.com/newzealand/diagnostic-assessment/" style="background:#F58220; color:#ffffff; text-decoration:none; padding:12px 24px; border-radius:6px; display:inline-block; font-size:14px; font-weight:700;">Book FREE Assessment</a>
+                                          </div>
+                                        </td>
+                                      </tr>
+                                    </tbody>
+                                  </table>
+                                </td>
+                              </tr>
+                              <tr>
+                                <td align="center" style="padding:0 0 14px 0; font-size:13px; color:#E8F1FC; letter-spacing:10px;">&pi; &bull; &sum; &bull; &radic; &bull; x&sup2; &bull; &128214; &bull; &127891;</td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </div>
+                    `;
+                    networkFormData.append('emailSignatureHtml', structuredSignatureMarkup);
+
+                    const mailResponse = await fetch(`${CORE_API_URL}/api/admin/send-report`, {
+                        method: 'POST',
+                        body: networkFormData
+                    });
+
+                    const mailResult = await mailResponse.json();
+
+                    if (!mailResult.success) {
+                        throw new Error(mailResult.message || "Email distribution pipeline dropped processing.");
+                    }
+
+                    // Button re-enabled state restored on successful execution pass code
+                    this.removeAttribute('disabled');
+                    this.innerHTML = 'REPORT SENT';
+                    document.getElementById('deliveryNoticeBox').style.display = 'block';
+                    alert('PDF report compiled and emailed successfully.');
+
+                } catch (error) {
+                    console.error("PDF Transmit Exception logs:", error);
+                    alert(`Transmission Error: ${error.message}`);
+                    this.disabled = false;
+                    this.innerHTML = 'Request Report';
+                }
+            });
+
+            document.getElementById('whatsappParentBtn').addEventListener('click', () => {
+                const encryptedEscapedText = encodeURIComponent(`Kia ora, this is Curious Learner Academy. We have processed the Diagnostic Evaluation and AI Analysis Report for ${resolvedStudentName}. Let us know if you require any specific feedback callbacks!`);
+                const formattedPhone = parentPhoneNumber ? parentPhoneNumber.replace(/\s+/g, '') : "919251230015";
+                window.open(`https://wa.me/${formattedPhone}?text=${encryptedEscapedText}`, '_blank');
+            });
+        }
+    });
+</script>
+
+</body>
+</html>
