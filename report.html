@@ -689,56 +689,90 @@ await new Promise(resolve =>
 await new Promise(resolve =>
     requestAnimationFrame(resolve)
 );
-const reportElement =
-    document.getElementById(
-        'reportDocumentWrapper'
-    );
-document
-    .querySelectorAll('canvas')
-    .forEach(canvas => {
+// CREATE CLEAN PDF VERSION
+
+const originalReport =
+    document.getElementById('reportDocumentWrapper');
+
+const pdfContainer =
+    originalReport.cloneNode(true);
+
+pdfContainer.id = 'pdfReportContainer';
+
+// REMOVE UNWANTED ELEMENTS
+
+pdfContainer
+    .querySelector('.back-nav-row')
+    ?.remove();
+
+pdfContainer
+    .querySelector('#adminScratchpadArea')
+    ?.closest('section')
+    ?.remove();
+
+pdfContainer
+    .querySelector('#getReportBtnTrigger')
+    ?.parentElement
+    ?.remove();
+
+// REMOVE BUTTON BAR
+
+pdfContainer
+    .querySelectorAll('button')
+    .forEach(btn => btn.remove());
+
+// REMOVE WHATSAPP BUTTON
+
+pdfContainer
+    .querySelectorAll('a')
+    .forEach(link => {
 
         if (
-            canvas.width === 0 ||
-            canvas.height === 0
+            link.innerText &&
+            link.innerText.includes('WHATSAPP')
         ) {
-            canvas.remove();
+            link.remove();
         }
 
     });
-        document
-    .querySelectorAll('*')
-    .forEach(el => {
-        el.style.animation = 'none';
-        el.style.transition = 'none';
-    });
 
-await new Promise(resolve =>
-    setTimeout(resolve, 3000)
-);
+// HIDE TEMPORARILY
+
+pdfContainer.style.position = 'absolute';
+pdfContainer.style.left = '-99999px';
+pdfContainer.style.top = '0';
+
+document.body.appendChild(pdfContainer);
+
 const pdfBlob =
     await html2pdf()
-        .from(reportElement)
+        .from(pdfContainer)
         .set({
             margin: 10,
+
             filename: 'report.pdf',
+
             image: {
                 type: 'jpeg',
                 quality: 1
             },
+
             html2canvas: {
-    scale: 2,
-    useCORS: true,
-    scrollX: 0,
-    scrollY: 0,
-    windowWidth: reportElement.scrollWidth,
-    windowHeight: reportElement.scrollHeight
-},
+                scale: 2,
+                useCORS: true,
+                scrollX: 0,
+                scrollY: 0
+            },
+
             jsPDF: {
                 unit: 'mm',
-                format: 'a4'
+                format: 'a4',
+                orientation: 'portrait'
             }
         })
         .outputPdf('blob');
+
+document.body.removeChild(pdfContainer);
 
 if (chartCanvas) {
     chartCanvas.style.display = 'block';
