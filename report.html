@@ -1,3 +1,5 @@
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,7 +8,6 @@
     <title>Curious Learner Academy - Diagnostic Analytics Blueprint</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;900&display=swap');
 
@@ -221,6 +222,9 @@
 
         .email-delivery-notice-msg { font-size: 0.9rem; font-weight: 700; color: var(--cl-orange); margin: 15px auto 25px; display: none; text-transform: uppercase; letter-spacing: 0.5px; text-align: center; grid-column: span 3; }
 
+        .async-loading-curtain { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 120px 20px; }
+        .async-loading-curtain i { font-size: 3rem; color: var(--cl-teal); margin-bottom: 20px; }
+        
         @media (max-width: 991px) {
             .split-profile-grid, .scores-distribution-workspace { grid-template-columns: 1fr; }
             .summary-ribbon-row { grid-template-columns: repeat(2, 1fr); }
@@ -409,8 +413,7 @@
     </div>
 </section>
 
-<!-- 🌟 FIXED SANDBOX INFRASTRUCTURE: Utilizing opacity and absolute staging rules to enforce dimensions calculations -->
-<div id="pdfGenerationStagingSandbox" style="position: absolute; left: 0; top: 0; width: 1024px; background: #ffffff; opacity: 0; pointer-events: none; z-index: -5000;"></div>
+<div id="pdfGenerationStagingSandbox" style="position: fixed; left: -99999px; top: 0; width: 1024px; background: #ffffff; visibility: visible; z-index: 999999;"></div>
 
 <script>
     document.addEventListener('DOMContentLoaded', () => {
@@ -499,7 +502,7 @@
                 recommendationWrapper.innerHTML = '';
                 if (report.diagnosticAnalysis.futureRecommendations && Array.isArray(report.diagnosticAnalysis.futureRecommendations)) {
                     report.diagnosticAnalysis.futureRecommendations.forEach(bulletText => {
-                        recommendationWrapper.innerHTML += `<li><i class="fa-solid fa-square-terminal"></i> <span>${bulletText}</span></li>`;
+                        recommendationWrapper.innerHTML += `<li><span>${bulletText}</span></li>`;
                     });
                 }
 
@@ -590,7 +593,6 @@
                     indexAxis: 'y',
                     responsive: true,
                     maintainAspectRatio: false,
-                    // 🛠️ ANIMATIONS DISENGAGED FOR INSTANT BASE64 EXTRACTION RELIABILITY
                     animation: false,
                     plugins: { legend: { display: false } },
                     scales: {
@@ -630,31 +632,34 @@
                 localStorage.setItem(`scratchpad_notes_${assessmentIdToken}`, e.target.value);
             });
 
-            // --- 🔒 EXPLICIT STAGING PIPELINE EXECUTION FOR HIGH-FIDELITY EMAIL ATTACHMENTS ---
             document.getElementById('getReportBtnTrigger').addEventListener('click', async function () {
                 try {
                     this.disabled = true;
                     this.innerHTML = '<i class="fa-solid fa-spinner fa-spin" style="margin-right:8px;"></i>Generating PDF...';
 
-                    // 1. EXTRACT SERIALIZED DATA URI FROM ACTIVE COMPONENT MEMORY
-                    let imageSnapshotURI = "";
-                    if (topicChartInstance) {
+                    // 🛠️ FIX #2: INTRODUCED RENDERING BUFFER DELAY FOR CANVAS PAINT EXTRACTION
+                    await new Promise(resolve => setTimeout(resolve, 1000));
+
+                    let imageSnapshotURI = '';
+                    if (
+                        topicChartInstance &&
+                        topicChartInstance.canvas &&
+                        topicChartInstance.canvas.width > 0 &&
+                        topicChartInstance.canvas.height > 0
+                    ) {
                         imageSnapshotURI = topicChartInstance.toBase64Image();
                     }
 
                     window.scrollTo(0, 0);
-                    // Gate execution loop systematically until typographical font layouts process completely
                     await document.fonts.ready;
 
-                    // 2. FETCH SECURE REFERENCE TARGET TO RUN SANDBOX INGESTION
                     const sandboxStagingContainer = document.getElementById('pdfGenerationStagingSandbox');
                     sandboxStagingContainer.innerHTML = ''; 
 
-                    // 3. SYNCHRONIZE EXPLICIT INCLUSIONS MANUALLY INTO PRISTINE LAYOUT SEGMENTS
+                    // 🛠️ FIX #3: STRIPPED ALL BRITTLE <i> STAGING TAG ELEMENTS TO ENSURE CLEAN PDF OUTPUTS
                     sandboxStagingContainer.innerHTML = `
                         <div style="font-family:'Outfit', Arial, sans-serif; color:#020617; background:#ffffff; padding:35px; border-radius: 24px; box-sizing: border-box; width: 100%;">
                             
-                            <!-- Header Element Layout Block -->
                             <div style="background:linear-gradient(135deg, #020617 0%, #0c4a6e 100%); padding:35px; border-bottom:4px solid #14b8a6; display:flex; justify-content:space-between; align-items:center; border-radius:16px 16px 0 0; box-sizing: border-box;">
                                 <div style="display:flex; align-items:center;">
                                     <div style="background:#14b8a6; color:#ffffff; font-weight:900; font-size:1.6rem; width:48px; height:48px; border-radius:12px; display:flex; align-items:center; justify-content:center; margin-right:14px;">C</div>
@@ -666,24 +671,22 @@
                                 </div>
                             </div>
 
-                            <!-- Cohort Details Split Card Presentation Row -->
                             <div style="margin-top:30px; display:flex; gap:25px; width: 100%; box-sizing: border-box;">
                                 <div style="flex: 1; background:#f8fafc; border:1px solid #e2e8f0; border-radius:18px; padding:22px; box-sizing: border-box;">
-                                    <h3 style="margin:0 0 14px; font-size:0.95rem; font-weight:900; text-transform:uppercase; color:#0c4a6e; border-bottom:2px solid #e2e8f0; padding-bottom:6px;"><i class="fa-solid fa-graduation-cap" style="margin-right:6px; color:#14b8a6;"></i> Student Details</h3>
+                                    <h3 style="margin:0 0 14px; font-size:0.95rem; font-weight:900; text-transform:uppercase; color:#0c4a6e; border-bottom:2px solid #e2e8f0; padding-bottom:6px;">Student Details</h3>
                                     <p style="margin:8px 0; font-size:0.95rem; color:#334155;"><strong>Student Name:</strong> ${document.getElementById('studentName').innerText}</p>
                                     <p style="margin:8px 0; font-size:0.95rem; color:#334155;"><strong>Year Level:</strong> ${document.getElementById('studentYear').innerText}</p>
                                     <p style="margin:8px 0; font-size:0.95rem; color:#334155;"><strong>School Name:</strong> ${document.getElementById('studentSchool').innerText}</p>
                                     <p style="margin:8px 0; font-size:0.95rem; color:#334155;"><strong>Assessment Stream:</strong> ${document.getElementById('studentStream').innerText}</p>
                                 </div>
                                 <div style="flex: 1; background:#f8fafc; border:1px solid #e2e8f0; border-radius:18px; padding:22px; box-sizing: border-box;">
-                                    <h3 style="margin:0 0 14px; font-size:0.95rem; font-weight:900; text-transform:uppercase; color:#0c4a6e; border-bottom:2px solid #e2e8f0; padding-bottom:6px;"><i class="fa-solid fa-user-shield" style="margin-right:6px; color:#14b8a6;"></i> Parent Details</h3>
+                                    <h3 style="margin:0 0 14px; font-size:0.95rem; font-weight:900; text-transform:uppercase; color:#0c4a6e; border-bottom:2px solid #e2e8f0; padding-bottom:6px;">Parent Details</h3>
                                     <p style="margin:8px 0; font-size:0.95rem; color:#334155;"><strong>Parent Name:</strong> ${document.getElementById('parentName').innerText}</p>
                                     <p style="margin:8px 0; font-size:0.95rem; color:#334155;"><strong>Parent Email:</strong> ${document.getElementById('parentEmail').innerText}</p>
                                     <p style="margin:8px 0; font-size:0.95rem; color:#334155;"><strong>Parent Phone Number:</strong> ${document.getElementById('parentPhone').innerText}</p>
                                 </div>
                             </div>
 
-                            <!-- Performance Summary Cards Data Banner -->
                             <div style="margin-top:30px; display:flex; gap:20px; width: 100%; box-sizing: border-box;">
                                 <div style="flex: 1; background:#ffffff; border:1px solid #e2e8f0; border-radius:14px; padding:18px; text-align:center;">
                                     <h4 style="margin:0 0 4px; font-size:0.75rem; color:#94a3b8; text-transform:uppercase; font-weight:700; letter-spacing:0.5px;">Overall Score</h4>
@@ -703,17 +706,16 @@
                                 </div>
                             </div>
 
-                            <!-- Segment Meter Bars Metrics and Chart Plot Blocks -->
                             <div style="margin-top:30px; display:flex; gap:25px; width: 100%; box-sizing: border-box;">
                                 <div style="flex: 1; background:#ffffff; border:1px solid #e2e8f0; border-radius:18px; padding:22px; box-sizing: border-box;">
                                     <h3 style="margin:0 0 18px; font-size:0.95rem; text-transform:uppercase; color:#0c4a6e; font-weight:900;">Section Scores</h3>
-                                    <p style="margin:0 0 6px; font-size:0.85rem; font-weight:600; display:flex; justify-content:space-between; color:#334155;"><span>Foundational (Section 1)</span><span>${document.getElementById('sec1Val').innerText}</span></p>
+                                    <p style="margin:0; font-size:0.85rem; font-weight:600; display:flex; justify-content:space-between; color:#334155;"><span>Foundational (Section 1)</span><span>${document.getElementById('sec1Val').innerText}</span></p>
                                     <div style="background:#f1f5f9; height:10px; border-radius:5px; margin-bottom:18px; overflow:hidden;"><div style="background:linear-gradient(90deg, #14b8a6, #06b6d4); height:100%; width:${document.getElementById('sec1Val').innerText};"></div></div>
                                     
-                                    <p style="margin:0 0 6px; font-size:0.85rem; font-weight:600; display:flex; justify-content:space-between; color:#334155;"><span>Above Average (Section 2)</span><span>${document.getElementById('sec2Val').innerText}</span></p>
+                                    <p style="margin:0; font-size:0.85rem; font-weight:600; display:flex; justify-content:space-between; color:#334155;"><span>Above Average (Section 2)</span><span>${document.getElementById('sec2Val').innerText}</span></p>
                                     <div style="background:#f1f5f9; height:10px; border-radius:5px; margin-bottom:18px; overflow:hidden;"><div style="background:linear-gradient(90deg, #14b8a6, #06b6d4); height:100%; width:${document.getElementById('sec2Val').innerText};"></div></div>
                                     
-                                    <p style="margin:0 0 6px; font-size:0.85rem; font-weight:600; display:flex; justify-content:space-between; color:#334155;"><span>Exceptional (Section 3)</span><span>${document.getElementById('sec3Val').innerText}</span></p>
+                                    <p style="margin:0; font-size:0.85rem; font-weight:600; display:flex; justify-content:space-between; color:#334155;"><span>Exceptional (Section 3)</span><span>${document.getElementById('sec3Val').innerText}</span></p>
                                     <div style="background:#f1f5f9; height:10px; border-radius:5px; overflow:hidden;"><div style="background:linear-gradient(90deg, #14b8a6, #06b6d4); height:100%; width:${document.getElementById('sec3Val').innerText};"></div></div>
                                 </div>
                                 <div style="flex: 1; background:#ffffff; border:1px solid #e2e8f0; border-radius:18px; padding:22px; display:flex; flex-direction:column; justify-content:center; box-sizing: border-box;">
@@ -724,7 +726,6 @@
                                 </div>
                             </div>
 
-                            <!-- Cognitive AI Insights Module Content -->
                             <div style="margin-top:30px; background:linear-gradient(180deg, #f0fdfa 0%, #ffffff 100%); border:1px solid #ccfbf1; border-radius:24px; padding:30px; box-sizing: border-box; width: 100%;">
                                 <h4 style="margin:0 0 4px; font-size:0.75rem; text-transform:uppercase; color:#0f766e; letter-spacing:1.5px; font-weight:900;">AI Diagnostic Analysis</h4>
                                 <p style="margin:2px 0 12px; font-size:1.15rem; font-weight:900; color:#020617;">Learning Readiness: ${document.getElementById('aiReadinessLabel').innerText}</p>
@@ -736,9 +737,8 @@
                                 </ul>
                             </div>
 
-                            <!-- Question Responses Grid Block -->
                             <div style="margin-top:30px; background:#ffffff; border:1px solid #e2e8f0; border-radius:24px; padding:30px; box-sizing: border-box; width: 100%;">
-                                <h3 style="margin:0 0 18px; font-size:0.95rem; text-transform:uppercase; color:#0c4a6e; border-bottom:1px solid #f1f5f9; padding-bottom:8px; font-weight:900;">Question Responses auditor sheet</h3>
+                                <h3 style="margin:0 0 18px; font-size:0.95rem; text-transform:uppercase; color:#0c4a6e; border-bottom:1px solid #f1f5f9; padding-bottom:8px; font-weight:900;">Question Responses</h3>
                                 <div style="display:grid; grid-template-columns:repeat(5, 1fr); gap:12px; width: 100%;">
                                     ${document.getElementById('responsesSheetGrid').innerHTML}
                                 </div>
@@ -747,16 +747,8 @@
                         </div>
                     `;
 
-                    // Sanitize list item icon elements inside compiled staging panel templates structures
-                    sandboxStagingContainer.querySelectorAll('.futuristic-bullets-cluster li').forEach(bulletNode => {
-                        bulletNode.style.padding = '6px 0';
-                        bulletNode.style.background = 'none';
-                        bulletNode.style.border = 'none';
-                        bulletNode.style.color = '#334155';
-                    });
-
-                    // Hold engine operations temporarily to fully allow browser to draw sandboxed structures
-                    await new Promise(res => setTimeout(res, 500));
+                    // 🛠️ FIX #5: RUN BOUNDARY COMPILING LENGTH HEALTH DIAGNOSTICS BEFORE GENERATION
+                    console.log('Sandbox HTML length:', sandboxStagingContainer.innerHTML.length);
 
                     // 4. DEPLOY HTML2PDF DISPATCH AGAINST STATIC COMPILING WRAPPER
                     const binaryReportBlob = await html2pdf()
@@ -770,19 +762,17 @@
                         })
                         .outputPdf('blob');
 
-                    // Completely flush and close sandbox pipeline structures safely
                     sandboxStagingContainer.innerHTML = '';
 
                     this.innerHTML = '<i class="fa-solid fa-cloud-arrow-up fa-spin" style="margin-right:8px;"></i>Uploading PDF...';
 
-                    // 5. PACK DATA FOR ASYNC SERVER MAIL OUTFLOW
                     const networkFormData = new FormData();
                     networkFormData.append('pdf', binaryReportBlob, 'report.pdf');
                     networkFormData.append('studentName', document.getElementById('studentName').innerText);
                     networkFormData.append('parentName', document.getElementById('parentName').innerText);
                     networkFormData.append('parentEmail', document.getElementById('parentEmail').innerText);
 
-                    // 6. INJECT EMBEDDED EMAIL SIGNATURE COMPONENT
+                    // 🛠️ FIX #4: CLEANED OUT POLLUTING LOGO IMAGE REFERENCE STRING FROM EMAIL SIGNATURE TO RESOLVE CORS BLOCKS COMPLETELY
                     const structuredSignatureMarkup = `
                         <div>
                           <div><br></div>
@@ -794,7 +784,7 @@
                                     <tbody>
                                       <tr>
                                         <td width="180" valign="top">
-                                          <img src="https://curiouslearneracademy.com/newzealand/wp-content/uploads/sites/3/2026/01/Logo-Color-Updated.png" alt="Curious Learner Academy" width="160" style="display:block;border:0;">
+                                          <div style="font-size:1.4rem; font-weight:900; color:#0077D9; letter-spacing:-0.5px;">Curious Learner<br><span style="color:#F58220; font-size:1rem;">Academy</span></div>
                                           <br>
                                         </td>
                                         <td valign="top">
