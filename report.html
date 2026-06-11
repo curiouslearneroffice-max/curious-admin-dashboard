@@ -193,12 +193,6 @@
         .response-item-node.correct-state { background-color: #bbf7d0; border-color: #86efac; }
         .response-item-node.incorrect-state { background-color: #fecaca; border-color: #fca5a5; }
 
-        .admin-notes-card { background: #fff7ed; border: 1px solid #ffedd5; border-radius: 28px; padding: 35px; margin-bottom: 40px; }
-        .admin-notes-card h3 { margin: 0 0 12px 0; font-size: 1.1rem; font-weight: 900; color: var(--cl-orange); text-transform: uppercase; letter-spacing: 0.5px; }
-        .admin-notes-card p { margin: 0 0 15px 0; font-size: 0.9rem; color: #c2410c; }
-        .notes-area-field { width: 100%; height: 110px; padding: 16px; font-family: 'Outfit', sans-serif; font-size: 1rem; border: 1px solid #fed7aa; border-radius: 14px; background: var(--cl-white); box-sizing: border-box; resize: none; color: var(--cl-navy-dark); }
-        .notes-area-field:focus { outline: none; border-color: var(--cl-orange); box-shadow: 0 0 0 4px rgba(249, 115, 22, 0.1); }
-
         .actions-matrix-panel {
             background: var(--cl-slate-50); border-top: 2px solid var(--cl-slate-100);
             padding: 35px 45px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px;
@@ -272,7 +266,7 @@
             
             <div class="split-profile-grid">
                 <div class="demographics-card">
-                    <h3><i class="fa-solid fa-graduation-cap"></i> Student Details</h3>
+                    <h3>Student Details</h3>
                     <ul class="profile-data-list">
                         <li><span>Student Name:</span> <strong id="studentName">---</strong></li>
                         <li><span>Year Level:</span> <strong id="studentYear">---</strong></li>
@@ -282,7 +276,7 @@
                 </div>
 
                 <div class="demographics-card">
-                    <h3><i class="fa-solid fa-user-shield"></i> Parent Details</h3>
+                    <h3>Parent Details</h3>
                     <ul class="profile-data-list">
                         <li><span>Parent Name:</span> <strong id="parentName">---</strong></li>
                         <li><span>Parent Email:</span> <strong id="parentEmail">---</strong></li>
@@ -324,7 +318,7 @@
 
             <div class="scores-distribution-workspace">
                 <div class="graphical-block-card">
-                    <h3><i class="fa-solid fa-layer-group" style="color: var(--cl-teal); margin-right: 8px;"></i> Section Scores</h3>
+                    <h3>Section Scores</h3>
                     
                     <div class="progress-meter-row">
                         <div class="meter-meta-text"><span>Foundational (Section 1)</span><span id="sec1Val">0%</span></div>
@@ -341,7 +335,7 @@
                 </div>
 
                 <div class="graphical-block-card">
-                    <h3><i class="fa-solid fa-chart-bar" style="color: var(--cl-orange); margin-right: 8px;"></i> Topic Performance</h3>
+                    <h3>Topic Performance</h3>
                     <div class="chart-canvas-shell">
                         <canvas id="topicChartCanvas"></canvas>
                     </div>
@@ -354,7 +348,7 @@
                 
                 <div class="ai-dashboard-contents">
                     <div class="ai-telemetry-left">
-                        <div class="futuristic-badge-node"><i class="fa-solid fa-brain-circuit"></i> AI Diagnostic Profiler</div>
+                        <div class="futuristic-badge-node">AI Diagnostic Profiler</div>
                         <h4>Learning Readiness Classification</h4>
                         <h3 id="aiReadinessLabel">---</h3>
                         <h4>Cognitive Capability Analysis</h4>
@@ -380,13 +374,13 @@
             </div>
 
             <div class="responses-sheet-card">
-                <h3><i class="fa-solid fa-list-check" style="color: var(--cl-navy-pure); margin-right: 8px;"></i> Question Responses</h3>
+                <h3>Question Responses</h3>
                 <div class="responses-matrix-box" id="responsesSheetGrid">
                 </div>
             </div>
 
             <div class="admin-notes-card">
-                <h3><i class="fa-solid fa-user-pen"></i> Admin Notes</h3>
+                <h3>Admin Notes</h3>
                 <p>Private observations saved locally on this browser terminal instance layer.</p>
                 <textarea class="notes-area-field" id="adminScratchpadArea" placeholder="e.g., Parent contacted via phone. Interested in scholarship track loops..."></textarea>
             </div>
@@ -632,89 +626,84 @@
                 localStorage.setItem(`scratchpad_notes_${assessmentIdToken}`, e.target.value);
             });
 
-            // --- 🔒 NEW INTEGRATED NATIVE EMBEDDED HTML EMAIL GENERATION MATRIX ---
+            // --- 🔒 HYBRID DIRECT EMAIL PAYLOAD DISPATCH PIPELINE ---
             document.getElementById('getReportBtnTrigger').addEventListener('click', async function () {
                 try {
                     this.disabled = true;
                     this.innerHTML = '<i class="fa-solid fa-spinner fa-spin" style="margin-right:8px;"></i>Processing Request...';
 
-                    // 1. EXTRACT LIVE SCORE METRICS AND STRIP ANIMATIONS
-                    const overallScore = document.getElementById('summaryOverallScore').innerText;
-                    const totalCorrect = document.getElementById('summaryTotalCorrect').innerText;
-                    const gradeGroup = document.getElementById('summaryGradeGroup').innerText;
-                    const readinessStage = document.getElementById('summaryReadiness').innerText;
+                    // 1. STABILIZE FRAME WAIT LOOP BEFORE CAPTURE
+                    await new Promise(resolve => setTimeout(resolve, 1000));
 
-                    // Extract static section percentage metrics text values directly
-                    const sec1Percent = document.getElementById('sec1Val').innerText;
-                    const sec2Percent = document.getElementById('sec2Val').innerText;
-                    const sec3Percent = document.getElementById('sec3Val').innerText;
-
-                    // Extract exact metric integers directly out of Chart.js instance memory model arrays
-                    let mathScoreNum = 0, analyticalScoreNum = 0, logicalScoreNum = 0;
-                    if (topicChartInstance && topicChartInstance.data.datasets[0]) {
-                        const scoreDataArray = topicChartInstance.data.datasets[0].data;
-                        mathScoreNum = scoreDataArray[0] || 0;
-                        analyticalScoreNum = scoreDataArray[1] || 0;
-                        logicalScoreNum = scoreDataArray[2] || 0;
+                    // 2. EXTRACT LIVE CANVAS SNAPSHOT
+                    let imageSnapshotURI = '';
+                    if (
+                        topicChartInstance &&
+                        topicChartInstance.canvas &&
+                        topicChartInstance.canvas.width > 0 &&
+                        topicChartInstance.canvas.height > 0
+                    ) {
+                        imageSnapshotURI = topicChartInstance.toBase64Image();
                     }
 
-                    // 2. SYNCHRONIZE DYNAMIC COGNITIVE CLONE DOM FOR ISOLATION SANITIZATION
-                    const rawReportShell = document.getElementById('reportDocumentWrapper');
-                    const reportClone = rawReportShell.cloneNode(true);
+                    // 3. CLONE WRAPPER CONTAINER FOR INCLUSIONS FILTERS
+                    const reportClone = document.getElementById('reportDocumentWrapper').cloneNode(true);
 
-                    // 3. EXCRETE ALL ACTIONS CTAS, BUTTONS, ADMIN NOTES AND UNSTABLE EMBEDDED CANVASES
+                    // 4. STRIP INTERACTIVE & ADMINISTRATIVE SECTIONS
                     reportClone.querySelector('.back-nav-row')?.remove();
                     reportClone.querySelector('.admin-notes-card')?.remove();
                     reportClone.querySelector('.actions-matrix-panel')?.remove();
+                    
+                    // Remove dynamic canvas animation backgrounds to prevent email rendering artifacts
                     reportClone.querySelector('.ai-matrix-canvas')?.remove();
                     reportClone.querySelector('.data-grid-overlay')?.remove();
-                    reportClone.querySelectorAll('button').forEach(btn => btn.remove());
-                    reportClone.querySelectorAll('.fa-solid, .fa-brands').forEach(icon => icon.remove());
 
-                    // 4. TRANSPOSE DYNAMIC CANVAS GRAPHS INTO CLEAN EMBEDDABLE INLINE HTML SEGMENTS FOR EMAIL COMPLIANCE
+                    // 5. HYBRID CANVAS DEGRADATION: Replace raw canvases with stable Base64 images
                     const chartShellBox = reportClone.querySelector('.chart-canvas-shell');
                     if (chartShellBox) {
-                        chartShellBox.innerHTML = `
-                            <div style="font-family:'Outfit', Arial, sans-serif; padding:15px; background:#f8fafc; border-radius:12px; border:1px solid #e2e8f0; width:100%; box-sizing:border-box;">
-                                <table width="100%" cellspacing="0" cellpadding="0" border="0" style="font-size:0.9rem; color:#334155;">
-                                    <tr>
-                                        <td width="30%" style="padding:6px 0; font-weight:bold;">Mathematics:</td>
-                                        <td width="55%" style="padding:6px 0;"><div style="background:#e2e8f0; border-radius:4px; height:12px; width:100%; overflow:hidden;"><div style="background:#f97316; height:100%; width:${mathScoreNum}%;"></div></div></td>
-                                        <td width="15%" style="padding:6px 0; font-weight:bold; text-align:right;">${mathScoreNum}%</td>
-                                    </tr>
-                                    <tr>
-                                        <td style="padding:6px 0; font-weight:bold;">Analytical:</td>
-                                        <td style="padding:6px 0;"><div style="background:#e2e8f0; border-radius:4px; height:12px; width:100%; overflow:hidden;"><div style="background:#14b8a6; height:100%; width:${analyticalScoreNum}%;"></div></div></td>
-                                        <td style="padding:6px 0; font-weight:bold; text-align:right;">${analyticalScoreNum}%</td>
-                                    </tr>
-                                    <tr>
-                                        <td style="padding:6px 0; font-weight:bold;">Logical:</td>
-                                        <td style="padding:6px 0;"><div style="background:#e2e8f0; border-radius:4px; height:12px; width:100%; overflow:hidden;"><div style="background:#0c4a6e; height:100%; width:${logicalScoreNum}%;"></div></div></td>
-                                        <td style="padding:6px 0; font-weight:bold; text-align:right;">${logicalScoreNum}%</td>
-                                    </tr>
-                                </table>
+                        chartShellBox.innerHTML = imageSnapshotURI 
+                            ? `<img src="${imageSnapshotURI}" style="width:100%; height:auto; max-height:160px; display:block;" alt="Topic Chart Summary">`
+                            : `<div style="padding:20px; text-align:center; color:#64748b; background:#f8fafc; border-radius:8px;">Chart summary unavailable</div>`;
+                    }
+
+                    // Convert live SVG telemetry ring to a clean text metric block for native email processing
+                    const telemetryRightBox = reportClone.querySelector('.ai-telemetry-right');
+                    if (telemetryRightBox) {
+                        const activeScoreText = document.getElementById('radialNumericalScore').innerText;
+                        telemetryRightBox.innerHTML = `
+                            <div style="background:#14b8a6; color:#ffffff; padding:15px 25px; border-radius:16px; text-align:center;">
+                                <div style="font-size:1.6rem; font-weight:900;">${activeScoreText}</div>
+                                <div style="font-size:0.7rem; text-transform:uppercase; letter-spacing:1px; margin-top:2px;">Readiness Index</div>
                             </div>
                         `;
                     }
 
-                    // 5. EXTRACT CLEAN STRING MARKUP BUFFER
-                    const reportHtml = reportClone.innerHTML;
-
-                    // 6. ASSEMBLE MULTI-PART SECURE BACKEND JSON TRANSMISSION STREAM PAYLOAD
-                    const requestBodyPayload = {
-                        parentEmail: document.getElementById('parentEmail').innerText.trim(),
-                        parentName: document.getElementById('parentName').innerText.trim(),
-                        studentName: document.getElementById('studentName').innerText.trim(),
-                        reportHtml: reportHtml
-                    };
-
-                    const mailResponse = await fetch(`${CORE_API_URL}/api/admin/send-report`, {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify(requestBodyPayload)
+                    // Enforce page-break containment markers on core content panels inside the clone
+                    reportClone.querySelectorAll('.demographics-card, .metric-pill-card, .graphical-block-card, .ai-diagnostic-analysis-card, .responses-sheet-card').forEach(panel => {
+                        panel.style.pageBreakInside = "avoid";
+                        panel.style.breakInside = "avoid";
                     });
 
-                    const data = await mailResponse.json();
+                    // Strip any lingering interface buttons and dynamic icons
+                    reportClone.querySelectorAll('button').forEach(btn => btn.remove());
+                    reportClone.querySelectorAll('.fa-solid, .fa-brands').forEach(icon => icon.remove());
+
+                    // 6. COMPILE CLEAN OUTER HTML STRING Footprint
+                    const reportHtml = reportClone.innerHTML;
+
+                    // 7. DISPATCH PAYLOAD DISPATCH DIRECT TO ENDPOINT
+                    const response = await fetch(`${CORE_API_URL}/api/admin/send-report`, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            parentEmail: document.getElementById('parentEmail').innerText.trim(),
+                            parentName: document.getElementById('parentName').innerText.trim(),
+                            studentName: document.getElementById('studentName').innerText.trim(),
+                            reportHtml: reportHtml
+                        })
+                    });
+
+                    const data = await response.json();
 
                     if (!data.success) {
                         throw new Error(data.message || "Email generation transaction pipeline dropped processing.");
