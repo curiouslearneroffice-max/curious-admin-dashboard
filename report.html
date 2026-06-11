@@ -1,5 +1,3 @@
-<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -236,9 +234,6 @@
             .ai-dashboard-contents { flex-direction: column-reverse; align-items: stretch; gap: 30px; }
             .ai-telemetry-right { width: 100%; }
         }
-
-        /* 🌟 FIXED ISOLATED IN-LINE PDF PRINT LAYOUT TARGET WRAPPER */
-        #pristinePdfGenerationWrapper { display: none; background: #ffffff; padding: 10px; width: 100%; box-sizing: border-box; }
     </style>
 </head>
 <body>
@@ -415,8 +410,6 @@
 
     </div>
 </section>
-
-<div id="pristinePdfGenerationWrapper" style="position: fixed; left: 0; top: 0; width: 1020px; background: #ffffff; visibility: visible; opacity: 1; z-index: -999999; pointer-events: none;"></div>
 
 <script>
     document.addEventListener('DOMContentLoaded', () => {
@@ -600,7 +593,7 @@
                     indexAxis: 'y',
                     responsive: true,
                     maintainAspectRatio: false,
-                    animation: false, // Freeze animations to guarantee direct extraction
+                    animation: false,
                     plugins: { legend: { display: false } },
                     scales: {
                         x: { min: 0, max: 100, ticks: { callback: value => value + '%' } },
@@ -639,257 +632,102 @@
                 localStorage.setItem(`scratchpad_notes_${assessmentIdToken}`, e.target.value);
             });
 
-            // --- 🔒 CORE PDF EMAIL DISTRIBUTION HANDLER ---
+            // --- 🔒 NEW INTEGRATED NATIVE EMBEDDED HTML EMAIL GENERATION MATRIX ---
             document.getElementById('getReportBtnTrigger').addEventListener('click', async function () {
                 try {
                     this.disabled = true;
-                    this.innerHTML = '<i class="fa-solid fa-spinner fa-spin" style="margin-right:8px;"></i>Generating PDF...';
+                    this.innerHTML = '<i class="fa-solid fa-spinner fa-spin" style="margin-right:8px;"></i>Processing Request...';
 
-                    // 🛠️ FIX #2: APPLIED TIME EXTENSION PAINT DELAY BUFFER
-                    await new Promise(resolve => setTimeout(resolve, 1000));
+                    // 1. EXTRACT LIVE SCORE METRICS AND STRIP ANIMATIONS
+                    const overallScore = document.getElementById('summaryOverallScore').innerText;
+                    const totalCorrect = document.getElementById('summaryTotalCorrect').innerText;
+                    const gradeGroup = document.getElementById('summaryGradeGroup').innerText;
+                    const readinessStage = document.getElementById('summaryReadiness').innerText;
 
-                    let imageSnapshotURI = '';
-                    if (
-                        topicChartInstance &&
-                        topicChartInstance.canvas &&
-                        topicChartInstance.canvas.width > 0 &&
-                        topicChartInstance.canvas.height > 0
-                    ) {
-                        imageSnapshotURI = topicChartInstance.toBase64Image();
+                    // Extract static section percentage metrics text values directly
+                    const sec1Percent = document.getElementById('sec1Val').innerText;
+                    const sec2Percent = document.getElementById('sec2Val').innerText;
+                    const sec3Percent = document.getElementById('sec3Val').innerText;
+
+                    // Extract exact metric integers directly out of Chart.js instance memory model arrays
+                    let mathScoreNum = 0, analyticalScoreNum = 0, logicalScoreNum = 0;
+                    if (topicChartInstance && topicChartInstance.data.datasets[0]) {
+                        const scoreDataArray = topicChartInstance.data.datasets[0].data;
+                        mathScoreNum = scoreDataArray[0] || 0;
+                        analyticalScoreNum = scoreDataArray[1] || 0;
+                        logicalScoreNum = scoreDataArray[2] || 0;
                     }
 
-                    window.scrollTo(0, 0);
-                    await document.fonts.ready;
+                    // 2. SYNCHRONIZE DYNAMIC COGNITIVE CLONE DOM FOR ISOLATION SANITIZATION
+                    const rawReportShell = document.getElementById('reportDocumentWrapper');
+                    const reportClone = rawReportShell.cloneNode(true);
 
-                    // Fetch reference target to populate structural layouts cleanly inside the secure sandbox
-                    const sandboxStagingContainer = document.getElementById('pristinePdfGenerationWrapper');
-                    sandboxStagingContainer.innerHTML = ''; 
+                    // 3. EXCRETE ALL ACTIONS CTAS, BUTTONS, ADMIN NOTES AND UNSTABLE EMBEDDED CANVASES
+                    reportClone.querySelector('.back-nav-row')?.remove();
+                    reportClone.querySelector('.admin-notes-card')?.remove();
+                    reportClone.querySelector('.actions-matrix-panel')?.remove();
+                    reportClone.querySelector('.ai-matrix-canvas')?.remove();
+                    reportClone.querySelector('.data-grid-overlay')?.remove();
+                    reportClone.querySelectorAll('button').forEach(btn => btn.remove());
+                    reportClone.querySelectorAll('.fa-solid, .fa-brands').forEach(icon => icon.remove());
 
-                    // 🛠️ FIX #3: BUILD CLEAN DATA WRAPPER WITH EMBEDDED PAGE BREAK PREVENTION RULES AND STRIPPED FONTAWESOME ELEMENTS
-                    sandboxStagingContainer.innerHTML = `
-                        <div style="font-family:'Outfit', Arial, sans-serif; color:#020617; background:#ffffff; padding:35px; box-sizing:border-box; width:100%;">
-                            
-                            <div style="background:linear-gradient(135deg, #020617 0%, #0c4a6e 100%); padding:35px; border-bottom:4px solid #14b8a6; display:flex; justify-content:space-between; align-items:center; border-radius:16px 16px 0 0; box-sizing: border-box;">
-                                <div style="display:flex; align-items:center;">
-                                    <div style="background:#14b8a6; color:#ffffff; font-weight:900; font-size:1.6rem; width:48px; height:48px; border-radius:12px; display:flex; align-items:center; justify-content:center; margin-right:14px;">C</div>
-                                    <div style="font-weight:700; color:#ffffff; font-size:1.1rem; line-height:1.2; text-transform:uppercase; letter-spacing:0.5px;">Curious Learner<br><span style="color:#14b8a6;">Academy</span></div>
-                                </div>
-                                <div style="text-align:right; color:#ffffff;">
-                                    <h1 style="font-size:1.6rem; margin:0; font-weight:900; text-transform:uppercase; letter-spacing:-0.5px;">Diagnostic Report</h1>
-                                    <p style="font-size:0.8rem; margin:4px 0 0; color:#94a3b8; font-weight:600;">ID: ${assessmentIdToken} | Date: ${document.getElementById('docProcessedDate').innerText}</p>
-                                </div>
+                    // 4. TRANSPOSE DYNAMIC CANVAS GRAPHS INTO CLEAN EMBEDDABLE INLINE HTML SEGMENTS FOR EMAIL COMPLIANCE
+                    const chartShellBox = reportClone.querySelector('.chart-canvas-shell');
+                    if (chartShellBox) {
+                        chartShellBox.innerHTML = `
+                            <div style="font-family:'Outfit', Arial, sans-serif; padding:15px; background:#f8fafc; border-radius:12px; border:1px solid #e2e8f0; width:100%; box-sizing:border-box;">
+                                <table width="100%" cellspacing="0" cellpadding="0" border="0" style="font-size:0.9rem; color:#334155;">
+                                    <tr>
+                                        <td width="30%" style="padding:6px 0; font-weight:bold;">Mathematics:</td>
+                                        <td width="55%" style="padding:6px 0;"><div style="background:#e2e8f0; border-radius:4px; height:12px; width:100%; overflow:hidden;"><div style="background:#f97316; height:100%; width:${mathScoreNum}%;"></div></div></td>
+                                        <td width="15%" style="padding:6px 0; font-weight:bold; text-align:right;">${mathScoreNum}%</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding:6px 0; font-weight:bold;">Analytical:</td>
+                                        <td style="padding:6px 0;"><div style="background:#e2e8f0; border-radius:4px; height:12px; width:100%; overflow:hidden;"><div style="background:#14b8a6; height:100%; width:${analyticalScoreNum}%;"></div></div></td>
+                                        <td style="padding:6px 0; font-weight:bold; text-align:right;">${analyticalScoreNum}%</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding:6px 0; font-weight:bold;">Logical:</td>
+                                        <td style="padding:6px 0;"><div style="background:#e2e8f0; border-radius:4px; height:12px; width:100%; overflow:hidden;"><div style="background:#0c4a6e; height:100%; width:${logicalScoreNum}%;"></div></div></td>
+                                        <td style="padding:6px 0; font-weight:bold; text-align:right;">${logicalScoreNum}%</td>
+                                    </tr>
+                                </table>
                             </div>
+                        `;
+                    }
 
-                            <div style="margin-top:30px; display:flex; gap:25px; width:100%; box-sizing:border-box; page-break-inside:avoid; break-inside:avoid;">
-                                <div style="flex:1; background:#f8fafc; border:1px solid #e2e8f0; border-radius:18px; padding:22px; box-sizing:border-box;">
-                                    <h3 style="margin:0 0 14px; font-size:0.95rem; font-weight:900; text-transform:uppercase; color:#0c4a6e; border-bottom:2px solid #e2e8f0; padding-bottom:6px;">Student Details</h3>
-                                    <p style="margin:8px 0; font-size:0.95rem; color:#334155;"><strong>Student Name:</strong> ${document.getElementById('studentName').innerText}</p>
-                                    <p style="margin:8px 0; font-size:0.95rem; color:#334155;"><strong>Year Level:</strong> ${document.getElementById('studentYear').innerText}</p>
-                                    <p style="margin:8px 0; font-size:0.95rem; color:#334155;"><strong>School Name:</strong> ${document.getElementById('studentSchool').innerText}</p>
-                                    <p style="margin:8px 0; font-size:0.95rem; color:#334155;"><strong>Assessment Stream:</strong> ${document.getElementById('studentStream').innerText}</p>
-                                </div>
-                                <div style="flex:1; background:#f8fafc; border:1px solid #e2e8f0; border-radius:18px; padding:22px; box-sizing:border-box;">
-                                    <h3 style="margin:0 0 14px; font-size:0.95rem; font-weight:900; text-transform:uppercase; color:#0c4a6e; border-bottom:2px solid #e2e8f0; padding-bottom:6px;">Parent Details</h3>
-                                    <p style="margin:8px 0; font-size:0.95rem; color:#334155;"><strong>Parent Name:</strong> ${document.getElementById('parentName').innerText}</p>
-                                    <p style="margin:8px 0; font-size:0.95rem; color:#334155;"><strong>Parent Email:</strong> ${document.getElementById('parentEmail').innerText}</p>
-                                    <p style="margin:8px 0; font-size:0.95rem; color:#334155;"><strong>Parent Phone Number:</strong> ${document.getElementById('parentPhone').innerText}</p>
-                                </div>
-                            </div>
+                    // 5. EXTRACT CLEAN STRING MARKUP BUFFER
+                    const reportHtml = reportClone.innerHTML;
 
-                            <div style="margin-top:30px; display:flex; gap:20px; width:100%; box-sizing:border-box; page-break-inside:avoid; break-inside:avoid;">
-                                <div style="flex:1; background:#ffffff; border:1px solid #e2e8f0; border-radius:14px; padding:18px; text-align:center;">
-                                    <h4 style="margin:0 0 4px; font-size:0.75rem; color:#94a3b8; text-transform:uppercase; font-weight:700; letter-spacing:0.5px;">Overall Score</h4>
-                                    <p style="margin:0; font-size:1.4rem; font-weight:900; color:#020617;">${document.getElementById('summaryOverallScore').innerText}</p>
-                                </div>
-                                <div style="flex:1; background:#ffffff; border:1px solid #e2e8f0; border-radius:14px; padding:18px; text-align:center;">
-                                    <h4 style="margin:0 0 4px; font-size:0.75rem; color:#94a3b8; text-transform:uppercase; font-weight:700; letter-spacing:0.5px;">Total Correct</h4>
-                                    <p style="margin:0; font-size:1.4rem; font-weight:900; color:#020617;">${document.getElementById('summaryTotalCorrect').innerText}</p>
-                                </div>
-                                <div style="flex:1; background:#ffffff; border:1px solid #e2e8f0; border-radius:14px; padding:18px; text-align:center;">
-                                    <h4 style="margin:0 0 4px; font-size:0.75rem; color:#94a3b8; text-transform:uppercase; font-weight:700; letter-spacing:0.5px;">Grade Group</h4>
-                                    <p style="margin:0; font-size:1.4rem; font-weight:900; color:#020617;">${document.getElementById('summaryGradeGroup').innerText}</p>
-                                </div>
-                                <div style="flex:1; background:#ffffff; border:1px solid #e2e8f0; border-radius:14px; padding:18px; text-align:center;">
-                                    <h4 style="margin:0 0 4px; font-size:0.75rem; color:#94a3b8; text-transform:uppercase; font-weight:700; letter-spacing:0.5px;">Learning Readiness</h4>
-                                    <p style="margin:0; font-size:0.95rem; font-weight:900; color:#020617; line-height:1.2;">${document.getElementById('summaryReadiness').innerText}</p>
-                                </div>
-                            </div>
-
-                            <div style="margin-top:30px; display:flex; gap:25px; width:100%; box-sizing:border-box; page-break-inside:avoid; break-inside:avoid;">
-                                <div style="flex:1; background:#ffffff; border:1px solid #e2e8f0; border-radius:18px; padding:22px; box-sizing:border-box;">
-                                    <h3 style="margin:0 0 18px; font-size:0.95rem; text-transform:uppercase; color:#0c4a6e; font-weight:900;">Section Scores</h3>
-                                    <p style="margin:0 0 6px; font-size:0.85rem; font-weight:600; display:flex; justify-content:space-between; color:#334155;"><span>Foundational (Section 1)</span><span>${document.getElementById('sec1Val').innerText}</span></p>
-                                    <div style="background:#f1f5f9; height:10px; border-radius:5px; margin-bottom:18px; overflow:hidden;"><div style="background:linear-gradient(90deg, #14b8a6, #06b6d4); height:100%; width:${document.getElementById('sec1Val').innerText};"></div></div>
-                                    
-                                    <p style="margin:0 0 6px; font-size:0.85rem; font-weight:600; display:flex; justify-content:space-between; color:#334155;"><span>Above Average (Section 2)</span><span>${document.getElementById('sec2Val').innerText}</span></p>
-                                    <div style="background:#f1f5f9; height:10px; border-radius:5px; margin-bottom:18px; overflow:hidden;"><div style="background:linear-gradient(90deg, #14b8a6, #06b6d4); height:100%; width:${document.getElementById('sec2Val').innerText};"></div></div>
-                                    
-                                    <p style="margin:0 0 6px; font-size:0.85rem; font-weight:600; display:flex; justify-content:space-between; color:#334155;"><span>Exceptional (Section 3)</span><span>${document.getElementById('sec3Val').innerText}</span></p>
-                                    <div style="background:#f1f5f9; height:10px; border-radius:5px; overflow:hidden;"><div style="background:linear-gradient(90deg, #14b8a6, #06b6d4); height:100%; width:${document.getElementById('sec3Val').innerText};"></div></div>
-                                </div>
-                                <div style="flex:1; background:#ffffff; border:1px solid #e2e8f0; border-radius:18px; padding:22px; display:flex; flex-direction:column; justify-content:center; box-sizing:border-box;">
-                                    <h3 style="margin:0 0 18px; font-size:0.95rem; text-transform:uppercase; color:#0c4a6e; font-weight:900;">Topic Performance</h3>
-                                    <div style="width:100%; text-align:center;">
-                                        ${imageSnapshotURI ? `<img src="${imageSnapshotURI}" style="width:100%; height:auto; max-height:150px; display:inline-block;" alt="Topic Performance Chart">` : `<div style="padding:20px; text-align:center; color:#64748b; font-weight:600; background:#f8fafc; border-radius:8px;">Chart calculation frame pending</div>`}
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div style="margin-top:30px; background:linear-gradient(180deg, #f0fdfa 0%, #ffffff 100%); border:1px solid #ccfbf1; border-radius:24px; padding:30px; box-sizing:border-box; width:100%; page-break-inside:avoid; break-inside:avoid;">
-                                <h4 style="margin:0 0 4px; font-size:0.75rem; text-transform:uppercase; color:#0f766e; letter-spacing:1.5px; font-weight:900;">AI Diagnostic Analysis</h4>
-                                <p style="margin:2px 0 12px; font-size:1.15rem; font-weight:900; color:#020617;">Learning Readiness: ${document.getElementById('aiReadinessLabel').innerText}</p>
-                                <p style="margin:0 0 24px; font-size:0.95rem; line-height:1.6; color:#334155;">${document.getElementById('aiDiagnosticText').innerText}</p>
-                                
-                                <h4 style="margin:0 0 12px; font-size:0.8rem; text-transform:uppercase; color:#020617; font-weight:700; letter-spacing:0.5px;">Recommended Next Steps</h4>
-                                <ul style="margin:0; padding-left:18px; font-size:0.95rem; color:#334155; line-height:1.6;">
-                                    ${document.getElementById('recommendationsContainer').innerHTML}
-                                </ul>
-                            </div>
-
-                            <div style="margin-top:30px; background:#ffffff; border:1px solid #e2e8f0; border-radius:24px; padding:30px; box-sizing:border-box; width:100%; page-break-inside:avoid; break-inside:avoid;">
-                                <h3 style="margin:0 0 18px; font-size:0.95rem; text-transform:uppercase; color:#0c4a6e; border-bottom:1px solid #f1f5f9; padding-bottom:8px; font-weight:900;">Question Responses</h3>
-                                <div style="display:grid; grid-template-columns:repeat(5, 1fr); gap:12px; width:100%;">
-                                    ${document.getElementById('responsesSheetGrid').innerHTML}
-                                </div>
-                            </div>
-
-                        </div>
-                    `;
-
-                    // Remove font-awesome decoration bullet wrappers inside final output
-                    sandboxStagingContainer.querySelectorAll('.bullets-list-cluster li, .futuristic-bullets-cluster li').forEach(bulletNode => {
-                        bulletNode.style.padding = '4px 0';
-                        bulletNode.style.background = 'none';
-                        bulletNode.style.border = 'none';
-                        bulletNode.style.color = '#334155';
-                    });
-
-                    // 🛠️ FIX #5: LOG EXPLICIT DATA FOOTPRINT AND BOUNDS TO COG MONITORING INTERFACES BEFORE RENDERING
-                    console.log('Sandbox HTML length:', sandboxStagingContainer.innerHTML.length);
-                    console.log('Staging Layout Dimensions Metric:', sandboxStagingContainer.offsetWidth, sandboxStagingContainer.offsetHeight);
-
-                    // Dual RAF callback loop chain forces browser to draw frames synchronously before canvas execution
-                    await new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve)));
-
-                    // 4. DEPLOY HTML2PDF DISPATCH AGAINST STATIC COMPILING WRAPPER
-                    const binaryReportBlob = await html2pdf()
-                        .from(sandboxStagingContainer)
-                        .set({
-                            margin: [10, 10, 10, 10],
-                            filename: `Diagnostic_Report_${resolvedStudentName.replace(/\s+/g, '_')}.pdf`,
-                            image: { type: 'jpeg', quality: 0.98 },
-                            html2canvas: { scale: 2, useCORS: false, logging: false, letterRendering: true },
-                            jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
-                        })
-                        .outputPdf('blob');
-
-                    // Clean the sandbox completely to allow additional triggers
-                    sandboxStagingContainer.innerHTML = '';
-
-                    this.innerHTML = '<i class="fa-solid fa-cloud-arrow-up fa-spin" style="margin-right:8px;"></i>Uploading PDF...';
-
-                    const networkFormData = new FormData();
-                    networkFormData.append('pdf', binaryReportBlob, 'report.pdf');
-                    networkFormData.append('studentName', document.getElementById('studentName').innerText);
-                    networkFormData.append('parentName', document.getElementById('parentName').innerText);
-                    networkFormData.append('parentEmail', document.getElementById('parentEmail').innerText);
-
-                    // 🛠️ FIX #4: INTEGRATED BRAND IDENTITY EMBLAZON SIGNATURE TEXT-BLOCK CARD (CORS FREE)
-                    const structuredSignatureMarkup = `
-                        <div>
-                          <div><br></div>
-                          <table cellpadding="0" cellspacing="0" border="0" style="max-width:720px;width:100%;font-family:'Segoe UI',Arial,sans-serif;border:1px solid #e6e6e6;border-radius:12px;background:#ffffff;">
-                            <tbody>
-                              <tr>
-                                <td style="padding:20px;">
-                                  <table width="100%" cellpadding="0" cellspacing="0" border="0">
-                                    <tbody>
-                                      <tr>
-                                        <td width="180" valign="top">
-                                          <div style="font-size:1.4rem; font-weight:900; color:#0077D9; letter-spacing:-0.5px; font-family:'Segoe UI',Arial,sans-serif;">Curious Learner<br><span style="color:#F58220; font-size:1rem;">Academy</span></div>
-                                          <br>
-                                        </td>
-                                        <td valign="top">
-                                          <table width="100%" cellpadding="0" cellspacing="0" border="0">
-                                            <tbody>
-                                              <tr>
-                                                <td>
-                                                  <div style="font-size:28px;font-weight:700;color:#0077D9;line-height:34px;">Nitasha Rajvanshi</div>
-                                                  <div style="font-size:15px;font-weight:600;color:#F58220;padding-top:4px;">Founder &amp; Mentor</div>
-                                                </td>
-                                                <td width="120" align="right" valign="top">
-                                                  <div style="font-size:24px; color:#EEF5FD; line-height:30px; letter-spacing:4px; font-weight:700;">
-                                                    <div>&pi; &sum; &radic;</div>
-                                                    <div>x&sup2; &128214;</div>
-                                                  </div>
-                                                </td>
-                                              </tr>
-                                            </tbody>
-                                          </table>
-                                          <div style="height:12px;"><br></div>
-                                          <div style="font-size:14px;color:#444444;line-height:28px;">
-                                            <div>&#128231; <a href="mailto:support@curiouslearneracademy.com" style="color:#0077D9;text-decoration:none;">support@curiouslearneracademy.com</a></div>
-                                            <div>&#128172; <a href="https://wa.me/919251230015" style="color:#0077D9;text-decoration:none;">+91 92512 30015</a></div>
-                                            <div>&#127310; <a href="https://curiouslearneracademy.com/" style="color:#0077D9;text-decoration:none;">curiouslearneracademy.com</a></div>
-                                          </div>
-                                          <div style="padding-top:16px;">
-                                            <a href="https://curiouslearneracademy.com/" style="background:#0077D9; color:#ffffff; text-decoration:none; padding:11px 18px; border-radius:6px; display:inline-block; font-size:14px; font-weight:600; margin-right:8px;">Visit Website</a>
-                                            <a href="https://wa.me/919251230015" style="background:#F58220; color:#ffffff; text-decoration:none; padding:11px 18px; border-radius:6px; display:inline-block; font-size:14px; font-weight:600;">WhatsApp Us</a>
-                                          </div>
-                                        </td>
-                                      </tr>
-                                    </tbody>
-                                  </table>
-                                </td>
-                              </tr>
-                              <tr>
-                                <td align="center" style="font-size:18px; color:#F3F8FE; letter-spacing:18px; padding:4px 0 12px 0;">&pi; &sum; &radic; x&sup2; &128214; &127891; &128214;</td>
-                              </tr>
-                              <tr>
-                                <td style="padding:0 20px 20px 20px;">
-                                  <table width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#0077D9;border-radius:10px;">
-                                    <tbody>
-                                      <tr>
-                                        <td style="padding:24px;text-align:center;color:#ffffff;">
-                                          <div style="font-size:20px; font-weight:700; line-height:30px;">Helping students discover their strengths through personalised diagnostic assessments.</div>
-                                          <div style="font-size:13px; line-height:22px; margin-top:10px; opacity:0.95;">Identify learning strengths, uncover skill gaps, and create a personalised path to academic success.</div>
-                                          <div style="margin-top:18px;">
-                                            <a href="https://curiouslearneracademy.com/newzealand/diagnostic-assessment/" style="background:#F58220; color:#ffffff; text-decoration:none; padding:12px 24px; border-radius:6px; display:inline-block; font-size:14px; font-weight:700;">Book FREE Assessment</a>
-                                          </div>
-                                        </td>
-                                      </tr>
-                                    </tbody>
-                                  </table>
-                                </td>
-                              </tr>
-                              <tr>
-                                <td align="center" style="padding:0 0 14px 0; font-size:13px; color:#E8F1FC; letter-spacing:10px;">&pi; &bull; &sum; &bull; &radic; &bull; x&sup2; &bull; &128214; &bull; &127891;</td>
-                              </tr>
-                            </tbody>
-                          </table>
-                        </div>
-                    `;
-                    networkFormData.append('emailSignatureHtml', structuredSignatureMarkup);
+                    // 6. ASSEMBLE MULTI-PART SECURE BACKEND JSON TRANSMISSION STREAM PAYLOAD
+                    const requestBodyPayload = {
+                        parentEmail: document.getElementById('parentEmail').innerText.trim(),
+                        parentName: document.getElementById('parentName').innerText.trim(),
+                        studentName: document.getElementById('studentName').innerText.trim(),
+                        reportHtml: reportHtml
+                    };
 
                     const mailResponse = await fetch(`${CORE_API_URL}/api/admin/send-report`, {
                         method: 'POST',
-                        body: networkFormData
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(requestBodyPayload)
                     });
 
-                    const mailResult = await mailResponse.json();
+                    const data = await mailResponse.json();
 
-                    if (!mailResult.success) {
-                        throw new Error(mailResult.message || "Email distribution pipeline dropped processing.");
+                    if (!data.success) {
+                        throw new Error(data.message || "Email generation transaction pipeline dropped processing.");
                     }
 
-                    // Button re-enabled state restored on successful execution pass code
+                    // Restore button action state loops cleanly upon success pass validation
                     this.removeAttribute('disabled');
                     this.innerHTML = 'REPORT SENT';
                     document.getElementById('deliveryNoticeBox').style.display = 'block';
-                    alert('PDF report compiled and emailed successfully.');
+                    alert(`Hybrid Engine Complete: Pristine responsive HTML evaluation document dispatched successfully to the parent inbox.`);
 
                 } catch (error) {
-                    console.error("PDF Transmit Exception logs:", error);
+                    console.error("Hybrid Document Ingestion Fault Exception logs:", error);
                     alert(`Transmission Error: ${error.message}`);
                     this.disabled = false;
                     this.innerHTML = 'Request Report';
