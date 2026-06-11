@@ -47,37 +47,31 @@
         }
         .back-dashboard-btn:hover { transform: translateX(-4px); color: var(--cl-teal); }
 
-        /* 🌟 REPORT BRANDING HEADER: Refactored layout flow to support the top-right logo position */
+        /* --- 🌟 BRANDING HEADER FLEX MATRIX LAYOUT --- */
         .report-branding-header {
             background: linear-gradient(135deg, #020617 0%, #0c4a6e 100%);
             padding: 40px 45px; border-bottom: 4px solid var(--cl-teal);
             display: flex; justify-content: space-between; align-items: center; position: relative;
         }
         
+        /* Moved official brand image logo completely to top-left corner slot */
         .header-logo-container { display: flex; align-items: center; }
-        .brand-text-badge {
-            background: var(--cl-teal); color: var(--cl-white); font-weight: 900;
-            font-size: 1.5rem; width: 50px; height: 50px; border-radius: 12px;
-            display: flex; align-items: center; justify-content: center;
-            box-shadow: 0 4px 12px rgba(20, 184, 166, 0.3); margin-right: 12px;
+        .header-brand-logo { 
+            height: 60px; width: auto; object-fit: contain; 
+            border-radius: 12px; background: #ffffff; padding: 4px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
         }
-        .brand-text-meta-title { font-weight: 700; color: var(--cl-white); font-size: 1.1rem; line-height: 1.2; text-transform: uppercase; letter-spacing: 0.5px; text-align: left; }
 
-        /* 🌟 TOP-RIGHT ALIGNED BRAND LOGO WITH ROUNDED CORNERS UNTAINED BY CANVAS CHECKS */
-        .header-right-meta-text { display: flex; align-items: center; gap: 20px; text-align: right; }
-        .meta-text-block h1 {
+        /* Shifted metadata textual summaries to right-hand side of header */
+        .header-right-meta-text { text-align: right; }
+        .header-right-meta-text h1 {
             color: var(--cl-white); font-size: 1.8rem; font-weight: 900; margin: 0 0 4px 0;
             text-transform: uppercase; letter-spacing: -0.5px;
         }
-        .meta-text-block h1 span { color: var(--cl-teal); }
-        .meta-text-block p { color: #94a3b8; font-size: 0.9rem; font-weight: 600; margin: 0; text-transform: uppercase; letter-spacing: 1px; }
-        
-        .header-embedded-logo-img {
-            height: 60px; width: auto; object-fit: contain;
-            border-radius: 14px; background: #ffffff; padding: 4px;
-            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25);
-        }
+        .header-right-meta-text h1 span { color: var(--cl-teal); }
+        .header-right-meta-text p { color: #94a3b8; font-size: 0.9rem; font-weight: 600; margin: 0; text-transform: uppercase; letter-spacing: 1px; }
 
+        /* --- CARD BLOCK ARCHITECTURE --- */
         .report-body-padding { padding: 45px; }
         .split-profile-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; margin-bottom: 40px; }
 
@@ -229,6 +223,16 @@
 
         .async-loading-curtain { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 120px 20px; }
         .async-loading-curtain i { font-size: 3rem; color: var(--cl-teal); margin-bottom: 20px; }
+        
+        @media (max-width: 991px) {
+            .split-profile-grid, .scores-distribution-workspace { grid-template-columns: 1fr; }
+            .summary-ribbon-row { grid-template-columns: repeat(2, 1fr); }
+            .actions-matrix-panel { grid-template-columns: 1fr; }
+            .responses-matrix-box { grid-template-columns: repeat(3, 1fr); }
+            .report-branding-header { flex-direction: column-reverse; gap: 20px; }
+            .header-right-meta-text { text-align: left; display: flex; flex-direction: column-reverse; align-items: flex-start; }
+            .report-body-padding { padding: 24px; }
+        }
     </style>
 </head>
 <body>
@@ -249,12 +253,11 @@
         </div>
 
         <header class="report-branding-header">
+            <!-- 🌟 LOGO PLACED AT THE LEFT HAND TOP CORNER -->
             <div class="header-logo-container">
-                <div class="brand-text-badge">C</div>
-                <div class="brand-text-meta-title">Curious Learner<br><span style="color:var(--cl-teal);">Academy</span></div>
+                <img class="header-brand-logo" src="https://curiouslearneracademy.com/newzealand/wp-content/uploads/sites/3/2026/01/Logo-Color-Updated.png" alt="Curious Learner Academy Corporate Logo">
             </div>
             
-            <!-- 🌟 RE-ALIGNED TOP-RIGHT USER INTERFACE HOUSING SECTION FOR DIRECT DESKTOP RENDERING -->
             <div class="header-right-meta-text">
                 <div class="meta-text-block">
                     <h1>Curious Learner <span>Academy</span></h1>
@@ -264,7 +267,6 @@
                         Ingest: <span id="docProcessedDate" style="font-family: monospace; font-weight: bold; color: #fff;">---</span>
                     </div>
                 </div>
-                <img class="header-embedded-logo-img" src="https://curiouslearneracademy.com/newzealand/wp-content/uploads/sites/3/2026/01/Logo-Color-Updated.png" alt="Curious Learner Academy Rounded Branding Logo">
             </div>
         </header>
 
@@ -632,19 +634,16 @@
                 localStorage.setItem(`scratchpad_notes_${assessmentIdToken}`, e.target.value);
             });
 
-            // --- 🔒 DIRECT HTML EMAIL EXTRACTION & INJECTION PROCESSING MATRIX ---
             document.getElementById('getReportBtnTrigger').addEventListener('click', async function () {
                 try {
                     this.disabled = true;
                     this.innerHTML = '<i class="fa-solid fa-spinner fa-spin" style="margin-right:8px;"></i>Processing Email Body...';
 
-                    // Hold engine processing loop momentarily to ensure visual layout stabilization passes
                     await new Promise(resolve => setTimeout(resolve, 800));
 
-                    // Deep-clone wrapper tree logic footprint context bounds safely
                     const reportClone = document.getElementById('reportDocumentWrapper').cloneNode(true);
 
-                    // 🌟 SURGICAL STEP: Convert every running active canvas object to static images inside the clone wrapper
+                    // Convert active Chart.js and Matrix canvases into cross-client standalone images
                     reportClone.querySelectorAll('canvas').forEach(canvas => {
                         try {
                             const imgNode = document.createElement('img');
@@ -654,23 +653,20 @@
                             imgNode.style.display = 'block';
                             canvas.replaceWith(imgNode);
                         } catch(err) {
-                            console.warn("Canvas conversion skipped trace:", err);
+                            console.warn("Canvas rasterization conversion skipped:", err);
                         }
                     });
 
-                    // 🌟 SURGICAL CLEANING: Strip all admin-only interface panels directly out of cloned footprint
+                    // Remove all dashboard system actions buttons and scratchpads before encoding outer strings
                     reportClone.querySelector('.back-nav-row')?.remove();
                     reportClone.querySelector('.admin-notes-card')?.remove();
                     reportClone.querySelector('.actions-matrix-panel')?.remove();
                     
-                    // Filter leftover layout buttons and decoration tags from final output
                     reportClone.querySelectorAll('button').forEach(btn => btn.remove());
                     reportClone.querySelectorAll('.fa-solid, .fa-brands').forEach(icon => icon.remove());
 
-                    // Compile final completely safe outer HTML payload string
                     const reportHtml = reportClone.innerHTML;
 
-                    // Execute JSON payload dispatch directly onto active gateway router endpoints
                     const response = await fetch(`${CORE_API_URL}/api/admin/send-report`, {
                         method: 'POST',
                         headers: {
