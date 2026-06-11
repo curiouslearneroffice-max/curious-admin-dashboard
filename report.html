@@ -667,11 +667,11 @@ document.getElementById('getReportBtnTrigger').addEventListener(
             this.disabled = true;
 
             const response = await fetch(
-                `https://diagnostic-backend-jmsu.onrender.com/api/admin/send-report/${student._id}`,
-                {
-                    method: 'POST'
-                }
-            );
+                `https://diagnostic-backend-jmsu.onrender.com/api/admin/send-report/${window.currentStudentId}`,
+    {
+        method: 'POST'
+    }
+);
 
             const data = await response.json();
 
