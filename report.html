@@ -668,7 +668,15 @@ async function () {
 
         this.disabled = true;
         this.innerHTML = 'Generating PDF...';
+const chartCanvas = document.querySelector('canvas');
 
+if (chartCanvas) {
+    chartCanvas.style.display = 'none';
+}
+        await new Promise(resolve => setTimeout(resolve, 2000));
+
+const reportElement =
+    document.getElementById('reportDocumentWrapper');
         const reportElement =
             document.getElementById(
                 'reportDocumentWrapper'
