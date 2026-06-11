@@ -48,7 +48,7 @@
         
         .header-logo-container { display: flex; align-items: center; }
         
-        /* 🌟 BRAND LOGO ENLARGED & INSTALLED WITH ROUNDED BORDERS AND GLOW ACCENTS */
+        /* 🌟 ENLARGED TOP-LEFT LOGO WITH ROUNDED CORNERS */
         .header-brand-logo { 
             height: 75px; width: auto; object-fit: contain; 
             border-radius: 16px; background: #ffffff; padding: 6px;
@@ -158,7 +158,7 @@
         .response-item-node.correct-state { background-color: #bbf7d0; border-color: #86efac; }
         .response-item-node.incorrect-state { background-color: #fecaca; border-color: #fca5a5; }
 
-        /* --- 🌟 HIGH CONVERSION ACADEMIC CTA PORTAL DASHBOARD --- */
+        /* --- HIGH CONVERSION CTA PANEL FOR PARENTS --- */
         .public-conversion-panel {
             background: var(--cl-slate-50); border-top: 2px solid var(--cl-slate-100);
             padding: 40px 45px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px;
@@ -328,16 +328,16 @@
 
         <footer class="public-conversion-panel">
             <a href="https://curiouslearneracademy.com/newzealand/curriculum/" target="_blank" class="cta-action-card-btn curriculum-track">
-                <i class="fa-solid fa-graduation-cap"></i> Explore Curriculum
+                Explore Curriculum
             </a>
             <a href="https://curiouslearneracademy.com/newzealand/enrollment/" target="_blank" class="cta-action-card-btn enroll-track">
-                <i class="fa-solid fa-sparkles"></i> Enroll Now
+                Enroll Now
             </a>
             <a href="https://wa.me/919251230015" target="_blank" class="cta-action-card-btn mentor-track">
-                <i class="fa-brands fa-whatsapp"></i> Connect With Mentor
+                Connect With Mentor
             </a>
             <button type="button" class="cta-action-card-btn print-floating-trigger" id="printPdfBtn">
-                <i class="fa-solid fa-print"></i> Print / Save Report Summary
+                Print / Save Report Summary
             </button>
         </footer>
     </div>
@@ -345,13 +345,12 @@
 
 <script>
     document.addEventListener('DOMContentLoaded', () => {
-        /* 🌟 PUBLIC DECOUPLING SECURITY STEP: Direct public network queries without token check rejections */
         const CORE_API_URL = "https://diagnostic-backend-jmsu.onrender.com";
         const activeUrlParams = new URLSearchParams(window.location.search);
         const assessmentIdToken = activeUrlParams.get('id');
 
         if (!assessmentIdToken) {
-            alert("No evaluation link payload detected. Rerouting to general directory.");
+            alert("No evaluation link payload detected.");
             window.location.href = "https://curiouslearneracademy.com/";
             return;
         }
@@ -372,21 +371,17 @@
 
         async function loadReportDocumentBlueprint() {
             try {
-                /* 🌟 PUBLIC INGEST TRANSITION: Direct public endpoint parsing without admin request headers constraints */
-                const response = await fetch(`${CORE_API_URL}/api/admin/report/${assessmentIdToken}`);
-                const payload = await response.json();
-                if (!payload.success) throw new Error("Data block corrupted.");
+                // 🌟 FIX #7: Updated direct, open-access public endpoint routing sequence
+                const response = await fetch(`${CORE_API_URL}/api/report/${assessmentIdToken}`);
+                const report = await response.json();
 
-                const report = payload.report;
-                const student = report.studentId;
-
-                document.getElementById('studentName').innerText = `${student.firstName} ${student.lastName}`;
-                document.getElementById('studentYear').innerText = student.yearLevel;
-                document.getElementById('studentSchool').innerText = student.schoolName;
-                document.getElementById('studentStream').innerText = student.assessingFor;
-                document.getElementById('parentName').innerText = student.parentName;
-                document.getElementById('parentEmail').innerText = student.parentEmail;
-                document.getElementById('parentPhone').innerText = student.parentPhone;
+                document.getElementById('studentName').innerText = `${report.studentId.firstName} ${report.studentId.lastName}`;
+                document.getElementById('studentYear').innerText = report.studentId.yearLevel;
+                document.getElementById('studentSchool').innerText = report.studentId.schoolName;
+                document.getElementById('studentStream').innerText = report.studentId.assessingFor;
+                document.getElementById('parentName').innerText = report.studentId.parentName;
+                document.getElementById('parentEmail').innerText = report.studentId.parentEmail;
+                document.getElementById('parentPhone').innerText = report.studentId.parentPhone;
                 document.getElementById('docReportId').innerText = assessmentIdToken;
                 document.getElementById("docProcessedDate").innerText = new Date(report.processedTimestamp).toLocaleDateString();
 
@@ -416,14 +411,13 @@
 
                 buildQuestionAuditorMatrixGrid(report.answers || []);
                 
-                // 🌟 FIX #3: Public button action mappings (Admin triggers removed)
                 document.getElementById('printPdfBtn').addEventListener('click', () => { window.print(); });
 
                 document.getElementById('reportDocumentWrapper').style.display = 'block';
                 document.getElementById('reportLoaderCurtain').style.display = 'none';
             } catch (error) {
                 console.error(error);
-                alert("Data stream mapping mismatch or session link drop.");
+                alert("Data stream mismatch or evaluation record link dropped.");
             }
         }
 
@@ -462,6 +456,7 @@
 
         window.addEventListener('beforeunload', () => { if (window.matrixInterval) clearInterval(window.matrixInterval); });
 
+        // Chart instantiation remains completely offline / cached to keep direct rendering passes secure
         function renderTopicChartJSGraph(topicsData) {
             const ctx = document.getElementById('topicChartCanvas').getContext('2d');
             topicChartInstance = new Chart(ctx, {
