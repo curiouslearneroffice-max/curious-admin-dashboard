@@ -47,6 +47,7 @@
         }
         .back-dashboard-btn:hover { transform: translateX(-4px); color: var(--cl-teal); }
 
+        /* 🌟 REPORT BRANDING HEADER: Refactored layout flow to support the top-right logo position */
         .report-branding-header {
             background: linear-gradient(135deg, #020617 0%, #0c4a6e 100%);
             padding: 40px 45px; border-bottom: 4px solid var(--cl-teal);
@@ -62,13 +63,20 @@
         }
         .brand-text-meta-title { font-weight: 700; color: var(--cl-white); font-size: 1.1rem; line-height: 1.2; text-transform: uppercase; letter-spacing: 0.5px; text-align: left; }
 
-        .header-right-meta-text { text-align: right; }
-        .header-right-meta-text h1 {
+        /* 🌟 TOP-RIGHT ALIGNED BRAND LOGO WITH ROUNDED CORNERS UNTAINED BY CANVAS CHECKS */
+        .header-right-meta-text { display: flex; align-items: center; gap: 20px; text-align: right; }
+        .meta-text-block h1 {
             color: var(--cl-white); font-size: 1.8rem; font-weight: 900; margin: 0 0 4px 0;
             text-transform: uppercase; letter-spacing: -0.5px;
         }
-        .header-right-meta-text h1 span { color: var(--cl-teal); }
-        .header-right-meta-text p { color: #94a3b8; font-size: 0.9rem; font-weight: 600; margin: 0; text-transform: uppercase; letter-spacing: 1px; }
+        .meta-text-block h1 span { color: var(--cl-teal); }
+        .meta-text-block p { color: #94a3b8; font-size: 0.9rem; font-weight: 600; margin: 0; text-transform: uppercase; letter-spacing: 1px; }
+        
+        .header-embedded-logo-img {
+            height: 60px; width: auto; object-fit: contain;
+            border-radius: 14px; background: #ffffff; padding: 4px;
+            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25);
+        }
 
         .report-body-padding { padding: 45px; }
         .split-profile-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; margin-bottom: 40px; }
@@ -82,7 +90,6 @@
             text-transform: uppercase; letter-spacing: 0.5px; display: flex; align-items: center; gap: 10px;
             border-bottom: 2px solid var(--cl-slate-200); padding-bottom: 8px;
         }
-        .demographics-card h3 i { color: var(--cl-teal); }
 
         .profile-data-list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 12px; }
         .profile-data-list li { font-size: 1rem; color: var(--cl-slate-700); display: flex; justify-content: space-between; }
@@ -193,6 +200,12 @@
         .response-item-node.correct-state { background-color: #bbf7d0; border-color: #86efac; }
         .response-item-node.incorrect-state { background-color: #fecaca; border-color: #fca5a5; }
 
+        .admin-notes-card { background: #fff7ed; border: 1px solid #ffedd5; border-radius: 28px; padding: 35px; margin-bottom: 40px; }
+        .admin-notes-card h3 { margin: 0 0 12px 0; font-size: 1.1rem; font-weight: 900; color: var(--cl-orange); text-transform: uppercase; letter-spacing: 0.5px; }
+        .admin-notes-card p { margin: 0 0 15px 0; font-size: 0.9rem; color: #c2410c; }
+        .notes-area-field { width: 100%; height: 110px; padding: 16px; font-family: 'Outfit', sans-serif; font-size: 1rem; border: 1px solid #fed7aa; border-radius: 14px; background: var(--cl-white); box-sizing: border-box; resize: none; color: var(--cl-navy-dark); }
+        .notes-area-field:focus { outline: none; border-color: var(--cl-orange); box-shadow: 0 0 0 4px rgba(249, 115, 22, 0.1); }
+
         .actions-matrix-panel {
             background: var(--cl-slate-50); border-top: 2px solid var(--cl-slate-100);
             padding: 35px 45px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px;
@@ -216,18 +229,6 @@
 
         .async-loading-curtain { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 120px 20px; }
         .async-loading-curtain i { font-size: 3rem; color: var(--cl-teal); margin-bottom: 20px; }
-        
-        @media (max-width: 991px) {
-            .split-profile-grid, .scores-distribution-workspace { grid-template-columns: 1fr; }
-            .summary-ribbon-row { grid-template-columns: repeat(2, 1fr); }
-            .actions-matrix-panel { grid-template-columns: 1fr; }
-            .responses-matrix-box { grid-template-columns: repeat(3, 1fr); }
-            .report-branding-header { flex-direction: row-reverse; text-align: left; justify-content: space-between; }
-            .header-right-meta-text { text-align: left; }
-            .report-body-padding { padding: 24px; }
-            .ai-dashboard-contents { flex-direction: column-reverse; align-items: stretch; gap: 30px; }
-            .ai-telemetry-right { width: 100%; }
-        }
     </style>
 </head>
 <body>
@@ -248,17 +249,22 @@
         </div>
 
         <header class="report-branding-header">
-            <div class="header-logo-container" id="pdfLogoTargetShell">
+            <div class="header-logo-container">
                 <div class="brand-text-badge">C</div>
                 <div class="brand-text-meta-title">Curious Learner<br><span style="color:var(--cl-teal);">Academy</span></div>
             </div>
+            
+            <!-- 🌟 RE-ALIGNED TOP-RIGHT USER INTERFACE HOUSING SECTION FOR DIRECT DESKTOP RENDERING -->
             <div class="header-right-meta-text">
-                <h1>Curious Learner <span>Academy</span></h1>
-                <p>Diagnostic Assessment Report</p>
-                <div style="color: #cbd5e1; font-size: 0.8rem; margin-top: 5px; font-weight: 400;">
-                    ID: <span id="docReportId" style="font-family: monospace; font-weight: bold; color: #fff;">---</span> | 
-                    Ingest: <span id="docProcessedDate" style="font-family: monospace; font-weight: bold; color: #fff;">---</span>
+                <div class="meta-text-block">
+                    <h1>Curious Learner <span>Academy</span></h1>
+                    <p>Diagnostic Assessment Report</p>
+                    <div style="color: #cbd5e1; font-size: 0.8rem; margin-top: 5px; font-weight: 400;">
+                        ID: <span id="docReportId" style="font-family: monospace; font-weight: bold; color: #fff;">---</span> | 
+                        Ingest: <span id="docProcessedDate" style="font-family: monospace; font-weight: bold; color: #fff;">---</span>
+                    </div>
                 </div>
+                <img class="header-embedded-logo-img" src="https://curiouslearneracademy.com/newzealand/wp-content/uploads/sites/3/2026/01/Logo-Color-Updated.png" alt="Curious Learner Academy Rounded Branding Logo">
             </div>
         </header>
 
@@ -336,7 +342,7 @@
 
                 <div class="graphical-block-card">
                     <h3>Topic Performance</h3>
-                    <div class="chart-canvas-shell">
+                    <div class="chart-canvas-shell" id="liveChartContainerNode">
                         <canvas id="topicChartCanvas"></canvas>
                     </div>
                 </div>
@@ -626,75 +632,50 @@
                 localStorage.setItem(`scratchpad_notes_${assessmentIdToken}`, e.target.value);
             });
 
-            // --- 🔒 HYBRID DIRECT EMAIL PAYLOAD DISPATCH PIPELINE ---
+            // --- 🔒 DIRECT HTML EMAIL EXTRACTION & INJECTION PROCESSING MATRIX ---
             document.getElementById('getReportBtnTrigger').addEventListener('click', async function () {
                 try {
                     this.disabled = true;
-                    this.innerHTML = '<i class="fa-solid fa-spinner fa-spin" style="margin-right:8px;"></i>Processing Request...';
+                    this.innerHTML = '<i class="fa-solid fa-spinner fa-spin" style="margin-right:8px;"></i>Processing Email Body...';
 
-                    // 1. STABILIZE FRAME WAIT LOOP BEFORE CAPTURE
-                    await new Promise(resolve => setTimeout(resolve, 1000));
+                    // Hold engine processing loop momentarily to ensure visual layout stabilization passes
+                    await new Promise(resolve => setTimeout(resolve, 800));
 
-                    // 2. EXTRACT LIVE CANVAS SNAPSHOT
-                    let imageSnapshotURI = '';
-                    if (
-                        topicChartInstance &&
-                        topicChartInstance.canvas &&
-                        topicChartInstance.canvas.width > 0 &&
-                        topicChartInstance.canvas.height > 0
-                    ) {
-                        imageSnapshotURI = topicChartInstance.toBase64Image();
-                    }
-
-                    // 3. CLONE WRAPPER CONTAINER FOR INCLUSIONS FILTERS
+                    // Deep-clone wrapper tree logic footprint context bounds safely
                     const reportClone = document.getElementById('reportDocumentWrapper').cloneNode(true);
 
-                    // 4. STRIP INTERACTIVE & ADMINISTRATIVE SECTIONS
+                    // 🌟 SURGICAL STEP: Convert every running active canvas object to static images inside the clone wrapper
+                    reportClone.querySelectorAll('canvas').forEach(canvas => {
+                        try {
+                            const imgNode = document.createElement('img');
+                            imgNode.src = canvas.toDataURL('image/png');
+                            imgNode.style.maxWidth = '100%';
+                            imgNode.style.height = 'auto';
+                            imgNode.style.display = 'block';
+                            canvas.replaceWith(imgNode);
+                        } catch(err) {
+                            console.warn("Canvas conversion skipped trace:", err);
+                        }
+                    });
+
+                    // 🌟 SURGICAL CLEANING: Strip all admin-only interface panels directly out of cloned footprint
                     reportClone.querySelector('.back-nav-row')?.remove();
                     reportClone.querySelector('.admin-notes-card')?.remove();
                     reportClone.querySelector('.actions-matrix-panel')?.remove();
                     
-                    // Remove dynamic canvas animation backgrounds to prevent email rendering artifacts
-                    reportClone.querySelector('.ai-matrix-canvas')?.remove();
-                    reportClone.querySelector('.data-grid-overlay')?.remove();
-
-                    // 5. HYBRID CANVAS DEGRADATION: Replace raw canvases with stable Base64 images
-                    const chartShellBox = reportClone.querySelector('.chart-canvas-shell');
-                    if (chartShellBox) {
-                        chartShellBox.innerHTML = imageSnapshotURI 
-                            ? `<img src="${imageSnapshotURI}" style="width:100%; height:auto; max-height:160px; display:block;" alt="Topic Chart Summary">`
-                            : `<div style="padding:20px; text-align:center; color:#64748b; background:#f8fafc; border-radius:8px;">Chart summary unavailable</div>`;
-                    }
-
-                    // Convert live SVG telemetry ring to a clean text metric block for native email processing
-                    const telemetryRightBox = reportClone.querySelector('.ai-telemetry-right');
-                    if (telemetryRightBox) {
-                        const activeScoreText = document.getElementById('radialNumericalScore').innerText;
-                        telemetryRightBox.innerHTML = `
-                            <div style="background:#14b8a6; color:#ffffff; padding:15px 25px; border-radius:16px; text-align:center;">
-                                <div style="font-size:1.6rem; font-weight:900;">${activeScoreText}</div>
-                                <div style="font-size:0.7rem; text-transform:uppercase; letter-spacing:1px; margin-top:2px;">Readiness Index</div>
-                            </div>
-                        `;
-                    }
-
-                    // Enforce page-break containment markers on core content panels inside the clone
-                    reportClone.querySelectorAll('.demographics-card, .metric-pill-card, .graphical-block-card, .ai-diagnostic-analysis-card, .responses-sheet-card').forEach(panel => {
-                        panel.style.pageBreakInside = "avoid";
-                        panel.style.breakInside = "avoid";
-                    });
-
-                    // Strip any lingering interface buttons and dynamic icons
+                    // Filter leftover layout buttons and decoration tags from final output
                     reportClone.querySelectorAll('button').forEach(btn => btn.remove());
                     reportClone.querySelectorAll('.fa-solid, .fa-brands').forEach(icon => icon.remove());
 
-                    // 6. COMPILE CLEAN OUTER HTML STRING Footprint
+                    // Compile final completely safe outer HTML payload string
                     const reportHtml = reportClone.innerHTML;
 
-                    // 7. DISPATCH PAYLOAD DISPATCH DIRECT TO ENDPOINT
+                    // Execute JSON payload dispatch directly onto active gateway router endpoints
                     const response = await fetch(`${CORE_API_URL}/api/admin/send-report`, {
                         method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
                         body: JSON.stringify({
                             parentEmail: document.getElementById('parentEmail').innerText.trim(),
                             parentName: document.getElementById('parentName').innerText.trim(),
@@ -706,17 +687,16 @@
                     const data = await response.json();
 
                     if (!data.success) {
-                        throw new Error(data.message || "Email generation transaction pipeline dropped processing.");
+                        throw new Error(data.message || "Email pipeline endpoint returned transaction fault response codes.");
                     }
 
-                    // Restore button action state loops cleanly upon success pass validation
                     this.removeAttribute('disabled');
                     this.innerHTML = 'REPORT SENT';
                     document.getElementById('deliveryNoticeBox').style.display = 'block';
-                    alert(`Hybrid Engine Complete: Pristine responsive HTML evaluation document dispatched successfully to the parent inbox.`);
+                    alert(`Hybrid Direct Engine Approved: Clean HTML document body delivered cleanly into parent mail application views container.`);
 
                 } catch (error) {
-                    console.error("Hybrid Document Ingestion Fault Exception logs:", error);
+                    console.error("Mail Pipeline Processing Defect Context:", error);
                     alert(`Transmission Error: ${error.message}`);
                     this.disabled = false;
                     this.innerHTML = 'Request Report';
