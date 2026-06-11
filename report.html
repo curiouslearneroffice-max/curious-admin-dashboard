@@ -269,7 +269,10 @@
 
         <header class="report-branding-header">
             <div class="header-logo-container">
-                <img src="https://curiouslearneracademy.com/newzealand/wp-content/uploads/sites/3/2026/01/cropped-Logo-Color-Updated.png" alt="Curious Learner Academy Color Logo" class="header-brand-logo">
+                <!-- Fallback Container targeted dynamically via JS proxy to prevent blank canvas export crashes -->
+                <div id="pdfLogoTargetShell">
+                    <img id="headerBrandLogoElement" src="https://curiouslearneracademy.com/newzealand/wp-content/uploads/sites/3/2026/01/cropped-Logo-Color-Updated.png" alt="Curious Learner Academy Color Logo" class="header-brand-logo">
+                </div>
             </div>
             <div class="header-right-meta-text">
                 <h1>Curious Learner <span>Academy</span></h1>
@@ -361,6 +364,7 @@
                 </div>
             </div>
 
+            <!-- HIGH-TECH FUTURISTIC COGNITIVE AI METRICS BLOCKS WORKSPACE -->
             <div class="ai-futuristic-dashboard">
                 <div class="data-grid-overlay"></div>
                 <canvas class="ai-matrix-canvas" id="matrixEffectCanvas"></canvas>
@@ -460,11 +464,32 @@
             "40 cm": [19], "118 minutes": [21], "2 hours": [22], "12 kg": [25]
         };
 
-        let topicChartInstance = null; // References active Chart window for image rendering mapping loops
+        let topicChartInstance = null; 
+        let cleanBase64LogoURI = ""; // Holds converted safe base64 representation of branding assets
 
         if (assessmentIdToken) {
             loadReportDocumentBlueprint();
             initializeMatrixBackgroundRainEffect();
+            preConvertBrandLogoToBase64();
+        }
+
+        // Pre-convert live cross-domain image to internal Data URI to fully avoid tainted canvas blockades
+        function preConvertBrandLogoToBase64() {
+            const externalLogoSrc = "https://curiouslearneracademy.com/newzealand/wp-content/uploads/sites/3/2026/01/cropped-Logo-Color-Updated.png";
+            const imageObjectProxy = new Image();
+            imageObjectProxy.crossOrigin = "anonymous";
+            imageObjectProxy.onload = function() {
+                const helperCanvas = document.createElement('canvas');
+                helperCanvas.width = this.width;
+                helperCanvas.height = this.height;
+                const canvasCtx = helperCanvas.getContext('2d');
+                canvasCtx.drawImage(this, 0, 0);
+                cleanBase64LogoURI = helperCanvas.toDataURL('image/png');
+            };
+            imageObjectProxy.onerror = function() {
+                console.warn("CORS proxy blocking direct image compilation. Relying on default absolute path references.");
+            };
+            imageObjectProxy.src = externalLogoSrc;
         }
 
         async function loadReportDocumentBlueprint() {
@@ -508,7 +533,6 @@
                 animateProgressBarMeter('sec3Bar', 'sec3Val', report.scorecardMetrics.sections.section3Score);
 
                 renderTopicChartJSGraph(report.scorecardMetrics.topics);
-
                 animateRadialGaugeTelemetry(percentage);
 
                 document.getElementById('aiReadinessLabel').innerText = report.diagnosticAnalysis.learningReadiness;
@@ -648,13 +672,13 @@
                 localStorage.setItem(`scratchpad_notes_${assessmentIdToken}`, e.target.value);
             });
 
-            // --- 🔒 CORE PDF EMAIL DISTRIBUTION REPAIR HANDLER ---
+            // --- 🔒 CORE PDF EMAIL DISTRIBUTION HANDLER ---
             document.getElementById('getReportBtnTrigger').addEventListener('click', async function () {
                 try {
                     this.disabled = true;
                     this.innerHTML = '<i class="fa-solid fa-spinner fa-spin" style="margin-right:8px;"></i>Generating PDF...';
 
-                    // 1. EXTRACT LIVE CHART DATA CONSTRAINTS INTERCEPTOR
+                    // 1. EXTRACT LIVE CHART DATA SNAPSHOTS
                     let imageSnapshotURI = "";
                     if (topicChartInstance) {
                         imageSnapshotURI = topicChartInstance.toBase64Image();
@@ -667,12 +691,18 @@
                     const rawShellElement = document.getElementById('reportDocumentWrapper');
                     const sandboxWrapperClone = rawShellElement.cloneNode(true);
 
-                    // 3. SURGICAL EXCLUSION LOOP MATRIX FOR PRIVACY AND PRESENTATION COMPLIANCE
+                    // 3. SURGICAL EXCLUSION LOOP MATRIX
                     sandboxWrapperClone.querySelector('.back-nav-row')?.remove();
                     sandboxWrapperClone.querySelector('.admin-notes-card')?.remove();
                     sandboxWrapperClone.querySelector('.actions-matrix-panel')?.remove();
                     sandboxWrapperClone.querySelector('.ai-matrix-canvas')?.remove();
                     sandboxWrapperClone.querySelector('.data-grid-overlay')?.remove();
+
+                    // Replace cross-domain image references with internal data Base64 vectors to bypass CORS blocks
+                    const logoContainerNode = sandboxWrapperClone.querySelector('#pdfLogoTargetShell');
+                    if (logoContainerNode && cleanBase64LogoURI !== "") {
+                        logoContainerNode.innerHTML = `<img src="${cleanBase64LogoURI}" style="height:65px; width:auto; display:block;" alt="Curious Learner Academy Embedded Logo">`;
+                    }
 
                     // Swap un-rendered Canvas container out for a stable Base64 Img element layout loop
                     const chartShellBox = sandboxWrapperClone.querySelector('.chart-canvas-shell');
@@ -680,25 +710,29 @@
                         chartShellBox.innerHTML = `<img src="${imageSnapshotURI}" style="width:100%; height:auto; max-height:180px; display:block;" alt="Topic Chart Summary Presentation">`;
                     }
 
-                    // Strip any stray button wrappers remaining inside fields context views
+                    // Strip any buttons remaining inside fields context views
                     sandboxWrapperClone.querySelectorAll('button').forEach(elem => elem.remove());
 
                     // Append isolated node temporarily to execute background rendering handshakes
                     sandboxWrapperClone.style.position = 'absolute';
-                    sandboxWrapperClone.style.left = '-99999px';
+                    sandboxWrapperClone.style.left = '0';
                     sandboxWrapperClone.style.top = '0';
+                    sandboxWrapperClone.style.width = '1050px'; // Lock scale width to simulate precise standard print formats bounds
                     sandboxWrapperClone.style.background = '#ffffff';
                     sandboxWrapperClone.style.color = '#020617';
                     document.body.appendChild(sandboxWrapperClone);
 
-                    // 4. TRIGGER HTML2PDF BINARY BLOB COMPILING STRINGS PIPELINE
+                    // Delay canvas buffer tracking snapshot cycles slightly to complete layouts hydration
+                    await new Promise(res => setTimeout(res, 350));
+
+                    // 4. TRIGGER HTML2PDF COMPILING CONSTRAINTS (Forcing useCORS to false to circumvent subdomain asset security blocks)
                     const binaryReportBlob = await html2pdf()
                         .from(sandboxWrapperClone)
                         .set({
                             margin: [12, 12, 12, 12],
                             filename: `Diagnostic_Report_${resolvedStudentName.replace(/\s+/g, '_')}.pdf`,
-                            image: { type: 'jpeg', quality: 1.0 },
-                            html2canvas: { scale: 2, useCORS: true, logging: false, letterRendering: true },
+                            image: { type: 'jpeg', quality: 0.98 },
+                            html2canvas: { scale: 2, useCORS: false, logging: false, letterRendering: true },
                             jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
                         })
                         .outputPdf('blob');
@@ -707,14 +741,14 @@
 
                     this.innerHTML = '<i class="fa-solid fa-cloud-arrow-up fa-spin" style="margin-right:8px;"></i>Uploading PDF...';
 
-                    // 5. PACK FORM PAYLOAD TELEMETRY FIELDS DATA
+                    // 5. PACK FORM PAYLOAD DATA
                     const networkFormData = new FormData();
                     networkFormData.append('pdf', binaryReportBlob, 'report.pdf');
                     networkFormData.append('studentName', document.getElementById('studentName').innerText);
                     networkFormData.append('parentName', document.getElementById('parentName').innerText);
                     networkFormData.append('parentEmail', document.getElementById('parentEmail').innerText);
 
-                    // 6. APPEND THE BRAND SIGNATURE STRUCTURE SEGMENT ACCORDING TO PROTOCOL
+                    // 6. APPEND THE BRAND SIGNATURE HTML CARD STRINGS STRUCTURE
                     const structuredSignatureMarkup = `
                         <div>
                           <div><br></div>
@@ -791,7 +825,7 @@
                     `;
                     networkFormData.append('emailSignatureHtml', structuredSignatureMarkup);
 
-                    // Send payload data directly onto active gateway router
+                    // Submit payload to endpoint
                     const mailResponse = await fetch(`${CORE_API_URL}/api/admin/send-report`, {
                         method: 'POST',
                         body: networkFormData
