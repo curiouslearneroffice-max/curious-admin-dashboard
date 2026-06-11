@@ -269,7 +269,7 @@
 
         <header class="report-branding-header">
             <div class="header-logo-container">
-                <img src="data:image/png;base64,PUT_BASE64_HERE" alt="Curious Learner Academy Color Logo" class="header-brand-logo">
+                <img src="https://curiouslearneracademy.com/newzealand/wp-content/uploads/sites/3/2026/01/cropped-Logo-Color-Updated.png" alt="Curious Learner Academy Color Logo" class="header-brand-logo">
             </div>
             <div class="header-right-meta-text">
                 <h1>Curious Learner <span>Academy</span></h1>
@@ -460,6 +460,8 @@
             "40 cm": [19], "118 minutes": [21], "2 hours": [22], "12 kg": [25]
         };
 
+        let topicChartInstance = null; // References active Chart window for image rendering mapping loops
+
         if (assessmentIdToken) {
             loadReportDocumentBlueprint();
             initializeMatrixBackgroundRainEffect();
@@ -507,7 +509,6 @@
 
                 renderTopicChartJSGraph(report.scorecardMetrics.topics);
 
-                // --- 🌟 ANIMATE DYNAMIC NEON METADATA RADIAL GAUGE ---
                 animateRadialGaugeTelemetry(percentage);
 
                 document.getElementById('aiReadinessLabel').innerText = report.diagnosticAnalysis.learningReadiness;
@@ -547,12 +548,10 @@
             }, 150);
         }
 
-        // --- 🌟 RADIAL TELEMETRY GAUGE INTERPOLATOR FUNCTION ---
         function animateRadialGaugeTelemetry(targetPercentage) {
             const circleFill = document.getElementById('radialTelemetryFill');
             const textualScore = document.getElementById('radialNumericalScore');
-            const maxCircumference = 377; // 2 * Math.PI * r (r=60)
-            
+            const maxCircumference = 377;
             const offsetValue = maxCircumference - (targetPercentage / 100) * maxCircumference;
             
             setTimeout(() => {
@@ -561,31 +560,24 @@
             }, 250);
         }
 
-        // --- 🌟 MATRIX CORE BACKGROUND FALLING DATA LOGIC ---
         function initializeMatrixBackgroundRainEffect() {
             const canvas = document.getElementById('matrixEffectCanvas');
             const ctx = canvas.getContext('2d');
-            
             canvas.width = canvas.parentElement.offsetWidth;
             canvas.height = canvas.parentElement.offsetHeight;
-            
             const binarySymbolsMatrix = "01011010011011001";
             const fontScale = 11;
             const columnsAllocation = canvas.width / fontScale;
-            
             const fallingDropsTrack = Array(Math.floor(columnsAllocation)).fill(1);
 
             function drawRain() {
                 ctx.fillStyle = 'rgba(3, 7, 18, 0.04)';
                 ctx.fillRect(0, 0, canvas.width, canvas.height);
-                
                 ctx.fillStyle = '#14b8a6';
                 ctx.font = fontScale + 'px monospace';
-                
                 for(let i = 0; i < fallingDropsTrack.length; i++) {
                     const textChar = binarySymbolsMatrix.charAt(Math.floor(Math.random() * binarySymbolsMatrix.length));
                     ctx.fillText(textChar, i * fontScale, fallingDropsTrack[i] * fontScale);
-                    
                     if(fallingDropsTrack[i] * fontScale > canvas.height && Math.random() > 0.975) {
                         fallingDropsTrack[i] = 0;
                     }
@@ -597,8 +589,7 @@
 
         function renderTopicChartJSGraph(topicsData) {
             const ctx = document.getElementById('topicChartCanvas').getContext('2d');
-            
-            new Chart(ctx, {
+            topicChartInstance = new Chart(ctx, {
                 type: 'bar',
                 data: {
                     labels: ['Mathematics', 'Analytical', 'Logical'],
@@ -618,6 +609,7 @@
                     indexAxis: 'y',
                     responsive: true,
                     maintainAspectRatio: false,
+                    animation: { duration: 800 },
                     plugins: { legend: { display: false } },
                     scales: {
                         x: { min: 0, max: 100, ticks: { callback: value => value + '%' } },
@@ -630,17 +622,14 @@
         function buildQuestionAuditorMatrixGrid(answersArray) {
             const gridContainer = document.getElementById('responsesSheetGrid');
             gridContainer.innerHTML = '';
-            
             for (let currentSlotIndex = 1; currentSlotIndex <= 25; currentSlotIndex++) {
                 const answerObjectMatch = answersArray.find(element => element.questionId === currentSlotIndex);
                 const recordedResponseValue = answerObjectMatch ? answerObjectMatch.selectedAnswer : 'Unanswered';
-                
                 let stateClassMarker = "incorrect-state"; 
                 const schemaEntry = COMBINED_EVALUATION_MARK_SCHEME[recordedResponseValue];
                 if (schemaEntry && schemaEntry.includes(currentSlotIndex)) {
                     stateClassMarker = "correct-state";
                 }
-                
                 gridContainer.innerHTML += `
                     <div class="response-item-node ${stateClassMarker}">
                         <span class="q-num">Item ${currentSlotIndex}</span>
@@ -659,195 +648,172 @@
                 localStorage.setItem(`scratchpad_notes_${assessmentIdToken}`, e.target.value);
             });
 
-document.getElementById('getReportBtnTrigger')
-.addEventListener(
-'click',
-async function () {
+            // --- 🔒 CORE PDF EMAIL DISTRIBUTION REPAIR HANDLER ---
+            document.getElementById('getReportBtnTrigger').addEventListener('click', async function () {
+                try {
+                    this.disabled = true;
+                    this.innerHTML = '<i class="fa-solid fa-spinner fa-spin" style="margin-right:8px;"></i>Generating PDF...';
 
-    try {
+                    // 1. EXTRACT LIVE CHART DATA CONSTRAINTS INTERCEPTOR
+                    let imageSnapshotURI = "";
+                    if (topicChartInstance) {
+                        imageSnapshotURI = topicChartInstance.toBase64Image();
+                    }
 
-        this.disabled = true;
-        this.innerHTML = 'Generating PDF...';
-const chartCanvas =
-    document.getElementById('topicChartCanvas');
+                    window.scrollTo(0, 0);
+                    await document.fonts.ready;
 
-if (chartCanvas) {
-    chartCanvas.style.display = 'none';
-}
+                    // 2. SYNCHRONIZE CLONE DOM FOR ISOLATED COMPILING
+                    const rawShellElement = document.getElementById('reportDocumentWrapper');
+                    const sandboxWrapperClone = rawShellElement.cloneNode(true);
 
-await new Promise(resolve =>
-    setTimeout(resolve, 8000)
-);
-window.scrollTo(0, 0);
+                    // 3. SURGICAL EXCLUSION LOOP MATRIX FOR PRIVACY AND PRESENTATION COMPLIANCE
+                    sandboxWrapperClone.querySelector('.back-nav-row')?.remove();
+                    sandboxWrapperClone.querySelector('.admin-notes-card')?.remove();
+                    sandboxWrapperClone.querySelector('.actions-matrix-panel')?.remove();
+                    sandboxWrapperClone.querySelector('.ai-matrix-canvas')?.remove();
+                    sandboxWrapperClone.querySelector('.data-grid-overlay')?.remove();
 
-await document.fonts.ready;
+                    // Swap un-rendered Canvas container out for a stable Base64 Img element layout loop
+                    const chartShellBox = sandboxWrapperClone.querySelector('.chart-canvas-shell');
+                    if (chartShellBox) {
+                        chartShellBox.innerHTML = `<img src="${imageSnapshotURI}" style="width:100%; height:auto; max-height:180px; display:block;" alt="Topic Chart Summary Presentation">`;
+                    }
 
-await new Promise(resolve =>
-    requestAnimationFrame(resolve)
-);
+                    // Strip any stray button wrappers remaining inside fields context views
+                    sandboxWrapperClone.querySelectorAll('button').forEach(elem => elem.remove());
 
-await new Promise(resolve =>
-    requestAnimationFrame(resolve)
-);
-// CREATE CLEAN PDF VERSION
+                    // Append isolated node temporarily to execute background rendering handshakes
+                    sandboxWrapperClone.style.position = 'absolute';
+                    sandboxWrapperClone.style.left = '-99999px';
+                    sandboxWrapperClone.style.top = '0';
+                    sandboxWrapperClone.style.background = '#ffffff';
+                    sandboxWrapperClone.style.color = '#020617';
+                    document.body.appendChild(sandboxWrapperClone);
 
-const originalReport =
-    document.getElementById('reportDocumentWrapper');
+                    // 4. TRIGGER HTML2PDF BINARY BLOB COMPILING STRINGS PIPELINE
+                    const binaryReportBlob = await html2pdf()
+                        .from(sandboxWrapperClone)
+                        .set({
+                            margin: [12, 12, 12, 12],
+                            filename: `Diagnostic_Report_${resolvedStudentName.replace(/\s+/g, '_')}.pdf`,
+                            image: { type: 'jpeg', quality: 1.0 },
+                            html2canvas: { scale: 2, useCORS: true, logging: false, letterRendering: true },
+                            jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+                        })
+                        .outputPdf('blob');
 
-const pdfContainer =
-    originalReport.cloneNode(true);
+                    document.body.removeChild(sandboxWrapperClone);
 
-        // REMOVE ALL CANVASES FROM PDF COPY
+                    this.innerHTML = '<i class="fa-solid fa-cloud-arrow-up fa-spin" style="margin-right:8px;"></i>Uploading PDF...';
 
-pdfContainer
-    .querySelectorAll('canvas')
-    .forEach(canvas => {
-        canvas.remove();
-    });
+                    // 5. PACK FORM PAYLOAD TELEMETRY FIELDS DATA
+                    const networkFormData = new FormData();
+                    networkFormData.append('pdf', binaryReportBlob, 'report.pdf');
+                    networkFormData.append('studentName', document.getElementById('studentName').innerText);
+                    networkFormData.append('parentName', document.getElementById('parentName').innerText);
+                    networkFormData.append('parentEmail', document.getElementById('parentEmail').innerText);
 
-// REMOVE UNWANTED ELEMENTS
+                    // 6. APPEND THE BRAND SIGNATURE STRUCTURE SEGMENT ACCORDING TO PROTOCOL
+                    const structuredSignatureMarkup = `
+                        <div>
+                          <div><br></div>
+                          <table cellpadding="0" cellspacing="0" border="0" style="max-width:720px;width:100%;font-family:'Segoe UI',Arial,sans-serif;border:1px solid #e6e6e6;border-radius:12px;background:#ffffff;">
+                            <tbody>
+                              <tr>
+                                <td style="padding:20px;">
+                                  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+                                    <tbody>
+                                      <tr>
+                                        <td width="180" valign="top">
+                                          <img src="https://curiouslearneracademy.com/newzealand/wp-content/uploads/sites/3/2026/01/Logo-Color-Updated.png" alt="Curious Learner Academy" width="160" style="display:block;border:0;">
+                                          <br>
+                                        </td>
+                                        <td valign="top">
+                                          <table width="100%" cellpadding="0" cellspacing="0" border="0">
+                                            <tbody>
+                                              <tr>
+                                                <td>
+                                                  <div style="font-size:28px;font-weight:700;color:#0077D9;line-height:34px;">Nitasha Rajvanshi</div>
+                                                  <div style="font-size:15px;font-weight:600;color:#F58220;padding-top:4px;">Founder &amp; Mentor</div>
+                                                </td>
+                                                <td width="120" align="right" valign="top">
+                                                  <div style="font-size:24px; color:#EEF5FD; line-height:30px; letter-spacing:4px; font-weight:700;">
+                                                    <div>π ∑ √</div>
+                                                    <div>x² 📚</div>
+                                                  </div>
+                                                </td>
+                                              </tr>
+                                            </tbody>
+                                          </table>
+                                          <div style="height:12px;"><br></div>
+                                          <div style="font-size:14px;color:#444444;line-height:28px;">
+                                            <div>📧 <a href="mailto:support@curiouslearneracademy.com" style="color:#0077D9;text-decoration:none;">support@curiouslearneracademy.com</a></div>
+                                            <div>💬 <a href="https://wa.me/919251230015" style="color:#0077D9;text-decoration:none;">+91 92512 30015</a></div>
+                                            <div>🌐 <a href="https://curiouslearneracademy.com/" style="color:#0077D9;text-decoration:none;">curiouslearneracademy.com</a></div>
+                                          </div>
+                                          <div style="padding-top:16px;">
+                                            <a href="https://curiouslearneracademy.com/" style="background:#0077D9; color:#ffffff; text-decoration:none; padding:11px 18px; border-radius:6px; display:inline-block; font-size:14px; font-weight:600; margin-right:8px;">Visit Website</a>
+                                            <a href="https://wa.me/919251230015" style="background:#F58220; color:#ffffff; text-decoration:none; padding:11px 18px; border-radius:6px; display:inline-block; font-size:14px; font-weight:600;">WhatsApp Us</a>
+                                          </div>
+                                        </td>
+                                      </tr>
+                                    </tbody>
+                                  </table>
+                                </td>
+                              </tr>
+                              <tr>
+                                <td align="center" style="font-size:18px; color:#F3F8FE; letter-spacing:18px; padding:4px 0 12px 0;">π ∑ √ x² 📚 🎓 📖</td>
+                              </tr>
+                              <tr>
+                                <td style="padding:0 20px 20px 20px;">
+                                  <table width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#0077D9;border-radius:10px;">
+                                    <tbody>
+                                      <tr>
+                                        <td style="padding:24px;text-align:center;color:#ffffff;">
+                                          <div style="font-size:20px; font-weight:700; line-height:30px;">Helping students discover their strengths through personalised diagnostic assessments.</div>
+                                          <div style="font-size:13px; line-height:22px; margin-top:10px; opacity:0.95;">Identify learning strengths, uncover skill gaps, and create a personalised path to academic success.</div>
+                                          <div style="margin-top:18px;">
+                                            <a href="https://curiouslearneracademy.com/newzealand/diagnostic-assessment/" style="background:#F58220; color:#ffffff; text-decoration:none; padding:12px 24px; border-radius:6px; display:inline-block; font-size:14px; font-weight:700;">Book FREE Assessment</a>
+                                          </div>
+                                        </td>
+                                      </tr>
+                                    </tbody>
+                                  </table>
+                                </td>
+                              </tr>
+                              <tr>
+                                <td align="center" style="padding:0 0 14px 0; font-size:13px; color:#E8F1FC; letter-spacing:10px;">π • ∑ • √ • x² • 📚 • 🎓</td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </div>
+                    `;
+                    networkFormData.append('emailSignatureHtml', structuredSignatureMarkup);
 
-pdfContainer
-    .querySelector('.back-nav-row')
-    ?.remove();
+                    // Send payload data directly onto active gateway router
+                    const mailResponse = await fetch(`${CORE_API_URL}/api/admin/send-report`, {
+                        method: 'POST',
+                        body: networkFormData
+                    });
 
-pdfContainer
-    .querySelector('#adminScratchpadArea')
-    ?.closest('section')
-    ?.remove();
+                    const mailResult = await mailResponse.json();
 
-pdfContainer
-    .querySelector('#getReportBtnTrigger')
-    ?.parentElement
-    ?.remove();
+                    if (!mailResult.success) {
+                        throw new Error(mailResult.message || "Email compilation transmission dropped.");
+                    }
 
-// REMOVE BUTTON BAR
+                    this.innerHTML = '<i class="fa-solid fa-circle-check"></i> REPORT SENT';
+                    document.getElementById('deliveryNoticeBox').style.display = 'block';
+                    alert(`Vitals Checked: High-fidelity PDF report document compiled successfully for [${resolvedStudentName}] and sent directly to parent inbox.`);
 
-pdfContainer
-    .querySelectorAll('button')
-    .forEach(btn => btn.remove());
-
-// REMOVE WHATSAPP BUTTON
-
-pdfContainer
-    .querySelectorAll('a')
-    .forEach(link => {
-
-        if (
-            link.innerText &&
-            link.innerText.includes('WHATSAPP')
-        ) {
-            link.remove();
-        }
-
-    });
-
-// HIDE TEMPORARILY
-
-pdfContainer.style.position = 'absolute';
-pdfContainer.style.left = '-99999px';
-pdfContainer.style.top = '0';
-
-document.body.appendChild(pdfContainer);
-
-const pdfBlob =
-    await html2pdf()
-        .from(pdfContainer)
-        .set({
-            margin: 10,
-
-            filename: 'report.pdf',
-
-            image: {
-                type: 'jpeg',
-                quality: 1
-            },
-
-            html2canvas: {
-                scale: 2,
-                useCORS: true,
-                scrollX: 0,
-                scrollY: 0
-            },
-
-            jsPDF: {
-                unit: 'mm',
-                format: 'a4',
-                orientation: 'portrait'
-            }
-        })
-        .outputPdf('blob');
-
-document.body.removeChild(pdfContainer);
-
-if (chartCanvas) {
-    chartCanvas.style.display = 'block';
-}
-
-        this.innerHTML = 'Uploading PDF...';
-
-        const formData = new FormData();
-
-        formData.append(
-            'pdf',
-            pdfBlob,
-            'report.pdf'
-        );
-
-        formData.append(
-            'studentName',
-            document.getElementById('studentName').innerText
-        );
-
-        formData.append(
-            'parentName',
-            document.getElementById('parentName').innerText
-        );
-
-        formData.append(
-            'parentEmail',
-            document.getElementById('parentEmail').innerText
-        );
-
-        const response =
-            await fetch(
-                'https://diagnostic-backend-jmsu.onrender.com/api/admin/send-report',
-                {
-                    method: 'POST',
-                    body: formData
+                } catch (error) {
+                    console.error("PDF Transmit Exception logs:", error);
+                    alert(`Transmission Error: ${error.message}`);
+                    this.disabled = false;
+                    this.innerHTML = '<i class="fa-solid fa-paper-plane"></i> Request Report';
                 }
-            );
-
-        const data =
-            await response.json();
-
-        if (!data.success) {
-            throw new Error(data.message);
-        }
-
-        this.innerHTML =
-            'REPORT SENT';
-
-        document.getElementById(
-            'deliveryNoticeBox'
-        ).style.display = 'block';
-
-        alert(
-            'PDF report emailed successfully.'
-        );
-
-    } catch (error) {
-
-        console.error(error);
-
-        alert(error.message);
-
-        this.disabled = false;
-        this.innerHTML =
-            'Request Report';
-    }
-
-});
+            });
 
             document.getElementById('whatsappParentBtn').addEventListener('click', () => {
                 const encryptedEscapedText = encodeURIComponent(`Kia ora, this is Curious Learner Academy. We have processed the Diagnostic Evaluation and AI Analysis Report for ${resolvedStudentName}. Let us know if you require any specific feedback callbacks!`);
