@@ -697,7 +697,13 @@ const originalReport =
 const pdfContainer =
     originalReport.cloneNode(true);
 
-pdfContainer.id = 'pdfReportContainer';
+        // REMOVE ALL CANVASES FROM PDF COPY
+
+pdfContainer
+    .querySelectorAll('canvas')
+    .forEach(canvas => {
+        canvas.remove();
+    });
 
 // REMOVE UNWANTED ELEMENTS
 
