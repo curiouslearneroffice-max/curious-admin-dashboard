@@ -683,7 +683,18 @@ const reportElement =
     document.getElementById(
         'reportDocumentWrapper'
     );
+document
+    .querySelectorAll('canvas')
+    .forEach(canvas => {
 
+        if (
+            canvas.width === 0 ||
+            canvas.height === 0
+        ) {
+            canvas.remove();
+        }
+
+    });
 const pdfBlob =
     await html2pdf()
         .from(reportElement)
