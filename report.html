@@ -668,10 +668,10 @@ document.getElementById('getReportBtnTrigger').addEventListener(
 
             const response = await fetch(
                 `https://diagnostic-backend-jmsu.onrender.com/api/admin/send-report/${window.currentStudentId}`,
-    {
-        method: 'POST'
-    }
-);
+                {
+                    method: 'POST'
+                }
+            );
 
             const data = await response.json();
 
