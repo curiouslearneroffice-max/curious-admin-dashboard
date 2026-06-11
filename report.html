@@ -668,40 +668,45 @@ async function () {
 
         this.disabled = true;
         this.innerHTML = 'Generating PDF...';
-const chartCanvas = document.querySelector('canvas');
+const chartCanvas =
+    document.getElementById('topicChartCanvas');
 
 if (chartCanvas) {
     chartCanvas.style.display = 'none';
 }
-        await new Promise(resolve => setTimeout(resolve, 2000));
+
+await new Promise(resolve =>
+    setTimeout(resolve, 2000)
+);
 
 const reportElement =
-    document.getElementById('reportDocumentWrapper');
-        const reportElement =
-            document.getElementById(
-                'reportDocumentWrapper'
-            );
+    document.getElementById(
+        'reportDocumentWrapper'
+    );
 
-        const pdfBlob =
-            await html2pdf()
-            .from(reportElement)
-            .set({
-                margin: 10,
-                filename: 'report.pdf',
-                image: {
-                    type: 'jpeg',
-                    quality: 1
-                },
-                html2canvas: {
-                    scale: 2
-                },
-                jsPDF: {
-                    unit: 'mm',
-                    format: 'a4',
-                    orientation: 'portrait'
-                }
-            })
-            .outputPdf('blob');
+const pdfBlob =
+    await html2pdf()
+        .from(reportElement)
+        .set({
+            margin: 10,
+            filename: 'report.pdf',
+            image: {
+                type: 'jpeg',
+                quality: 1
+            },
+            html2canvas: {
+                scale: 2
+            },
+            jsPDF: {
+                unit: 'mm',
+                format: 'a4'
+            }
+        })
+        .outputPdf('blob');
+
+if (chartCanvas) {
+    chartCanvas.style.display = 'block';
+}
 
         this.innerHTML = 'Uploading PDF...';
 
