@@ -478,6 +478,8 @@
                 const report = payload.report;
                 const student = report.studentId;
 
+                window.currentStudentId = student._id;
+
                 document.getElementById('studentName').innerText = `${student.firstName} ${student.lastName}`;
                 document.getElementById('studentYear').innerText = student.yearLevel;
                 document.getElementById('studentSchool').innerText = student.schoolName;
@@ -665,7 +667,7 @@ document.getElementById('getReportBtnTrigger').addEventListener(
             this.disabled = true;
 
             const response = await fetch(
-                `https://diagnostic-backend-jmsu.onrender.com/api/admin/send-report/${studentId}`,
+                `https://diagnostic-backend-jmsu.onrender.com/api/admin/send-report/${student._id}`,
                 {
                     method: 'POST'
                 }
@@ -683,13 +685,13 @@ document.getElementById('getReportBtnTrigger').addEventListener(
             this.style.opacity = '0.6';
             this.style.cursor = 'not-allowed';
 
-            alert('Report sent successfully.');
+            alert('Report emailed successfully.');
 
         } catch (error) {
 
             console.error(error);
 
-            alert('Failed to send report.');
+            alert('Failed to send report email.');
 
             this.disabled = false;
             this.innerHTML = 'Request Report';
