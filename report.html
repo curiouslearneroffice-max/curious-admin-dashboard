@@ -678,7 +678,17 @@ if (chartCanvas) {
 await new Promise(resolve =>
     setTimeout(resolve, 8000)
 );
+window.scrollTo(0, 0);
 
+await document.fonts.ready;
+
+await new Promise(resolve =>
+    requestAnimationFrame(resolve)
+);
+
+await new Promise(resolve =>
+    requestAnimationFrame(resolve)
+);
 const reportElement =
     document.getElementById(
         'reportDocumentWrapper'
