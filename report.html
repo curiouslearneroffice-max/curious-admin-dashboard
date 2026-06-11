@@ -655,51 +655,47 @@
                 localStorage.setItem(`scratchpad_notes_${assessmentIdToken}`, e.target.value);
             });
 
-            document.getElementById('getReportBtnTrigger').addEventListener('click', async function () {
+document.getElementById('getReportBtnTrigger').addEventListener(
+    'click',
+    async function () {
 
-    try {
+        try {
 
-        this.innerHTML = 'Sending Report...';
-        this.disabled = true;
+            this.innerHTML = 'Sending Report...';
+            this.disabled = true;
 
-        const response = await fetch(
-            'https://diagnostic-backend-jmsu.onrender.com/api/admin/send-report',
-            {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    assessmentId: assessmentIdToken
-                })
+            const response = await fetch(
+                `https://diagnostic-backend-jmsu.onrender.com/api/admin/send-report/${studentId}`,
+                {
+                    method: 'POST'
+                }
+            );
+
+            const data = await response.json();
+
+            if (!data.success) {
+                throw new Error(data.message);
             }
-        );
 
-        const data = await response.json();
+            document.getElementById('deliveryNoticeBox').style.display = 'block';
 
-        if (!data.success) {
-            throw new Error(data.message);
+            this.innerHTML = 'REPORT SENT';
+            this.style.opacity = '0.6';
+            this.style.cursor = 'not-allowed';
+
+            alert('Report sent successfully.');
+
+        } catch (error) {
+
+            console.error(error);
+
+            alert('Failed to send report.');
+
+            this.disabled = false;
+            this.innerHTML = 'Request Report';
         }
-
-        document.getElementById('deliveryNoticeBox').style.display = 'block';
-
-        this.innerHTML = 'REPORT SENT';
-        this.style.opacity = '0.6';
-        this.style.cursor = 'not-allowed';
-
-        alert('Report email sent successfully.');
-
-    } catch (error) {
-
-        console.error(error);
-
-        alert('Failed to send report email.');
-
-        this.disabled = false;
-        this.innerHTML = 'Request Report';
     }
-
-});
+);
 
             document.getElementById('whatsappParentBtn').addEventListener('click', () => {
                 const encryptedEscapedText = encodeURIComponent(`Kia ora, this is Curious Learner Academy. We have processed the Diagnostic Evaluation and AI Analysis Report for ${resolvedStudentName}. Let us know if you require any specific feedback callbacks!`);
