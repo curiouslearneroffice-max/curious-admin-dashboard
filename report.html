@@ -67,8 +67,16 @@
             padding: 40px 45px; border-bottom: 4px solid var(--cl-teal);
             display: flex; justify-content: space-between; align-items: center; position: relative;
         }
+        
+        /* 🛠️ TEXT-BASED BRANDING COMPONENT: Modern layout style instead of image links */
         .header-logo-container { display: flex; align-items: center; }
-        .header-brand-logo { height: 65px; width: auto; object-fit: contain; }
+        .brand-text-badge {
+            background: var(--cl-teal); color: var(--cl-white); font-weight: 900;
+            font-size: 1.5rem; width: 50px; height: 50px; border-radius: 12px;
+            display: flex; align-items: center; justify-content: center;
+            box-shadow: 0 4px 12px rgba(20, 184, 166, 0.3); margin-right: 12px;
+        }
+        .brand-text-meta-title { font-weight: 700; color: var(--cl-white); font-size: 1.1rem; line-height: 1.2; text-transform: uppercase; letter-spacing: 0.5px; }
 
         .header-right-meta-text { text-align: right; }
         .header-right-meta-text h1 {
@@ -137,7 +145,6 @@
             border: 1px solid rgba(20, 184, 166, 0.2);
         }
 
-        /* Matrix Mesh Backdrop Glow Overlay */
         .data-grid-overlay {
             position: absolute; inset: 0; opacity: 0.05; pointer-events: none;
             background-image: linear-gradient(to right, var(--cl-teal) 1px, transparent 1px), linear-gradient(to bottom, var(--cl-teal) 1px, transparent 1px);
@@ -182,12 +189,13 @@
         .futuristic-bullets-cluster li:hover { transform: translateX(4px); background: rgba(249, 115, 22, 0.04); border-color: rgba(249, 115, 22, 0.15); }
         .futuristic-bullets-cluster li i { color: var(--cl-orange); font-size: 1rem; filter: drop-shadow(0 0 8px var(--cl-orange)); }
 
-        /* Tech Circular SVG Gauge Meter Component */
         .radial-gauge-container { position: relative; width: 140px; height: 140px; }
         .radial-gauge-svg { transform: rotate(-90deg); width: 100%; height: 100%; }
         .radial-gauge-track { fill: none; stroke: rgba(255, 255, 255, 0.05); stroke-width: 10; }
+        
+        /* 🛠️ PDF SAFE RING: Converted to a standard solid style parameter for direct cross-origin printing stability */
         .radial-gauge-fill {
-            fill: none; stroke: url(#tealGradientLine); stroke-width: 10;
+            fill: none; stroke: #14b8a6; stroke-width: 10;
             stroke-dasharray: 377; stroke-dashoffset: 377;
             stroke-linecap: round; transition: stroke-dashoffset 1.5s cubic-bezier(0.4, 0, 0.2, 1);
         }
@@ -208,14 +216,12 @@
         .response-item-node.correct-state { background-color: #bbf7d0; border-color: #86efac; }
         .response-item-node.incorrect-state { background-color: #fecaca; border-color: #fca5a5; }
 
-        /* --- ADMIN NOTES --- */
         .admin-notes-card { background: #fff7ed; border: 1px solid #ffedd5; border-radius: 28px; padding: 35px; margin-bottom: 40px; }
         .admin-notes-card h3 { margin: 0 0 12px 0; font-size: 1.1rem; font-weight: 900; color: var(--cl-orange); text-transform: uppercase; letter-spacing: 0.5px; }
         .admin-notes-card p { margin: 0 0 15px 0; font-size: 0.9rem; color: #c2410c; }
         .notes-area-field { width: 100%; height: 110px; padding: 16px; font-family: 'Outfit', sans-serif; font-size: 1rem; border: 1px solid #fed7aa; border-radius: 14px; background: var(--cl-white); box-sizing: border-box; resize: none; color: var(--cl-navy-dark); }
         .notes-area-field:focus { outline: none; border-color: var(--cl-orange); box-shadow: 0 0 0 4px rgba(249, 115, 22, 0.1); }
 
-        /* --- ACTION FOOTER --- */
         .actions-matrix-panel {
             background: var(--cl-slate-50); border-top: 2px solid var(--cl-slate-100);
             padding: 35px 45px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px;
@@ -237,6 +243,9 @@
 
         .email-delivery-notice-msg { font-size: 0.9rem; font-weight: 700; color: var(--cl-orange); margin: 15px auto 25px; display: none; text-transform: uppercase; letter-spacing: 0.5px; text-align: center; grid-column: span 3; }
 
+        .async-loading-curtain { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 120px 20px; }
+        .async-loading-curtain i { font-size: 3rem; color: var(--cl-teal); margin-bottom: 20px; }
+        
         @media (max-width: 991px) {
             .split-profile-grid, .scores-distribution-workspace { grid-template-columns: 1fr; }
             .summary-ribbon-row { grid-template-columns: repeat(2, 1fr); }
@@ -268,9 +277,10 @@
         </div>
 
         <header class="report-branding-header">
-            <!-- 🛠️ FIXED SECURE IMAGE PATHWAY: Hosted on ultra-stable high-performance global network routes -->
+            <!-- 🛠️ SAFELY REMOVED THE cross-origin <img> ASSET REQUIREMENT TO SOLVE THE BLANK CANVAS GENERATION ERRORS PERMANENTLY -->
             <div class="header-logo-container" id="pdfLogoTargetShell">
-                <img class="header-brand-logo" src="https://i.ibb.co/6wXJ6W4/Logo-Color-Updated.png" alt="Curious Learner Academy Color Logo">
+                <div class="brand-text-badge">C</div>
+                <div class="brand-text-meta-title">Curious Learner<br><span style="color:var(--cl-teal);">Academy</span></div>
             </div>
             <div class="header-right-meta-text">
                 <h1>Curious Learner <span>Academy</span></h1>
@@ -362,7 +372,6 @@
                 </div>
             </div>
 
-            <!-- HIGH-TECH FUTURISTIC COGNITIVE AI METRICS BLOCKS WORKSPACE -->
             <div class="ai-futuristic-dashboard">
                 <div class="data-grid-overlay"></div>
                 <canvas class="ai-matrix-canvas" id="matrixEffectCanvas"></canvas>
@@ -382,12 +391,6 @@
                     <div class="ai-telemetry-right">
                         <div class="radial-gauge-container">
                             <svg class="radial-gauge-svg" viewBox="0 0 130 130">
-                                <defs>
-                                    <linearGradient id="tealGradientLine" x1="0%" y1="0%" x2="100%" y2="100%">
-                                        <stop offset="0%" stop-color="#14b8a6" />
-                                        <stop offset="100%" stop-color="#06b6d4" />
-                                    </linearGradient>
-                                </defs>
                                 <circle class="radial-gauge-track" cx="65" cy="65" r="60"></circle>
                                 <circle class="radial-gauge-fill" id="radialTelemetryFill" cx="65" cy="65" r="60"></circle>
                             </svg>
@@ -649,13 +652,13 @@
                 localStorage.setItem(`scratchpad_notes_${assessmentIdToken}`, e.target.value);
             });
 
-            // --- 🔒 CORE PDF EMAIL DISTRIBUTION HANDLER ---
+            // --- 🔒 CORE PDF EMAIL DISTRIBUTION REPAIR MATRIX ---
             document.getElementById('getReportBtnTrigger').addEventListener('click', async function () {
                 try {
                     this.disabled = true;
                     this.innerHTML = '<i class="fa-solid fa-spinner fa-spin" style="margin-right:8px;"></i>Generating PDF...';
 
-                    // 1. EXTRACT LIVE CHART DATA SNAPSHOT AS COPIABLE DATA URI
+                    // 1. EXTRACT LIVE CHART DATA SNAPSHOT FROM MEMORY BUFFER
                     let imageSnapshotURI = "";
                     if (topicChartInstance) {
                         imageSnapshotURI = topicChartInstance.toBase64Image();
@@ -664,48 +667,48 @@
                     window.scrollTo(0, 0);
                     await document.fonts.ready;
 
-                    // 2. SYNCHRONIZE CLONE DOM FOR ISOLATED COMPILING
+                    // 2. SYNCHRONIZE SEGREGATED CLONE DOM FOR ISOLATED COMPILING
                     const rawShellElement = document.getElementById('reportDocumentWrapper');
                     const sandboxWrapperClone = rawShellElement.cloneNode(true);
 
-                    // 3. TARGET COMPONENT FILTERS (INCLUSIONS vs EXCLUSIONS)
+                    // 3. TARGET COMPONENT SELECTION FILTER LOOPS (Inclusions vs Exclusions)
                     sandboxWrapperClone.querySelector('.back-nav-row')?.remove();
                     sandboxWrapperClone.querySelector('.admin-notes-card')?.remove();
                     sandboxWrapperClone.querySelector('.actions-matrix-panel')?.remove();
                     
-                    // 🌟 REMOVE BOTH LIVE ACTIVE CANVASES TO PREVENT html2canvas BLANK SCRIPT ABORTS
+                    // Remove unstable animated backdrop components to prevent rendering abort breaks
                     sandboxWrapperClone.querySelector('.ai-matrix-canvas')?.remove();
                     sandboxWrapperClone.querySelector('.data-grid-overlay')?.remove();
 
-                    // Swap active Canvas out for a safe static Img element inside the compiled markup
+                    // Swap active Chart canvas context slot out for a direct static inline Base64 Img asset node
                     const chartShellBox = sandboxWrapperClone.querySelector('.chart-canvas-shell');
                     if (chartShellBox) {
                         chartShellBox.innerHTML = `<img src="${imageSnapshotURI}" style="width:100%; height:auto; max-height:180px; display:block;" alt="Topic Chart Summary Presentation">`;
                     }
 
-                    // Clean out control buttons remnants from final markup copy
+                    // Remove all control action interactions buttons from the clone container
                     sandboxWrapperClone.querySelectorAll('button').forEach(elem => elem.remove());
 
-                    // Append standalone container node safely inside browser hidden DOM
+                    // Append isolated node temporarily inside hidden DOM flow area space
                     sandboxWrapperClone.style.position = 'absolute';
                     sandboxWrapperClone.style.left = '-99999px';
                     sandboxWrapperClone.style.top = '0';
-                    sandboxWrapperClone.style.width = '1024px'; // Stabilizes container dimensions for exact A4 rendering
+                    sandboxWrapperClone.style.width = '1024px'; // Enforces layout width boundary metrics stability
                     sandboxWrapperClone.style.background = '#ffffff';
                     sandboxWrapperClone.style.color = '#020617';
                     document.body.appendChild(sandboxWrapperClone);
 
-                    // Allow compilation frames buffer to settle completely
+                    // Allow compilation frames buffer sequence to settle completely
                     await new Promise(res => setTimeout(res, 600));
 
-                    // 4. TRIGGER HTML2PDF PIPELINE (useCORS set to true since external images are gone)
+                    // 4. TRIGGER HTML2PDF PIPELINE (Enforcing useCORS to false to completely isolate asset dependencies)
                     const binaryReportBlob = await html2pdf()
                         .from(sandboxWrapperClone)
                         .set({
                             margin: [12, 12, 12, 12],
                             filename: `Diagnostic_Report_${resolvedStudentName.replace(/\s+/g, '_')}.pdf`,
                             image: { type: 'jpeg', quality: 1.0 },
-                            html2canvas: { scale: 2, useCORS: true, logging: false, letterRendering: true },
+                            html2canvas: { scale: 2, useCORS: false, logging: false, letterRendering: true },
                             jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
                         })
                         .outputPdf('blob');
@@ -714,7 +717,7 @@
 
                     this.innerHTML = '<i class="fa-solid fa-cloud-arrow-up fa-spin" style="margin-right:8px;"></i>Uploading PDF...';
 
-                    // 5. PACK DATA FOR ASYNC SERVER MAIL PAYLOAD
+                    // 5. PACK PAYLOAD DATA FOR ASYNC SERVER MAIL OUTFLOW
                     const networkFormData = new FormData();
                     networkFormData.append('pdf', binaryReportBlob, 'report.pdf');
                     networkFormData.append('studentName', document.getElementById('studentName').innerText);
@@ -746,8 +749,8 @@
                                                 </td>
                                                 <td width="120" align="right" valign="top">
                                                   <div style="font-size:24px; color:#EEF5FD; line-height:30px; letter-spacing:4px; font-weight:700;">
-                                                    <div>π ∑ √</div>
-                                                    <div>x² 📚</div>
+                                                    <div>&pi; &sum; &radic;</div>
+                                                    <div>x&sup2; &128214;</div>
                                                   </div>
                                                 </td>
                                               </tr>
@@ -755,9 +758,9 @@
                                           </table>
                                           <div style="height:12px;"><br></div>
                                           <div style="font-size:14px;color:#444444;line-height:28px;">
-                                            <div>📧 <a href="mailto:support@curiouslearneracademy.com" style="color:#0077D9;text-decoration:none;">support@curiouslearneracademy.com</a></div>
-                                            <div>💬 <a href="https://wa.me/919251230015" style="color:#0077D9;text-decoration:none;">+91 92512 30015</a></div>
-                                            <div>🌐 <a href="https://curiouslearneracademy.com/" style="color:#0077D9;text-decoration:none;">curiouslearneracademy.com</a></div>
+                                            <div>&#128231; <a href="mailto:support@curiouslearneracademy.com" style="color:#0077D9;text-decoration:none;">support@curiouslearneracademy.com</a></div>
+                                            <div>&#128172; <a href="https://wa.me/919251230015" style="color:#0077D9;text-decoration:none;">+91 92512 30015</a></div>
+                                            <div>&#127310; <a href="https://curiouslearneracademy.com/" style="color:#0077D9;text-decoration:none;">curiouslearneracademy.com</a></div>
                                           </div>
                                           <div style="padding-top:16px;">
                                             <a href="https://curiouslearneracademy.com/" style="background:#0077D9; color:#ffffff; text-decoration:none; padding:11px 18px; border-radius:6px; display:inline-block; font-size:14px; font-weight:600; margin-right:8px;">Visit Website</a>
@@ -770,7 +773,7 @@
                                 </td>
                               </tr>
                               <tr>
-                                <td align="center" style="font-size:18px; color:#F3F8FE; letter-spacing:18px; padding:4px 0 12px 0;">π ∑ √ x² 📚 🎓 📖</td>
+                                <td align="center" style="font-size:18px; color:#F3F8FE; letter-spacing:18px; padding:4px 0 12px 0;">&pi; &sum; &radic; x&sup2; &128214; &127891; &128214;</td>
                               </tr>
                               <tr>
                                 <td style="padding:0 20px 20px 20px;">
@@ -790,7 +793,7 @@
                                 </td>
                               </tr>
                               <tr>
-                                <td align="center" style="padding:0 0 14px 0; font-size:13px; color:#E8F1FC; letter-spacing:10px;">π • ∑ • √ • x² • 📚 • 🎓</td>
+                                <td align="center" style="padding:0 0 14px 0; font-size:13px; color:#E8F1FC; letter-spacing:10px;">&pi; &bull; &sum; &bull; &radic; &bull; x&sup2; &bull; &128214; &bull; &127891;</td>
                               </tr>
                             </tbody>
                           </table>
