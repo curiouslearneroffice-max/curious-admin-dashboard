@@ -47,14 +47,12 @@
         }
         .back-dashboard-btn:hover { transform: translateX(-4px); color: var(--cl-teal); }
 
-        /* --- 🌟 BRANDING HEADER FLEX MATRIX LAYOUT --- */
         .report-branding-header {
             background: linear-gradient(135deg, #020617 0%, #0c4a6e 100%);
             padding: 40px 45px; border-bottom: 4px solid var(--cl-teal);
             display: flex; justify-content: space-between; align-items: center; position: relative;
         }
         
-        /* Moved official brand image logo completely to top-left corner slot */
         .header-logo-container { display: flex; align-items: center; }
         .header-brand-logo { 
             height: 60px; width: auto; object-fit: contain; 
@@ -62,16 +60,14 @@
             box-shadow: 0 4px 12px rgba(0,0,0,0.15);
         }
 
-        /* Shifted metadata textual summaries to right-hand side of header */
         .header-right-meta-text { text-align: right; }
         .header-right-meta-text h1 {
-            color: var(--cl-white); font-size: 1.8rem; font-weight: 900; margin: 0 0 4px 0;
+            color: var(--cl-white); font-size: 1.8rem; font-weight: 900; margin: 0;
             text-transform: uppercase; letter-spacing: -0.5px;
         }
         .header-right-meta-text h1 span { color: var(--cl-teal); }
-        .header-right-meta-text p { color: #94a3b8; font-size: 0.9rem; font-weight: 600; margin: 0; text-transform: uppercase; letter-spacing: 1px; }
+        .header-right-meta-text p { color: #94a3b8; font-size: 0.9rem; font-weight: 600; margin: 2px 0 0; text-transform: uppercase; letter-spacing: 1px; }
 
-        /* --- CARD BLOCK ARCHITECTURE --- */
         .report-body-padding { padding: 45px; }
         .split-profile-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; margin-bottom: 40px; }
 
@@ -81,8 +77,7 @@
         }
         .demographics-card h3 {
             margin: 0 0 20px 0; font-size: 1.1rem; font-weight: 900; color: var(--cl-navy-pure);
-            text-transform: uppercase; letter-spacing: 0.5px; display: flex; align-items: center; gap: 10px;
-            border-bottom: 2px solid var(--cl-slate-200); padding-bottom: 8px;
+            text-transform: uppercase; letter-spacing: 0.5px; border-bottom: 2px solid var(--cl-slate-200); padding-bottom: 8px;
         }
 
         .profile-data-list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 12px; }
@@ -95,9 +90,7 @@
             box-shadow: 0 10px 25px rgba(2,6,23,0.015); border-radius: 20px; padding: 20px;
             display: flex; align-items: center; gap: 16px; position: relative;
         }
-        .metric-icon-box {
-            width: 48px; height: 48px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.25rem;
-        }
+        .metric-icon-box { width: 48px; height: 48px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.25rem; }
         .metric-icon-box.overall-color { background: rgba(20, 184, 166, 0.1); color: var(--cl-teal); }
         .metric-icon-box.tally-color { background: rgba(249, 115, 22, 0.1); color: var(--cl-orange); }
         .metric-icon-box.group-color { background: rgba(12, 74, 110, 0.1); color: var(--cl-navy-pure); }
@@ -125,69 +118,43 @@
             box-shadow: 0 20px 45px rgba(2, 6, 23, 0.4);
             border: 1px solid rgba(20, 184, 166, 0.2);
         }
-
         .data-grid-overlay {
             position: absolute; inset: 0; opacity: 0.05; pointer-events: none;
             background-image: linear-gradient(to right, var(--cl-teal) 1px, transparent 1px), linear-gradient(to bottom, var(--cl-teal) 1px, transparent 1px);
             background-size: 24px 24px; z-index: 1;
         }
-
-        .ai-matrix-canvas {
-            position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0.06; pointer-events: none; z-index: 2;
-        }
-
+        .ai-matrix-canvas { position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0.06; pointer-events: none; z-index: 2; }
         .ai-dashboard-contents { position: relative; z-index: 5; display: flex; gap: 40px; align-items: center; }
         .ai-telemetry-left { flex: 1; }
         .ai-telemetry-right { width: 220px; display: flex; flex-direction: column; align-items: center; justify-content: center; }
-
         .futuristic-badge-node {
             display: inline-flex; align-items: center; gap: 8px; background: rgba(20, 184, 166, 0.12);
             color: var(--cl-teal); border: 1px solid rgba(20, 184, 166, 0.25);
             padding: 6px 16px; border-radius: 50px; font-size: 0.75rem; font-weight: 900;
             text-transform: uppercase; letter-spacing: 2px; margin-bottom: 24px;
-            box-shadow: 0 0 15px rgba(20, 184, 166, 0.1);
         }
-
-        .ai-dashboard-contents h4 {
-            margin: 0 0 8px 0; font-size: 0.85rem; text-transform: uppercase; color: var(--cl-slate-400); letter-spacing: 1.5px; font-weight: 700;
-        }
-
-        .ai-dashboard-contents h3 {
-            margin: 0 0 18px 0; font-size: 1.7rem; color: var(--cl-white); font-weight: 900;
-            letter-spacing: -0.5px; text-shadow: 0 2px 10px rgba(2, 6, 23, 0.5);
-        }
-
-        .ai-analysis-paragraph {
-            margin: 0 0 30px 0; font-size: 1.05rem; line-height: 1.6; color: #94a3b8; font-weight: 400;
-        }
-
+        .ai-dashboard-contents h4 { margin: 0 0 8px 0; font-size: 0.85rem; text-transform: uppercase; color: var(--cl-slate-400); letter-spacing: 1.5px; font-weight: 700; }
+        .ai-dashboard-contents h3 { margin: 0 0 18px 0; font-size: 1.7rem; color: var(--cl-white); font-weight: 900; letter-spacing: -0.5px; }
+        .ai-analysis-paragraph { margin: 0 0 30px 0; font-size: 1.05rem; line-height: 1.6; color: #94a3b8; }
         .futuristic-bullets-cluster { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 12px; }
         .futuristic-bullets-cluster li {
             font-size: 0.95rem; color: #cbd5e1; display: flex; align-items: center; gap: 12px;
             background: rgba(255,255,255,0.02); padding: 12px 18px; border-radius: 14px;
-            border: 1px solid rgba(255,255,255,0.04); transition: transform 0.2s ease;
+            border: 1px solid rgba(255,255,255,0.04);
         }
-        .futuristic-bullets-cluster li:hover { transform: translateX(4px); background: rgba(249, 115, 22, 0.04); border-color: rgba(249, 115, 22, 0.15); }
-        .futuristic-bullets-cluster li i { color: var(--cl-orange); font-size: 1rem; filter: drop-shadow(0 0 8px var(--cl-orange)); }
 
         .radial-gauge-container { position: relative; width: 140px; height: 140px; }
         .radial-gauge-svg { transform: rotate(-90deg); width: 100%; height: 100%; }
         .radial-gauge-track { fill: none; stroke: rgba(255, 255, 255, 0.05); stroke-width: 10; }
-        .radial-gauge-fill {
-            fill: none; stroke: #14b8a6; stroke-width: 10;
-            stroke-dasharray: 377; stroke-dashoffset: 377;
-            stroke-linecap: round; transition: stroke-dashoffset 1.5s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-        .gauge-numerical-center {
-            position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center;
-        }
+        .radial-gauge-fill { fill: none; stroke: #14b8a6; stroke-width: 10; stroke-dasharray: 377; stroke-dashoffset: 377; stroke-linecap: round; transition: stroke-dashoffset 1.5s ease; }
+        .gauge-numerical-center { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; }
         .gauge-numerical-center .score-val { color: var(--cl-white); font-size: 1.8rem; font-weight: 900; line-height: 1; }
         .gauge-numerical-center .label-txt { color: var(--cl-teal); font-size: 0.65rem; font-weight: 900; text-transform: uppercase; letter-spacing: 1px; margin-top: 4px; }
 
         .responses-sheet-card { background: var(--cl-white); border: 1px solid var(--cl-slate-100); border-radius: 28px; padding: 35px; margin-bottom: 40px; }
         .responses-sheet-card h3 { margin: 0 0 25px 0; font-size: 1.1rem; font-weight: 900; color: var(--cl-navy-pure); text-transform: uppercase; letter-spacing: 0.5px; border-bottom: 1px solid var(--cl-slate-100); padding-bottom: 12px; }
         .responses-matrix-box { display: grid; grid-template-columns: repeat(5, 1fr); gap: 15px; }
-        .response-item-node { border-radius: 12px; padding: 12px 16px; text-align: center; border: 1px solid transparent; transition: all 0.2s ease; }
+        .response-item-node { border-radius: 12px; padding: 12px 16px; text-align: center; border: 1px solid transparent; }
         .response-item-node .q-num { font-size: 0.75rem; text-transform: uppercase; font-weight: 700; color: var(--cl-slate-700); opacity: 0.8; display: block; margin-bottom: 4px; }
         .response-item-node .ans-txt { font-size: 0.95rem; font-weight: 700; color: var(--cl-navy-dark); display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
         
@@ -198,29 +165,17 @@
         .admin-notes-card h3 { margin: 0 0 12px 0; font-size: 1.1rem; font-weight: 900; color: var(--cl-orange); text-transform: uppercase; letter-spacing: 0.5px; }
         .admin-notes-card p { margin: 0 0 15px 0; font-size: 0.9rem; color: #c2410c; }
         .notes-area-field { width: 100%; height: 110px; padding: 16px; font-family: 'Outfit', sans-serif; font-size: 1rem; border: 1px solid #fed7aa; border-radius: 14px; background: var(--cl-white); box-sizing: border-box; resize: none; color: var(--cl-navy-dark); }
-        .notes-area-field:focus { outline: none; border-color: var(--cl-orange); box-shadow: 0 0 0 4px rgba(249, 115, 22, 0.1); }
 
-        .actions-matrix-panel {
-            background: var(--cl-slate-50); border-top: 2px solid var(--cl-slate-100);
-            padding: 35px 45px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px;
-        }
-        .action-kinetic-btn {
-            padding: 16px 24px; font-family: 'Outfit', sans-serif; font-size: 0.95rem; font-weight: 900;
-            text-transform: uppercase; letter-spacing: 1px; border: none; border-radius: 14px;
-            cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px;
-            transition: all 0.25s ease-in-out; text-decoration: none; box-sizing: border-box;
-        }
+        .actions-matrix-panel { background: var(--cl-slate-50); border-top: 2px solid var(--cl-slate-100); padding: 35px 45px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+        .action-kinetic-btn { padding: 16px 24px; font-family: 'Outfit', sans-serif; font-size: 0.95rem; font-weight: 900; text-transform: uppercase; letter-spacing: 1px; border: none; border-radius: 14px; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px; transition: all 0.25s ease-in-out; text-decoration: none; box-sizing: border-box; }
         .action-kinetic-btn.primary-teal { background: var(--cl-teal); color: var(--cl-white); box-shadow: 0 8px 20px rgba(20, 184, 166, 0.15); }
         .action-kinetic-btn.primary-teal:hover { background: var(--cl-navy-pure); transform: translateY(-2px); }
-        
         .action-kinetic-btn.primary-orange { background: var(--cl-orange); color: var(--cl-white); box-shadow: 0 8px 20px rgba(249, 115, 22, 0.15); }
         .action-kinetic-btn.primary-orange:hover { background: var(--cl-navy-dark); transform: translateY(-2px); }
-        
         .action-kinetic-btn.secondary-slate { background: var(--cl-slate-200); color: var(--cl-slate-700); }
         .action-kinetic-btn.secondary-slate:hover { background: var(--cl-slate-400); color: var(--white); transform: translateY(-2px); }
 
         .email-delivery-notice-msg { font-size: 0.9rem; font-weight: 700; color: var(--cl-orange); margin: 15px auto 25px; display: none; text-transform: uppercase; letter-spacing: 0.5px; text-align: center; grid-column: span 3; }
-
         .async-loading-curtain { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 120px 20px; }
         .async-loading-curtain i { font-size: 3rem; color: var(--cl-teal); margin-bottom: 20px; }
         
@@ -230,7 +185,7 @@
             .actions-matrix-panel { grid-template-columns: 1fr; }
             .responses-matrix-box { grid-template-columns: repeat(3, 1fr); }
             .report-branding-header { flex-direction: column-reverse; gap: 20px; }
-            .header-right-meta-text { text-align: left; display: flex; flex-direction: column-reverse; align-items: flex-start; }
+            .header-right-meta-text { text-align: left; }
             .report-body-padding { padding: 24px; }
         }
     </style>
@@ -238,40 +193,32 @@
 <body>
 
 <section id="cl-report-panel">
-    
     <div class="async-loading-curtain" id="reportLoaderCurtain">
         <i class="fa-solid fa-circle-notch fa-spin"></i>
         <span style="font-weight: 700; color: var(--cl-navy-pure); font-size: 1.1rem; text-transform: uppercase; letter-spacing: 0.5px;">Compiling Diagnostic Document Stack...</span>
     </div>
 
     <div class="report-main-shell" id="reportDocumentWrapper" style="display: none;">
-        
         <div class="back-nav-row">
-            <a href="dashboard.html" class="back-dashboard-btn">
-                <i class="fa-solid fa-arrow-left-long"></i> Back to Admin Dashboard
-            </a>
+            <a href="dashboard.html" class="back-dashboard-btn"><i class="fa-solid fa-arrow-left-long"></i> Back to Admin Dashboard</a>
         </div>
 
         <header class="report-branding-header">
-            <!-- 🌟 LOGO PLACED AT THE LEFT HAND TOP CORNER -->
             <div class="header-logo-container">
-                <img class="header-brand-logo" src="https://curiouslearneracademy.com/newzealand/wp-content/uploads/sites/3/2026/01/Logo-Color-Updated.png" alt="Curious Learner Academy Corporate Logo">
+                <img class="header-brand-logo" src="https://curiouslearneracademy.com/newzealand/wp-content/uploads/sites/3/2026/01/Logo-Color-Updated.png" alt="Curious Learner Academy Logo">
             </div>
             
             <div class="header-right-meta-text">
-                <div class="meta-text-block">
-                    <h1>Curious Learner <span>Academy</span></h1>
-                    <p>Diagnostic Assessment Report</p>
-                    <div style="color: #cbd5e1; font-size: 0.8rem; margin-top: 5px; font-weight: 400;">
-                        ID: <span id="docReportId" style="font-family: monospace; font-weight: bold; color: #fff;">---</span> | 
-                        Ingest: <span id="docProcessedDate" style="font-family: monospace; font-weight: bold; color: #fff;">---</span>
-                    </div>
+                <h1>Curious Learner <span>Academy</span></h1>
+                <p>Diagnostic Assessment Report</p>
+                <div style="color: #cbd5e1; font-size: 0.8rem; margin-top: 5px; font-weight: 400;">
+                    ID: <span id="docReportId" style="font-family: monospace; font-weight: bold; color: #fff;">---</span> | 
+                    Ingest: <span id="docProcessedDate" style="font-family: monospace; font-weight: bold; color: #fff;">---</span>
                 </div>
             </div>
         </header>
 
         <div class="report-body-padding">
-            
             <div class="split-profile-grid">
                 <div class="demographics-card">
                     <h3>Student Details</h3>
@@ -327,7 +274,6 @@
             <div class="scores-distribution-workspace">
                 <div class="graphical-block-card">
                     <h3>Section Scores</h3>
-                    
                     <div class="progress-meter-row">
                         <div class="meter-meta-text"><span>Foundational (Section 1)</span><span id="sec1Val">0%</span></div>
                         <div class="meter-track-base"><div class="meter-fill-bar sec-color" id="sec1Bar"></div></div>
@@ -344,7 +290,7 @@
 
                 <div class="graphical-block-card">
                     <h3>Topic Performance</h3>
-                    <div class="chart-canvas-shell" id="liveChartContainerNode">
+                    <div class="chart-canvas-shell">
                         <canvas id="topicChartCanvas"></canvas>
                     </div>
                 </div>
@@ -353,7 +299,6 @@
             <div class="ai-futuristic-dashboard">
                 <div class="data-grid-overlay"></div>
                 <canvas class="ai-matrix-canvas" id="matrixEffectCanvas"></canvas>
-                
                 <div class="ai-dashboard-contents">
                     <div class="ai-telemetry-left">
                         <div class="futuristic-badge-node">AI Diagnostic Profiler</div>
@@ -362,10 +307,8 @@
                         <h4>Cognitive Capability Analysis</h4>
                         <p class="ai-analysis-paragraph" id="aiDiagnosticText">---</p>
                         <h4>Strategic Development Trajectory</h4>
-                        <ul class="futuristic-bullets-cluster" id="recommendationsContainer">
-                        </ul>
+                        <ul class="futuristic-bullets-cluster" id="recommendationsContainer"></ul>
                     </div>
-                    
                     <div class="ai-telemetry-right">
                         <div class="radial-gauge-container">
                             <svg class="radial-gauge-svg" viewBox="0 0 130 130">
@@ -383,49 +326,35 @@
 
             <div class="responses-sheet-card">
                 <h3>Question Responses</h3>
-                <div class="responses-matrix-box" id="responsesSheetGrid">
-                </div>
+                <div class="responses-matrix-box" id="responsesSheetGrid"></div>
             </div>
 
             <div class="admin-notes-card">
                 <h3>Admin Notes</h3>
                 <p>Private observations saved locally on this browser terminal instance layer.</p>
-                <textarea class="notes-area-field" id="adminScratchpadArea" placeholder="e.g., Parent contacted via phone. Interested in scholarship track loops..."></textarea>
+                <textarea class="notes-area-field" id="adminScratchpadArea" placeholder="Observations..."></textarea>
             </div>
-
         </div>
 
         <footer class="actions-matrix-panel">
-            <button type="button" id="getReportBtnTrigger" class="action-kinetic-btn primary-teal">
-                <i class="fa-solid fa-paper-plane"></i> Request Report
-            </button>
-            <button type="button" class="action-kinetic-btn primary-orange" id="whatsappParentBtn">
-                <i class="fa-brands fa-whatsapp"></i> WhatsApp Parent
-            </button>
-            <button type="button" class="action-kinetic-btn secondary-slate" id="printPdfBtn">
-                <i class="fa-solid fa-file-pdf"></i> Print / Save PDF
-            </button>
-            <div class="email-delivery-notice-msg" id="deliveryNoticeBox">
-                <i class="fa-solid fa-bell"></i> Your comprehensive analysis will arrive on your registered email within 6 hours.
-            </div>
+            <button type="button" id="getReportBtnTrigger" class="action-kinetic-btn primary-teal">Request Report</button>
+            <button type="button" class="action-kinetic-btn primary-orange" id="whatsappParentBtn">WhatsApp Parent</button>
+            <button type="button" class="action-kinetic-btn secondary-slate" id="printPdfBtn">Print / Save PDF</button>
+            <div class="email-delivery-notice-msg" id="deliveryNoticeBox">Report dispatched inside the email content.</div>
         </footer>
-
     </div>
 </section>
 
 <script>
     document.addEventListener('DOMContentLoaded', () => {
         const CORE_API_URL = "https://diagnostic-backend-jmsu.onrender.com";
-
         const activeUrlParams = new URLSearchParams(window.location.search);
         const assessmentIdToken = activeUrlParams.get('id');
 
-        if (window.location.pathname.includes('report.html')) {
-            if (!assessmentIdToken) {
-                alert("No student assessment parameter detected. Re-routing back to administrative directory.");
-                window.location.href = "dashboard.html";
-                return;
-            }
+        if (window.location.pathname.includes('report.html') && !assessmentIdToken) {
+            alert("No student assessment parameter detected.");
+            window.location.href = "dashboard.html";
+            return;
         }
 
         const COMBINED_EVALUATION_MARK_SCHEME = {
@@ -434,16 +363,10 @@
             "3 o'clock": [18], "Sphere": [19], "6": [20, 22], "Mia": [21], "Wednesday": [23], "Blue": [25],
             "33": [1], "3/4": [3], "30 minutes": [4], "$12": [5], "30": [6, 25], "30 cm": [7], "Square": [8], "95": [10],
             "3,245": [11], "30 meters": [12], "1 hour 45 minutes": [13], "$25": [14], "120": [15], "4/8": [16], 
-            "600 grams": [17], "5": [19, 21, 24, 25], "24 cm": [20], "40 km": [23], "5 kg": [24],
-            "1,350": [1], "360": [2], "$2.75": [3], "8 slices": [5], "155 cm": [6], "10 meters": [7], 
-            "2 hours 30 minutes": [8], "3 degrees": [9], "3/4 kg": [11], "$60": [12], "10.45 km": [13], "2 cans": [14], 
-            "$22": [15], "15": [16], "30,000 cm³": [17], "6 cups": [18], "0.4": [19], "10:25 AM": [20], "$3.00": [21], "10 days": [22], "2 meters": [23],
-            "$3.25": [1], "150 liters": [2], "11:20 AM": [3], "156": [4], "20 m²": [6], "4/15": [7], "40 m³": [8], 
-            "1.2 meters": [9], "8 km": [11], "$72": [12], "$800": [13], "120 km": [15], "40°": [16], "90": [17], "7/12": [18], 
-            "40 cm": [19], "118 minutes": [21], "2 hours": [22], "12 kg": [25]
+            "600 grams": [17], "5": [19, 21, 24, 25], "24 cm": [20], "40 km": [23], "5 kg": [24]
         };
 
-        let topicChartInstance = null; 
+        let topicChartInstance = null;
 
         if (assessmentIdToken) {
             loadReportDocumentBlueprint();
@@ -452,36 +375,27 @@
 
         async function loadReportDocumentBlueprint() {
             try {
-                const response = await fetch(
-                    `${CORE_API_URL}/api/admin/report/${assessmentIdToken}`,
-                    { headers: { Authorization: `Bearer ${localStorage.getItem("adminToken")}` } }
-                );
+                const response = await fetch(`${CORE_API_URL}/api/admin/report/${assessmentIdToken}`, {
+                    headers: { Authorization: `Bearer ${localStorage.getItem("adminToken")}` }
+                });
                 const payload = await response.json();
-
-                if (!payload.success || !payload.report) {
-                    throw new Error(payload.message || "Target reporting structures could not be found.");
-                }
+                if (!payload.success) throw new Error("Report not found.");
 
                 const report = payload.report;
                 const student = report.studentId;
-
-                window.currentStudentId = student._id;
 
                 document.getElementById('studentName').innerText = `${student.firstName} ${student.lastName}`;
                 document.getElementById('studentYear').innerText = student.yearLevel;
                 document.getElementById('studentSchool').innerText = student.schoolName;
                 document.getElementById('studentStream').innerText = student.assessingFor;
-
                 document.getElementById('parentName').innerText = student.parentName;
                 document.getElementById('parentEmail').innerText = student.parentEmail;
                 document.getElementById('parentPhone').innerText = student.parentPhone;
-
                 document.getElementById('docReportId').innerText = assessmentIdToken;
                 document.getElementById("docProcessedDate").innerText = new Date(report.processedTimestamp).toLocaleDateString();
 
                 const percentage = Math.round((report.scorecardMetrics.totalCorrect / 25) * 100);
                 document.getElementById('summaryOverallScore').innerText = percentage + '%';
-                
                 document.getElementById('summaryTotalCorrect').innerText = report.scorecardMetrics.totalCorrect + ' / 25';
                 document.getElementById('summaryGradeGroup').innerText = report.gradeGroup || 'Year Range';
                 document.getElementById('summaryReadiness').innerText = report.diagnosticAnalysis.learningReadiness || 'Calculated Stage';
@@ -496,48 +410,36 @@
                 document.getElementById('aiReadinessLabel').innerText = report.diagnosticAnalysis.learningReadiness;
                 document.getElementById('aiDiagnosticText').innerText = report.diagnosticAnalysis.aiDiagnosticReport;
 
-                const recommendationWrapper = document.getElementById('recommendationsContainer');
-                recommendationWrapper.innerHTML = '';
-                if (report.diagnosticAnalysis.futureRecommendations && Array.isArray(report.diagnosticAnalysis.futureRecommendations)) {
-                    report.diagnosticAnalysis.futureRecommendations.forEach(bulletText => {
-                        recommendationWrapper.innerHTML += `<li><span>${bulletText}</span></li>`;
+                const recWrapper = document.getElementById('recommendationsContainer');
+                recWrapper.innerHTML = '';
+                if (Array.isArray(report.diagnosticAnalysis.futureRecommendations)) {
+                    report.diagnosticAnalysis.futureRecommendations.forEach(txt => {
+                        recWrapper.innerHTML += `<li><span>${txt}</span></li>`;
                     });
                 }
 
                 buildQuestionAuditorMatrixGrid(report.answers || []);
-
-                const verifiedCacheNotes = localStorage.getItem(`scratchpad_notes_${assessmentIdToken}`);
-                if (verifiedCacheNotes) {
-                    document.getElementById('adminScratchpadArea').value = verifiedCacheNotes;
-                }
-
                 bindOperationalButtonsActionHooks(`${student.firstName} ${student.lastName}`, student.parentPhone);
 
                 document.getElementById('reportLoaderCurtain').style.display = 'none';
                 document.getElementById('reportDocumentWrapper').style.display = 'block';
-
             } catch (error) {
-                console.error("Critical Exception inside report layout engine:", error);
-                alert("Database server timeout pulling diagnostics profile telemetry loops.");
+                alert("Timeout loading analytics telemetry.");
             }
         }
 
         function animateProgressBarMeter(barDOMId, labelDOMId, targetedPercentageValue) {
             const normalizedPercent = Math.min(Math.max(parseInt(targetedPercentageValue) || 0, 0), 100);
             document.getElementById(labelDOMId).innerText = normalizedPercent + '%';
-            setTimeout(() => {
-                document.getElementById(barDOMId).style.width = normalizedPercent + '%';
-            }, 150);
+            setTimeout(() => { document.getElementById(barDOMId).style.width = normalizedPercent + '%'; }, 150);
         }
 
         function animateRadialGaugeTelemetry(targetPercentage) {
             const circleFill = document.getElementById('radialTelemetryFill');
             const textualScore = document.getElementById('radialNumericalScore');
             const maxCircumference = 377;
-            const offsetValue = maxCircumference - (targetPercentage / 100) * maxCircumference;
-            
             setTimeout(() => {
-                circleFill.style.strokeDashoffset = offsetValue;
+                circleFill.style.strokeDashoffset = maxCircumference - (targetPercentage / 100) * maxCircumference;
                 textualScore.innerText = targetPercentage + '%';
             }, 250);
         }
@@ -545,33 +447,21 @@
         function initializeMatrixBackgroundRainEffect() {
             const canvas = document.getElementById('matrixEffectCanvas');
             const ctx = canvas.getContext('2d');
-            canvas.width = canvas.parentElement.offsetWidth;
-            canvas.height = canvas.parentElement.offsetHeight;
-            const binarySymbolsMatrix = "01011010011011001";
-            const fontScale = 11;
-            const columnsAllocation = canvas.width / fontScale;
-            const fallingDropsTrack = Array(Math.floor(columnsAllocation)).fill(1);
-
-            function drawRain() {
-                ctx.fillStyle = 'rgba(3, 7, 18, 0.04)';
-                ctx.fillRect(0, 0, canvas.width, canvas.height);
-                ctx.fillStyle = '#14b8a6';
-                ctx.font = fontScale + 'px monospace';
-                for(let i = 0; i < fallingDropsTrack.length; i++) {
-                    const textChar = binarySymbolsMatrix.charAt(Math.floor(Math.random() * binarySymbolsMatrix.length));
-                    ctx.fillText(textChar, i * fontScale, fallingDropsTrack[i] * fontScale);
-                    if(fallingDropsTrack[i] * fontScale > canvas.height && Math.random() > 0.975) {
-                        fallingDropsTrack[i] = 0;
-                    }
-                    fallingDropsTrack[i]++;
-                }
+            canvas.width = canvas.parentElement.offsetWidth; canvas.height = canvas.parentElement.offsetHeight;
+            const fallbackArray = Array(Math.floor(canvas.width / 11)).fill(1);
+            function draw() {
+                ctx.fillStyle = 'rgba(3, 7, 18, 0.04)'; ctx.fillRect(0, 0, canvas.width, canvas.height);
+                ctx.fillStyle = '#14b8a6'; ctx.font = '11px monospace';
+                fallbackArray.forEach((y, i) => {
+                    ctx.fillText("01"[Math.floor(Math.random()*2)], i*11, y*11);
+                    if(y*11 > canvas.height && Math.random() > 0.975) fallbackArray[i] = 0;
+                    fallbackArray[i]++;
+                });
             }
-            window.matrixInterval = setInterval(drawRain, 33);
+            window.matrixInterval = setInterval(draw, 33);
         }
 
-        window.addEventListener('beforeunload', () => {
-            if (window.matrixInterval) clearInterval(window.matrixInterval);
-        });
+        window.addEventListener('beforeunload', () => { if (window.matrixInterval) clearInterval(window.matrixInterval); });
 
         function renderTopicChartJSGraph(topicsData) {
             const ctx = document.getElementById('topicChartCanvas').getContext('2d');
@@ -580,98 +470,89 @@
                 data: {
                     labels: ['Mathematics', 'Analytical', 'Logical'],
                     datasets: [{
-                        data: [
-                            topicsData.mathematicsScore || 0, 
-                            topicsData.analyticalScore || 0, 
-                            topicsData.logicalScore || 0
-                        ],
+                        data: [topicsData.mathematicsScore || 0, topicsData.analyticalScore || 0, topicsData.logicalScore || 0],
                         backgroundColor: ['#f97316', '#14b8a6', '#0c4a6e'],
-                        borderRadius: 8,
-                        borderSkipped: false,
-                        barThickness: 24
+                        borderRadius: 8, barThickness: 24
                     }]
                 },
-                options: {
-                    indexAxis: 'y',
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    animation: false,
-                    plugins: { legend: { display: false } },
-                    scales: {
-                        x: { min: 0, max: 100, ticks: { callback: value => value + '%' } },
-                        y: { grid: { display: false } }
-                    }
-                }
+                options: { indexAxis: 'y', responsive: true, maintainAspectRatio: false, animation: false, plugins: { legend: { display: false } } }
             });
         }
 
         function buildQuestionAuditorMatrixGrid(answersArray) {
             const gridContainer = document.getElementById('responsesSheetGrid');
             gridContainer.innerHTML = '';
-            for (let currentSlotIndex = 1; currentSlotIndex <= 25; currentSlotIndex++) {
-                const answerObjectMatch = answersArray.find(element => element.questionId === currentSlotIndex);
-                const recordedResponseValue = answerObjectMatch ? answerObjectMatch.selectedAnswer : 'Unanswered';
-                let stateClassMarker = "incorrect-state"; 
-                const schemaEntry = COMBINED_EVALUATION_MARK_SCHEME[recordedResponseValue];
-                if (schemaEntry && schemaEntry.includes(currentSlotIndex)) {
-                    stateClassMarker = "correct-state";
-                }
+            for (let i = 1; i <= 25; i++) {
+                const match = answersArray.find(el => el.questionId === i);
+                const val = match ? match.selectedAnswer : 'Unanswered';
+                const schema = COMBINED_EVALUATION_MARK_SCHEME[val];
+                const state = (schema && schema.includes(i)) ? "correct-state" : "incorrect-state";
+                
+                // 🌟 FIX #3: Inject explicit fallback email inline attributes safely directly into layout string loop
+                const inlineColorBg = state === "correct-state" ? "background:#bbf7d0; border-color:#86efac; color:#166534;" : "background:#fecaca; border-color:#fca5a5; color:#991b1b;";
+
                 gridContainer.innerHTML += `
-                    <div class="response-item-node ${stateClassMarker}">
-                        <span class="q-num">Item ${currentSlotIndex}</span>
-                        <span class="ans-txt" title="${recordedResponseValue}">${recordedResponseValue}</span>
+                    <div class="response-item-node ${state}" data-email-inline="true" style="display:inline-block; width:17%; margin:1%; padding:10px; text-align:center; border-radius:6px; border:1px solid #e2e8f0; ${inlineColorBg}">
+                        <span class="q-num" style="font-size: 0.75rem; color: #64748b; display: block; margin-bottom: 4px;">Item ${i}</span>
+                        <span class="ans-txt" style="font-weight: bold; display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">${val}</span>
                     </div>
                 `;
             }
         }
 
         function bindOperationalButtonsActionHooks(resolvedStudentName, parentPhoneNumber) {
-            document.getElementById('printPdfBtn').addEventListener('click', () => {
-                window.print();
-            });
-
-            document.getElementById('adminScratchpadArea').addEventListener('input', (e) => {
-                localStorage.setItem(`scratchpad_notes_${assessmentIdToken}`, e.target.value);
-            });
+            document.getElementById('printPdfBtn').addEventListener('click', () => { window.print(); });
 
             document.getElementById('getReportBtnTrigger').addEventListener('click', async function () {
                 try {
                     this.disabled = true;
-                    this.innerHTML = '<i class="fa-solid fa-spinner fa-spin" style="margin-right:8px;"></i>Processing Email Body...';
+                    this.innerHTML = '<i class="fa-solid fa-spinner fa-spin" style="margin-right:8px;"></i>Processing Email...';
 
-                    await new Promise(resolve => setTimeout(resolve, 800));
+                    // 🌟 FIX #2: Add layout rendering promise gate to wait for complete painting values
+                    await new Promise(resolve => setTimeout(resolve, 1000));
 
                     const reportClone = document.getElementById('reportDocumentWrapper').cloneNode(true);
 
-                    // Convert active Chart.js and Matrix canvases into cross-client standalone images
+                    // 🌟 FIX #4: Transform active running HTML5 canvases into inline base64 image nodes inside layout wrapper clone
                     reportClone.querySelectorAll('canvas').forEach(canvas => {
                         try {
-                            const imgNode = document.createElement('img');
-                            imgNode.src = canvas.toDataURL('image/png');
-                            imgNode.style.maxWidth = '100%';
-                            imgNode.style.height = 'auto';
-                            imgNode.style.display = 'block';
-                            canvas.replaceWith(imgNode);
+                            const img = document.createElement('img');
+                            img.src = canvas.toDataURL('image/png');
+                            img.style.maxWidth = '100%';
+                            img.style.height = 'auto';
+                            img.style.display = 'block';
+                            canvas.replaceWith(img);
                         } catch(err) {
-                            console.warn("Canvas rasterization conversion skipped:", err);
+                            console.error("Canvas image snap fault context:", err);
                         }
                     });
 
-                    // Remove all dashboard system actions buttons and scratchpads before encoding outer strings
+                    // Convert live SVGs telemetry rings to a clean inline block
+                    const gaugeRightBox = reportClone.querySelector('.ai-telemetry-right');
+                    if (gaugeRightBox) {
+                        const indexScore = document.getElementById('radialNumericalScore').innerText;
+                        gaugeRightBox.innerHTML = `
+                            <div style="background:#14b8a6; color:#ffffff; padding:15px 25px; border-radius:16px; text-align:center; font-family:sans-serif;">
+                                <div style="font-size:1.6rem; font-weight:900;">${indexScore}</div>
+                                <div style="font-size:0.7rem; text-transform:uppercase; letter-spacing:1px; margin-top:2px;">Readiness Index</div>
+                            </div>
+                        `;
+                    }
+
+                    // Strip administrative headers/notes panels before encoding outer markup content
                     reportClone.querySelector('.back-nav-row')?.remove();
                     reportClone.querySelector('.admin-notes-card')?.remove();
                     reportClone.querySelector('.actions-matrix-panel')?.remove();
-                    
-                    reportClone.querySelectorAll('button').forEach(btn => btn.remove());
+                    reportClone.querySelector('.ai-matrix-canvas')?.remove();
+                    reportClone.querySelector('.data-grid-overlay')?.remove();
+                    reportClone.querySelectorAll('button').forEach(b => b.remove());
                     reportClone.querySelectorAll('.fa-solid, .fa-brands').forEach(icon => icon.remove());
 
                     const reportHtml = reportClone.innerHTML;
 
                     const response = await fetch(`${CORE_API_URL}/api/admin/send-report`, {
                         method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json'
-                        },
+                        headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify({
                             parentEmail: document.getElementById('parentEmail').innerText.trim(),
                             parentName: document.getElementById('parentName').innerText.trim(),
@@ -681,18 +562,14 @@
                     });
 
                     const data = await response.json();
-
-                    if (!data.success) {
-                        throw new Error(data.message || "Email pipeline endpoint returned transaction fault response codes.");
-                    }
+                    if (!data.success) throw new Error(data.message);
 
                     this.removeAttribute('disabled');
                     this.innerHTML = 'REPORT SENT';
                     document.getElementById('deliveryNoticeBox').style.display = 'block';
-                    alert(`Hybrid Direct Engine Approved: Clean HTML document body delivered cleanly into parent mail application views container.`);
+                    alert("Email dispatched successfully directly into email content views.");
 
                 } catch (error) {
-                    console.error("Mail Pipeline Processing Defect Context:", error);
                     alert(`Transmission Error: ${error.message}`);
                     this.disabled = false;
                     this.innerHTML = 'Request Report';
@@ -700,13 +577,11 @@
             });
 
             document.getElementById('whatsappParentBtn').addEventListener('click', () => {
-                const encryptedEscapedText = encodeURIComponent(`Kia ora, this is Curious Learner Academy. We have processed the Diagnostic Evaluation and AI Analysis Report for ${resolvedStudentName}. Let us know if you require any specific feedback callbacks!`);
-                const formattedPhone = parentPhoneNumber ? parentPhoneNumber.replace(/\s+/g, '') : "919251230015";
-                window.open(`https://wa.me/${formattedPhone}?text=${encryptedEscapedText}`, '_blank');
+                const escapedText = encodeURIComponent(`Kia ora, this is Curious Learner Academy. We have processed the Diagnostic Evaluation and AI Analysis Report for ${resolvedStudentName}.`);
+                window.open(`https://wa.me/${parentPhoneNumber ? parentPhoneNumber.replace(/\s+/g, '') : "919251230015"}?text=${escapedText}`, '_blank');
             });
         }
     });
 </script>
-
 </body>
 </html>
