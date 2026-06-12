@@ -434,6 +434,22 @@ if(loader){
     loader.style.display = 'none';
 }
 
+}
+
+catch(error) {
+
+    console.error(error);
+
+    alert(
+        "Data stream mismatch or evaluation record link dropped."
+    );
+
+}
+
+}
+
+function animateProgressBarMeter(barDOMId, labelDOMId, targetedPercentageValue) {
+
         function animateProgressBarMeter(barDOMId, labelDOMId, targetedPercentageValue) {
             const normalizedPercent = Math.min(Math.max(parseInt(targetedPercentageValue) || 0, 0), 100);
             document.getElementById(labelDOMId).innerText = normalizedPercent + '%';
@@ -502,7 +518,6 @@ if(loader){
                 `;
             }
         }
-    loadReportDocumentBlueprint();
                 
 </script>
 </body>
