@@ -448,8 +448,6 @@ catch(error) {
 
 }
 
-function animateProgressBarMeter(barDOMId, labelDOMId, targetedPercentageValue) {
-
         function animateProgressBarMeter(barDOMId, labelDOMId, targetedPercentageValue) {
             const normalizedPercent = Math.min(Math.max(parseInt(targetedPercentageValue) || 0, 0), 100);
             document.getElementById(labelDOMId).innerText = normalizedPercent + '%';
