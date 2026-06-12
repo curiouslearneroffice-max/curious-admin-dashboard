@@ -411,15 +411,28 @@
 
                 buildQuestionAuditorMatrixGrid(report.answers || []);
                 
-                document.getElementById('printPdfBtn').addEventListener('click', () => { window.print(); });
+                const printBtn =
+    document.getElementById('printPdfBtn');
 
-                document.getElementById('reportDocumentWrapper').style.display = 'block';
-                document.getElementById('reportLoaderCurtain').style.display = 'none';
-            } catch (error) {
-                console.error(error);
-                alert("Data stream mismatch or evaluation record link dropped.");
-            }
-        }
+if(printBtn){
+    printBtn.addEventListener('click', () => {
+        window.print();
+    });
+}
+
+                const reportWrapper =
+    document.getElementById('reportDocumentWrapper');
+
+if(reportWrapper){
+    reportWrapper.style.display = 'block';
+}
+
+const loader =
+    document.getElementById('reportLoaderCurtain');
+
+if(loader){
+    loader.style.display = 'none';
+}
 
         function animateProgressBarMeter(barDOMId, labelDOMId, targetedPercentageValue) {
             const normalizedPercent = Math.min(Math.max(parseInt(targetedPercentageValue) || 0, 0), 100);
