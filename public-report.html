@@ -420,21 +420,21 @@ if(printBtn){
     });
 }
 
-                const reportWrapper =
+              const reportWrapper =
     document.getElementById('reportDocumentWrapper');
 
-if(reportWrapper){
+if (reportWrapper) {
     reportWrapper.style.display = 'block';
 }
 
 const loader =
     document.getElementById('reportLoaderCurtain');
 
-if(loader){
+if (loader) {
     loader.style.display = 'none';
 }
 
-catch(error) {
+} catch (error) {
 
     console.error(error);
 
@@ -446,7 +446,7 @@ catch(error) {
 
 }
 
-        function animateProgressBarMeter(barDOMId, labelDOMId, targetedPercentageValue) {
+function animateProgressBarMeter(barDOMId, labelDOMId, targetedPercentageValue) {
             const normalizedPercent = Math.min(Math.max(parseInt(targetedPercentageValue) || 0, 0), 100);
             document.getElementById(labelDOMId).innerText = normalizedPercent + '%';
             setTimeout(() => { document.getElementById(barDOMId).style.width = normalizedPercent + '%'; }, 150);
