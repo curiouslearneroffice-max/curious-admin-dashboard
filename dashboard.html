@@ -81,9 +81,9 @@
         .hero-welcome-node h1 span { color: var(--cl-teal); }
         .hero-welcome-node p { margin: 0; color: #cbd5e1; font-size: 1.1rem; font-weight: 300; }
 
-        /* 🛠️ CHANGER ONLY: Shifted vertically up from bottom: -30px to bottom: 20px and increased layer stack priority */
+        /* 🛠️ FIXED MAPPING: Switched bottom anchoring to top: 20px to force mascot safely above cards row */
         .floating-character-mascot {
-            position: absolute; right: 60px; bottom: 20px; height: 160px; width: auto;
+            position: absolute; right: 60px; top: 20px; height: 140px; width: auto;
             filter: drop-shadow(0 15px 25px rgba(2,6,23,0.3));
             animation: gentleFloat 4s infinite ease-in-out;
             z-index: 50; pointer-events: none;
@@ -608,13 +608,3 @@
                     { id: "6a2904399b7e1f9fcf855342", firstName: "Atul", lastName: "Singh", yearLevel: "Year 5", schoolName: "FMS", parentName: "Tasha", parentEmail: "atulgaharwar37@gmail.com", parentPhone: "+648208298971", reportStatus: "sent", registrationTimestamp: new Date().toISOString() },
                     { id: "102904399b7e1f9fcf855343", firstName: "Liam", lastName: "Te Kiri", yearLevel: "Year 2", schoolName: "Auckland Normal", parentName: "Aroha", parentEmail: "aroha.tekiri@domain.nz", parentPhone: "+64214459821", reportStatus: "pending", registrationTimestamp: new Date().toISOString() },
                     { id: "202904399b7e1f9fcf855344", firstName: "Chloe", lastName: "Zhang", yearLevel: "Year 4", schoolName: "Macleans Primary", parentName: "Wei", parentEmail: "wei.zhang@gmail.com", parentPhone: "+64278891234", reportStatus: "none", registrationTimestamp: new Date().toISOString() },
-                    { id: "302904399b7e1f9fcf855345", firstName: "James", lastName: "James", yearLevel: "Year 7", schoolName: "Parnell District", parentName: "Sarah", parentEmail: "sarah.smith@xtra.co.nz", parentPhone: "+64223345678", reportStatus: "requested", registrationTimestamp: new Date().toISOString() }
-                ];
-
-                calculateRequestStatusMetrics(LOCAL_STUDENT_CACHE);
-                executeLedgerRenderEngineLoop();
-            }
-        });
-    </script>
-</body>
-</html>
