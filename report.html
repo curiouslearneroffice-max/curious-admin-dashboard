@@ -379,10 +379,17 @@
                     headers: { Authorization: `Bearer ${localStorage.getItem("adminToken")}` }
                 });
                 const payload = await response.json();
-                if (!payload.success) throw new Error("Report not found.");
 
-                const report = payload.report;
-                const student = report.studentId;
+if (!payload.success)
+    throw new Error("Report not found.");
+
+const report = payload.report;
+
+window.currentReportId = report._id;
+
+console.log('ACTUAL REPORT ID:', report._id);
+
+const student = report.studentId;
 
                 document.getElementById('studentName').innerText = `${student.firstName} ${student.lastName}`;
                 document.getElementById('studentYear').innerText = student.yearLevel;
