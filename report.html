@@ -380,16 +380,16 @@
                 });
                 const payload = await response.json();
 
-if (!payload.success)
-    throw new Error("Report not found.");
+                if (!payload.success)
+                    throw new Error("Report not found.");
 
-const report = payload.report;
+                const report = payload.report;
 
-window.currentReportId = report._id;
+                window.currentReportId = report._id;
 
-console.log('ACTUAL REPORT ID:', report._id);
+                console.log('ACTUAL REPORT ID:', report._id);
 
-const student = report.studentId;
+                const student = report.studentId;
 
                 document.getElementById('studentName').innerText = `${student.firstName} ${student.lastName}`;
                 document.getElementById('studentYear').innerText = student.yearLevel;
@@ -561,11 +561,11 @@ const student = report.studentId;
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify({
-    parentEmail: document.getElementById('parentEmail').innerText.trim(),
-    parentName: document.getElementById('parentName').innerText.trim(),
-    studentName: document.getElementById('studentName').innerText.trim(),
-    reportId: window.currentReportId
-})
+                            parentEmail: document.getElementById('parentEmail').innerText.trim(),
+                            parentName: document.getElementById('parentName').innerText.trim(),
+                            studentName: document.getElementById('studentName').innerText.trim(),
+                            reportId: window.currentReportId
+                        })
                     });
 
                     const data = await response.json();
