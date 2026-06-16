@@ -554,11 +554,11 @@
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify({
-                            parentEmail: document.getElementById('parentEmail').innerText.trim(),
-                            parentName: document.getElementById('parentName').innerText.trim(),
-                            studentName: document.getElementById('studentName').innerText.trim(),
-                            reportHtml: reportHtml
-                        })
+    parentEmail: document.getElementById('parentEmail').innerText.trim(),
+    parentName: document.getElementById('parentName').innerText.trim(),
+    studentName: document.getElementById('studentName').innerText.trim(),
+    reportId: assessmentIdToken
+})
                     });
 
                     const data = await response.json();
