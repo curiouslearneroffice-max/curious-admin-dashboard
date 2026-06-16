@@ -81,11 +81,12 @@
         .hero-welcome-node h1 span { color: var(--cl-teal); }
         .hero-welcome-node p { margin: 0; color: #cbd5e1; font-size: 1.1rem; font-weight: 300; }
 
+        /* 🛠️ CHANGER ONLY: Shifted vertically up from bottom: -30px to bottom: 25px and increased layer stack priority */
         .floating-character-mascot {
-            position: absolute; right: 60px; bottom: -30px; height: 160px; width: auto;
+            position: absolute; right: 60px; bottom: 25px; height: 160px; width: auto;
             filter: drop-shadow(0 15px 25px rgba(2,6,23,0.3));
             animation: gentleFloat 4s infinite ease-in-out;
-            z-index: 10; pointer-events: none;
+            z-index: 50; pointer-events: none;
         }
         @keyframes gentleFloat {
             0%, 100% { transform: translateY(0); } 50% { transform: translateY(-12px); }
@@ -129,7 +130,7 @@
             margin: 0; font-size: 2.5rem; font-weight: 900; color: var(--cl-navy-dark); line-height: 1;
         }
 
-        /* --- 🌟 DYNAMIC REPORT WORKSPACE HUD LAYER --- */
+        /* --- DYNAMIC REPORT WORKSPACE HUD LAYER --- */
         .report-hud-ribbon {
             display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; margin-bottom: 40px;
         }
@@ -438,7 +439,7 @@
                     populateDashboardTallyCards(metricsPayload.stats);
                     LOCAL_STUDENT_CACHE = ledgerPayload.students || [];
 
-                    // 🌟 Compute Request metrics dynamically based on the cohort data fields
+                    // Compute request metrics dynamically based on the cohort data fields
                     calculateRequestStatusMetrics(LOCAL_STUDENT_CACHE);
 
                     document.getElementById('tableLoadingState').style.display = 'none';
@@ -462,7 +463,7 @@
                 document.getElementById('y78').innerText = statsMap.y78 || 0;
             }
 
-            // 🌟 NEW COMPUTATION ENGINE: Tallies parent interaction parameters natively
+            // Tallies parent interaction parameters natively based on state strings
             function calculateRequestStatusMetrics(records) {
                 let totalRequested = 0;
                 let reportsSent = 0;
@@ -470,17 +471,16 @@
                 let notRequested = 0;
 
                 records.forEach(student => {
-                    // Mapped evaluation rules state matching options fallback checks
                     const status = student.reportStatus ? student.reportStatus.toLowerCase().trim() : 'none';
                     
                     if (status === 'sent') {
                         reportsSent++;
-                        totalRequested++;
+                        totalRequested++; 
                     } else if (status === 'requested' || status === 'pending') {
                         pendingSent++;
-                        totalRequested++;
+                        totalRequested++; 
                     } else {
-                        notRequested++;
+                        notRequested++; 
                     }
                 });
 
@@ -552,7 +552,7 @@
                     const formattedDisplayDate = item.registrationTimestamp ? 
                         new Date(item.registrationTimestamp).toLocaleDateString('en-NZ', { day: '2-digit', month: 'short', year: 'numeric' }) : 'Recent';
 
-                    // 🌟 STATUS COLUMN BADGE COMPILING ENGINE
+                    // STATUS COLUMN BADGE COMPILING ENGINE
                     const rawStatus = item.reportStatus ? item.reportStatus.toLowerCase().trim() : 'none';
                     let statusBadgeMarkup = '';
                     if (rawStatus === 'sent') {
@@ -608,7 +608,7 @@
                     { id: "6a2904399b7e1f9fcf855342", firstName: "Atul", lastName: "Singh", yearLevel: "Year 5", schoolName: "FMS", parentName: "Tasha", parentEmail: "atulgaharwar37@gmail.com", parentPhone: "+648208298971", reportStatus: "sent", registrationTimestamp: new Date().toISOString() },
                     { id: "102904399b7e1f9fcf855343", firstName: "Liam", lastName: "Te Kiri", yearLevel: "Year 2", schoolName: "Auckland Normal", parentName: "Aroha", parentEmail: "aroha.tekiri@domain.nz", parentPhone: "+64214459821", reportStatus: "pending", registrationTimestamp: new Date().toISOString() },
                     { id: "202904399b7e1f9fcf855344", firstName: "Chloe", lastName: "Zhang", yearLevel: "Year 4", schoolName: "Macleans Primary", parentName: "Wei", parentEmail: "wei.zhang@gmail.com", parentPhone: "+64278891234", reportStatus: "none", registrationTimestamp: new Date().toISOString() },
-                    { id: "302904399b7e1f9fcf855345", firstName: "James", lastName: "Smith", yearLevel: "Year 7", schoolName: "Parnell District", parentName: "Sarah", parentEmail: "sarah.smith@xtra.co.nz", parentPhone: "+64223345678", reportStatus: "requested", registrationTimestamp: new Date().toISOString() }
+                    { id: "302904399b7e1f9fcf855345", firstName: "James", lastName: "James", yearLevel: "Year 7", schoolName: "Parnell District", parentName: "Sarah", parentEmail: "sarah.smith@xtra.co.nz", parentPhone: "+64223345678", reportStatus: "requested", registrationTimestamp: new Date().toISOString() }
                 ];
 
                 calculateRequestStatusMetrics(LOCAL_STUDENT_CACHE);
