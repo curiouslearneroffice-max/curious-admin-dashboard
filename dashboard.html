@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Curious Learner Academy - Administration Control Matrix</title>
-    <!-- Custom Font Architecture and Structural Icon Packs -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;900&display=swap');
@@ -21,6 +20,7 @@
             --cl-slate-400: #94a3b8;
             --cl-slate-700: #334155;
             --border-soft: rgba(12, 74, 110, 0.08);
+            --shadow-fluid: 0 20px 50px rgba(2, 6, 23, 0.04);
             --neon-glow: 0 10px 30px rgba(20, 184, 166, 0.15);
             --orange-glow: 0 10px 30px rgba(249, 115, 22, 0.15);
         }
@@ -81,7 +81,6 @@
         .hero-welcome-node h1 span { color: var(--cl-teal); }
         .hero-welcome-node p { margin: 0; color: #cbd5e1; font-size: 1.1rem; font-weight: 300; }
 
-        /* Floating Character Mascot Linkage anchor placement */
         .floating-character-mascot {
             position: absolute; right: 60px; bottom: -30px; height: 160px; width: auto;
             filter: drop-shadow(0 15px 25px rgba(2,6,23,0.3));
@@ -95,7 +94,7 @@
         /* --- 3. KINETIC CHROMATIC STATS SLIDERS --- */
         .metrics-workspace-wrapper { padding: 0 50px; margin-top: -80px; position: relative; z-index: 20; }
         .metrics-grid-slider {
-            display: grid; grid-template-columns: repeat(5, 1fr); gap: 24px; margin-bottom: 40px;
+            display: grid; grid-template-columns: repeat(5, 1fr); gap: 24px; margin-bottom: 24px;
         }
 
         .metric-glow-card {
@@ -110,7 +109,6 @@
             border-color: var(--cl-teal);
         }
 
-        /* Diagnostic Border Accents Mapping */
         .metric-glow-card::before {
             content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 5px;
             background: var(--cl-navy-pure);
@@ -131,6 +129,23 @@
             margin: 0; font-size: 2.5rem; font-weight: 900; color: var(--cl-navy-dark); line-height: 1;
         }
 
+        /* --- 🌟 DYNAMIC REPORT WORKSPACE HUD LAYER --- */
+        .report-hud-ribbon {
+            display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; margin-bottom: 40px;
+        }
+        .hud-status-node {
+            background: var(--cl-white); border: 1px solid var(--cl-slate-200);
+            border-radius: 18px; padding: 18px 22px; display: flex; align-items: center; justify-content: space-between;
+            box-shadow: 0 10px 25px rgba(2, 6, 23, 0.02); border-left: 5px solid #cbd5e1;
+        }
+        .hud-status-node.requested { border-left-color: #3b82f6; }
+        .hud-status-node.sent { border-left-color: #25d366; }
+        .hud-status-node.pending { border-left-color: #f59e0b; }
+        .hud-status-node.none { border-left-color: #94a3b8; }
+        .hud-status-node h4 { margin: 0 0 2px 0; font-size: 0.78rem; text-transform: uppercase; color: var(--cl-slate-400); letter-spacing: 0.5px; }
+        .hud-status-node h3 { margin: 0; font-size: 1.6rem; font-weight: 900; color: var(--cl-navy-dark); }
+        .hud-status-node i { font-size: 1.6rem; opacity: 0.25; }
+
         /* --- 4. DATA CONTROLS PLATFORM --- */
         .workspace-main-panel {
             background: var(--cl-white); border: 1px solid var(--border-soft);
@@ -143,7 +158,6 @@
             gap: 20px; margin-bottom: 30px; flex-wrap: wrap;
         }
 
-        /* Search Engine Container UI */
         .search-field-shell {
             position: relative; flex: 1; max-width: 450px; min-width: 280px;
         }
@@ -162,7 +176,6 @@
             box-shadow: 0 0 0 4px rgba(20, 184, 166, 0.1);
         }
 
-        /* Interactive Filter Tab Chips Array Layout */
         .filter-chips-rack { display: flex; gap: 10px; background: var(--cl-slate-50); padding: 6px; border-radius: 16px; border: 1px solid var(--cl-slate-100); }
         .filter-chip-btn {
             background: none; border: none; font-family: 'Outfit', sans-serif;
@@ -190,7 +203,6 @@
         }
         .matrix-data-table tbody tr:hover td { background: rgba(20, 184, 166, 0.015); }
 
-        /* Year Group Micro Badging Elements */
         .badge-cluster-val {
             display: inline-block; padding: 6px 12px; border-radius: 8px;
             font-size: 0.8rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px;
@@ -200,7 +212,15 @@
         .badge-cluster-val.y56 { background: #ffedd5; color: #c2410c; }
         .badge-cluster-val.y78 { background: #f3e8ff; color: #6b21a8; }
 
-        /* Dynamic Routing View Report Trigger CTA Button UI Elements */
+        /* Status Badge Mapping Styles */
+        .status-badge {
+            display: inline-flex; align-items: center; gap: 6px; padding: 6px 12px; border-radius: 30px;
+            font-size: 0.78rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px;
+        }
+        .status-badge.sent-state { background: #dcfce7; color: #15803d; }
+        .status-badge.pending-state { background: #fef3c7; color: #b45309; }
+        .status-badge.none-state { background: #f1f5f9; color: #64748b; }
+
         .action-routing-trigger {
             background: var(--cl-white); border: 2px solid var(--cl-teal);
             color: var(--cl-teal); font-family: 'Outfit', sans-serif;
@@ -213,7 +233,6 @@
             box-shadow: var(--neon-glow); transform: translateY(-2px);
         }
 
-        /* --- 6. SHIELD ARCHITECTURE HANDLING PANELS --- */
         .state-fallback-card {
             text-align: center; padding: 60px 20px; display: none;
         }
@@ -229,6 +248,7 @@
 
         @media (max-width: 1200px) {
             .metrics-grid-slider { grid-template-columns: repeat(3, 1fr); }
+            .report-hud-ribbon { grid-template-columns: repeat(2, 1fr); }
         }
         @media (max-width: 768px) {
             .admin-nav-container { padding: 15px 20px; }
@@ -236,6 +256,7 @@
             .floating-character-mascot { display: none; }
             .metrics-workspace-wrapper { padding: 0 20px; margin-top: -60px; }
             .metrics-grid-slider { grid-template-columns: 1fr 1fr; gap: 16px; }
+            .report-hud-ribbon { grid-template-columns: 1fr; gap: 12px; }
             .filter-control-hub { flex-direction: column; align-items: stretch; }
             .search-field-shell { max-width: 100%; }
             .filter-chips-rack { overflow-x: auto; white-space: nowrap; }
@@ -245,7 +266,6 @@
 </head>
 <body>
 
-    <!-- 🌟 BRAND NAVIGATION PANEL -->
     <nav class="admin-nav-container">
         <div class="brand-hub-pack">
             <img src="https://curiouslearneracademy.com/newzealand/wp-content/uploads/sites/3/2026/01/cropped-Logo-Color-Updated.png" alt="Curious Learner Logo" class="brand-logo-img">
@@ -260,7 +280,6 @@
         </div>
     </nav>
 
-    <!-- 🌟 BACKGROUND PANORAMA WASH WITH CHARACTER MASCOT -->
     <header class="dashboard-hero-wash">
         <div class="hero-welcome-node">
             <h1>Diagnostic Performance <span>Analytics</span></h1>
@@ -269,10 +288,8 @@
         <img src="https://curiouslearneracademy.com/newzealand/wp-content/uploads/sites/3/2025/11/cropped-CURIOUS-LEARNER-Thinking-Character-Sticker.png" alt="Curious Character Sticker" class="floating-character-mascot">
     </header>
 
-    <!-- 🌟 KINETIC ACCENT CHROMATIC STRIP DASHBOARD WORKSPACE -->
     <div class="metrics-workspace-wrapper">
         
-        <!-- TOP TOTAL CARDS MATRIX -->
         <div class="metrics-grid-slider">
             <div class="metric-glow-card total-tier">
                 <p>Total Cohort</p>
@@ -301,10 +318,39 @@
             </div>
         </div>
 
-        <!-- MAIN DATA CONTROL WORKSPACE PANEL -->
+        <div class="report-hud-ribbon">
+            <div class="hud-status-node requested">
+                <div>
+                    <h4>Total Requested</h4>
+                    <h3 id="hudTotalRequested">0</h3>
+                </div>
+                <i class="fa-solid fa-envelope-open-text" style="color: #3b82f6;"></i>
+            </div>
+            <div class="hud-status-node sent">
+                <div>
+                    <h4>Reports Sent</h4>
+                    <h3 id="hudReportsSent">0</h3>
+                </div>
+                <i class="fa-solid fa-circle-check" style="color: #25d366;"></i>
+            </div>
+            <div class="hud-status-node pending">
+                <div>
+                    <h4>Pending Actions</h4>
+                    <h3 id="hudPendingSent">0</h3>
+                </div>
+                <i class="fa-solid fa-clock-rotate-left" style="color: #f59e0b;"></i>
+            </div>
+            <div class="hud-status-node none">
+                <div>
+                    <h4>Not Requested</h4>
+                    <h3 id="hudNotRequested">0</h3>
+                </div>
+                <i class="fa-solid fa-comment-slash" style="color: #94a3b8;"></i>
+            </div>
+        </div>
+
         <main class="workspace-main-panel">
             
-            <!-- SEARCH ENGINE AND SELECT FILTER TAB BUTTON RACKS -->
             <div class="filter-control-hub">
                 <div class="search-field-shell">
                     <i class="fa-solid fa-magnifying-glass"></i>
@@ -319,13 +365,6 @@
                 </div>
             </div>
 
-            <!-- ASYNC STATE LOADER PANEL CURTAIN -->
-            <div class="async-loading-curtain" id="tableLoadingState">
-                <i class="fa-solid fa-circle-notch fa-spin"></i>
-                <span style="font-weight: 600; color: var(--cl-slate-400);">Synchronizing Records Engine...</span>
-            </div>
-
-            <!-- TABLE RENDER CONTAINER FRAME -->
             <div class="table-render-shell" id="tableWrapper" style="display: none;">
                 <table class="matrix-data-table" id="adminStudentMatrixTable">
                     <thead>
@@ -336,16 +375,21 @@
                             <th>Primary Guardian</th>
                             <th>Email Vector</th>
                             <th>Phone Contact</th>
+                            <th>Request Status</th>
+                            <th>Ingest Date</th>
                             <th style="text-align: center;">Actions</th>
                         </tr>
                     </thead>
                     <tbody id="studentMatrixBody">
-                        <!-- Transformed rows map into this DOM layout index -->
-                    </tbody>
+                        </tbody>
                 </table>
             </div>
 
-            <!-- SYSTEM SEARCH ENGINE STATE FALLBACK CARD -->
+            <div class="async-loading-curtain" id="tableLoadingState">
+                <i class="fa-solid fa-circle-notch fa-spin"></i>
+                <span style="font-weight: 600; color: var(--cl-slate-400);">Synchronizing Records Engine...</span>
+            </div>
+
             <div class="state-fallback-card" id="searchFallbackState">
                 <i class="fa-solid fa-folder-open"></i>
                 <h3>No Matching Evaluations Located</h3>
@@ -355,37 +399,30 @@
         </main>
     </div>
 
-    <!-- 🌟 SYSTEM CLIENT RUNTIME EVALUATION STATE CONTROLLER SCRIPT -->
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const CORE_GATEWAY_ENDPOINT = "https://diagnostic-backend-jmsu.onrender.com";
             
-            // Runtime tracking references
             let LOCAL_STUDENT_CACHE = [];
             let SELECTION_FILTER_TAG = "All";
             let SEARCH_QUERY_STRING = "";
 
-            // Security Token Compliance Shield
             const sessionAuthToken = localStorage.getItem('adminToken');
             if (!sessionAuthToken) {
-                // Graceful session missing correction switch routing fallback
                 alert("Authorization token missing. Re-routing to entry authentication portal layer.");
                 window.location.href = 'index.html';
                 return;
             }
 
-            // Bind Session Logout Termination Hook
             document.getElementById('logoutCta').addEventListener('click', () => {
                 localStorage.removeItem('adminToken');
                 window.location.href = 'index.html';
             });
 
-            // Run Asynchronous Hydration
             initializeDashboardDataHub();
 
             async function initializeDashboardDataHub() {
                 try {
-                    // Parallel network dispatch synchronization streams
                     const [metricsStream, ledgerStream] = await Promise.all([
                         fetch(`${CORE_GATEWAY_ENDPOINT}/api/admin/stats`, { headers: { 'Authorization': `Bearer ${sessionAuthToken}` } }),
                         fetch(`${CORE_GATEWAY_ENDPOINT}/api/admin/students`, { headers: { 'Authorization': `Bearer ${sessionAuthToken}` } })
@@ -398,22 +435,20 @@
                     const metricsPayload = await metricsStream.json();
                     const ledgerPayload = await ledgerStream.json();
 
-                    // Render Total Counter metrics panels dashboards values
                     populateDashboardTallyCards(metricsPayload.stats);
-
-                    // Hydrate local caching variables reference arrays mapping metrics
                     LOCAL_STUDENT_CACHE = ledgerPayload.students || [];
 
-                    // Strip back load masks components wrappers cleanly
+                    // 🌟 Compute Request metrics dynamically based on the cohort data fields
+                    calculateRequestStatusMetrics(LOCAL_STUDENT_CACHE);
+
                     document.getElementById('tableLoadingState').style.display = 'none';
                     document.getElementById('tableWrapper').style.display = 'block';
 
-                    // Force calculation drawing execution pipelines variables loop
                     executeLedgerRenderEngineLoop();
 
                 } catch (error) {
                     console.error("Critical dashboard sync failure context logs:", error);
-                    alert("Network configuration timeout connecting to Render clusters servers layers. Initializing local workspace fallback mock dataset layers.");
+                    alert("Network configuration timeout connecting to Render servers layers. Initializing local workspace fallback mock dataset layers.");
                     loadLocalMockTelemetryState();
                 }
             }
@@ -427,7 +462,34 @@
                 document.getElementById('y78').innerText = statsMap.y78 || 0;
             }
 
-            // --- SEAMLESS INLINE MULTI-LAYER SEARCH AND SORT MATCHING ENGINE ---
+            // 🌟 NEW COMPUTATION ENGINE: Tallies parent interaction parameters natively
+            function calculateRequestStatusMetrics(records) {
+                let totalRequested = 0;
+                let reportsSent = 0;
+                let pendingSent = 0;
+                let notRequested = 0;
+
+                records.forEach(student => {
+                    // Mapped evaluation rules state matching options fallback checks
+                    const status = student.reportStatus ? student.reportStatus.toLowerCase().trim() : 'none';
+                    
+                    if (status === 'sent') {
+                        reportsSent++;
+                        totalRequested++;
+                    } else if (status === 'requested' || status === 'pending') {
+                        pendingSent++;
+                        totalRequested++;
+                    } else {
+                        notRequested++;
+                    }
+                });
+
+                document.getElementById('hudTotalRequested').innerText = totalRequested;
+                document.getElementById('hudReportsSent').innerText = reportsSent;
+                document.getElementById('hudPendingSent').innerText = pendingSent;
+                document.getElementById('hudNotRequested').innerText = notRequested;
+            }
+
             function executeLedgerRenderEngineLoop() {
                 const targetTableBody = document.getElementById('studentMatrixBody');
                 const fallbackPanel = document.getElementById('searchFallbackState');
@@ -435,14 +497,11 @@
                 
                 targetTableBody.innerHTML = '';
 
-                // Run data logic filters parameters across cache
                 const parsedRowsLedger = LOCAL_STUDENT_CACHE.filter(student => {
-                    // Match Phase 1: Year Level Cluster Checks
                     let clusterMatches = false;
                     if (SELECTION_FILTER_TAG === "All") {
                         clusterMatches = true;
                     } else {
-                        // Normalize variations ("Year 1", "Year 1-2 Cluster", etc.)
                         const normalizedLevel = student.yearLevel ? student.yearLevel.toLowerCase() : "";
                         if (SELECTION_FILTER_TAG === "Year 1-2" && (normalizedLevel.includes('year 1') || normalizedLevel.includes('year 2') || normalizedLevel.includes('1_2'))) clusterMatches = true;
                         if (SELECTION_FILTER_TAG === "Year 3-4" && (normalizedLevel.includes('year 3') || normalizedLevel.includes('year 4') || normalizedLevel.includes('3_4'))) clusterMatches = true;
@@ -450,7 +509,6 @@
                         if (SELECTION_FILTER_TAG === "Year 7-8" && (normalizedLevel.includes('year 7') || normalizedLevel.includes('year 8') || normalizedLevel.includes('7_8'))) clusterMatches = true;
                     }
 
-                    // Match Phase 2: Search Input String Matching Cross Checks
                     let textMatches = false;
                     if (!SEARCH_QUERY_STRING) {
                         textMatches = true;
@@ -474,7 +532,6 @@
                     return clusterMatches && textMatches;
                 });
 
-                // Display tracking logic fallbacks if filtered collection is completely empty
                 if (parsedRowsLedger.length === 0) {
                     tableFrame.style.display = 'none';
                     fallbackPanel.style.display = 'block';
@@ -484,7 +541,6 @@
                 fallbackPanel.style.display = 'none';
                 tableFrame.style.display = 'block';
 
-                // Map evaluated rows fields natively into elements templates strings components
                 parsedRowsLedger.forEach(item => {
                     const normalizedLevel = item.yearLevel ? item.yearLevel.trim() : "Year 1-2";
                     let badgeClassMarker = "y12";
@@ -493,9 +549,19 @@
                     if (normalizedLevel.includes('5') || normalizedLevel.includes('6')) badgeClassMarker = "y56";
                     if (normalizedLevel.includes('7') || normalizedLevel.includes('8')) badgeClassMarker = "y78";
 
-                    // Formats date nicely according to New Zealand standardization structures
                     const formattedDisplayDate = item.registrationTimestamp ? 
                         new Date(item.registrationTimestamp).toLocaleDateString('en-NZ', { day: '2-digit', month: 'short', year: 'numeric' }) : 'Recent';
+
+                    // 🌟 STATUS COLUMN BADGE COMPILING ENGINE
+                    const rawStatus = item.reportStatus ? item.reportStatus.toLowerCase().trim() : 'none';
+                    let statusBadgeMarkup = '';
+                    if (rawStatus === 'sent') {
+                        statusBadgeMarkup = `<span class="status-badge sent-state"><i class="fa-solid fa-circle-check"></i> Sent</span>`;
+                    } else if (rawStatus === 'requested' || rawStatus === 'pending') {
+                        statusBadgeMarkup = `<span class="status-badge pending-state"><i class="fa-solid fa-clock"></i> Pending</span>`;
+                    } else {
+                        statusBadgeMarkup = `<span class="status-badge none-state"><i class="fa-solid fa-minus"></i> No Request</span>`;
+                    }
 
                     targetTableBody.innerHTML += `
                         <tr>
@@ -505,6 +571,7 @@
                             <td>${item.parentName || 'N/A'}</td>
                             <td style="font-family:monospace; font-size:0.9rem; color:#475569;">${item.parentEmail || ''}</td>
                             <td style="font-weight: 600; letter-spacing: -0.2px;">${item.parentPhone || ''}</td>
+                            <td>${statusBadgeMarkup}</td>
                             <td>${formattedDisplayDate}</td>
                             <td style="text-align: center;">
                                 <a href="report.html?id=${item._id || item.id}" class="action-routing-trigger">
@@ -516,15 +583,11 @@
                 });
             }
 
-            // --- REGISTRATION USER INTERACTION HOOK LISTENERS MATRIX ---
-            
-            // Search Input Event Vector
             document.getElementById('dashboardSearchInput').addEventListener('input', (e) => {
                 SEARCH_QUERY_STRING = e.target.value.trim();
                 executeLedgerRenderEngineLoop();
             });
 
-            // Tab Filter Buttons Click Vector Mapping
             const tabButtons = document.querySelectorAll('.filter-chip-btn');
             tabButtons.forEach(btn => {
                 btn.addEventListener('click', function() {
@@ -535,7 +598,6 @@
                 });
             });
 
-            // Emergency Fallback Hydrator function mapping local schemas configuration parameters
             function loadLocalMockTelemetryState() {
                 document.getElementById('tableLoadingState').style.display = 'none';
                 document.getElementById('tableWrapper').style.display = 'block';
@@ -543,11 +605,13 @@
                 populateDashboardTallyCards({ totalStudents: 4, y12: 1, y34: 1, y56: 1, y78: 1 });
                 
                 LOCAL_STUDENT_CACHE = [
-                    { id: "6a2904399b7e1f9fcf855342", firstName: "Atul", lastName: "Singh", yearLevel: "Year 5", schoolName: "FMS", parentName: "Tasha", parentEmail: "atulgaharwar37@gmail.com", parentPhone: "+648208298971", registrationTimestamp: new Date().toISOString() },
-                    { id: "102904399b7e1f9fcf855343", firstName: "Liam", lastName: "Te Kiri", yearLevel: "Year 2", schoolName: "Auckland Normal", parentName: "Aroha", parentEmail: "aroha.tekiri@domain.nz", parentPhone: "+64214459821", registrationTimestamp: new Date().toISOString() },
-                    { id: "202904399b7e1f9fcf855344", firstName: "Chloe", lastName: "Zhang", yearLevel: "Year 4", schoolName: "Macleans Primary", parentName: "Wei", parentEmail: "wei.zhang@gmail.com", parentPhone: "+64278891234", registrationTimestamp: new Date().toISOString() },
-                    { id: "302904399b7e1f9fcf855345", firstName: "James", lastName: "Smith", yearLevel: "Year 7", schoolName: "Parnell District", parentName: "Sarah", parentEmail: "sarah.smith@xtra.co.nz", parentPhone: "+64223345678", registrationTimestamp: new Date().toISOString() }
+                    { id: "6a2904399b7e1f9fcf855342", firstName: "Atul", lastName: "Singh", yearLevel: "Year 5", schoolName: "FMS", parentName: "Tasha", parentEmail: "atulgaharwar37@gmail.com", parentPhone: "+648208298971", reportStatus: "sent", registrationTimestamp: new Date().toISOString() },
+                    { id: "102904399b7e1f9fcf855343", firstName: "Liam", lastName: "Te Kiri", yearLevel: "Year 2", schoolName: "Auckland Normal", parentName: "Aroha", parentEmail: "aroha.tekiri@domain.nz", parentPhone: "+64214459821", reportStatus: "pending", registrationTimestamp: new Date().toISOString() },
+                    { id: "202904399b7e1f9fcf855344", firstName: "Chloe", lastName: "Zhang", yearLevel: "Year 4", schoolName: "Macleans Primary", parentName: "Wei", parentEmail: "wei.zhang@gmail.com", parentPhone: "+64278891234", reportStatus: "none", registrationTimestamp: new Date().toISOString() },
+                    { id: "302904399b7e1f9fcf855345", firstName: "James", lastName: "Smith", yearLevel: "Year 7", schoolName: "Parnell District", parentName: "Sarah", parentEmail: "sarah.smith@xtra.co.nz", parentPhone: "+64223345678", reportStatus: "requested", registrationTimestamp: new Date().toISOString() }
                 ];
+
+                calculateRequestStatusMetrics(LOCAL_STUDENT_CACHE);
                 executeLedgerRenderEngineLoop();
             }
         });
